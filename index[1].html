@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Индекс Военной Мощи — Вымышленные Страны</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0b0f14;
+  --bg-card: #11161d;
+  --bg-card-hover: #181e27;
+  --border: #1c2530;
+  --text-primary: #e6edf5;
+  --text-secondary: #8a9bb0;
+  --accent: #c9a227;
+  --accent-light: #e8c547;
+  --danger: #c44536;
+  --gold: #d4a017;
+  --blue: #1e6bb8;
+  --blue-light: #3a8fd6;
+  --rank-1: #d4a017;
+  --rank-2: #b0b0b0;
+  --rank-3: #cd7f32;
+  --yellow-bar: #c9a227;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Top blue gradient line like GFP */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #0a3d6e 0%, #1e6bb8 30%, #3a8fd6 50%, #1e6bb8 70%, #0a3d6e 100%);
+  z-index: 1000;
+}
+
+.background-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(30, 107, 184, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 184, 0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER */
+.header {
+  background: #0d1219;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0 14px;
+  position: sticky;
+  top: 4px;
+  z-index: 100;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: var(--accent);
+}
+
+.logo-text h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.logo-text .subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f14;
+}
+
+/* MAIN */
+.main {
+  padding: 28px 0 60px;
+  min-height: calc(100vh - 140px);
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-header {
+  margin-bottom: 22px;
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* TABLE CONTROLS */
+.table-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.sort-select,
+.compare-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input:focus,
+.sort-select:focus,
+.compare-select:focus {
+  border-color: var(--accent);
+}
+
+/* TABLE - GFP style */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.ranking-table th {
+  background: #0a1018;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  font-size: 11px;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--accent);
+  white-space: nowrap;
+}
+
+.ranking-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.ranking-table tbody tr {
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.ranking-table tbody tr:hover {
+  background: var(--bg-card-hover);
+}
+
+.ranking-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Yellow rank bar style */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 28px;
+  padding: 0 8px;
+  font-weight: 700;
+  font-size: 15px;
+  background: var(--accent);
+  color: #0b0f14;
+  border-radius: 2px;
+}
+
+.rank-1 { background: #d4a017; color: #0b0f14; }
+.rank-2 { background: #a8a8a8; color: #0b0f14; }
+.rank-3 { background: #cd7f32; color: #0b0f14; }
+.rank-other { background: #2a3545; color: var(--text-primary); }
+
+.country-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.flag-img {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.flag-placeholder {
+  width: 48px;
+  height: 32px;
+  background: #1a2330;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.detail-flag {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid #333;
+  border-radius: 3px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.country-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.country-type {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.index-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.stat-value {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.btn-detail {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-detail:hover {
+  background: var(--accent);
+  color: #0b0f14;
+}
+
+/* DETAIL PAGE */
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 22px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  padding: 20px 24px;
+}
+
+.detail-rank {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 60px;
+  color: var(--accent);
+}
+
+.detail-title h2 {
+  font-size: 28px;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.detail-title .type {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.detail-index {
+  margin-left: auto;
+  text-align: right;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  min-width: 140px;
+}
+
+.detail-index .label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.detail-index .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 26px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  padding: 18px;
+}
+
+.detail-card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(28, 37, 48, 0.7);
+  font-size: 13px;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .label {
+  color: var(--text-secondary);
+}
+
+.stat-row .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.strengths-weaknesses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.sw-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 18px;
+}
+
+.sw-card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.sw-card.strengths {
+  border-top: 3px solid #4a9c2c;
+}
+.sw-card.strengths h3 { color: #6bc93a; }
+
+.sw-card.weaknesses {
+  border-top: 3px solid var(--danger);
+}
+.sw-card.weaknesses h3 { color: #e05545; }
+
+.sw-card p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* COMPARE */
+.compare-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.compare-select {
+  min-width: 220px;
+}
+
+.vs {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  color: #0b0f14;
+  padding: 9px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+}
+
+.compare-result {
+  display: none;
+}
+
+.compare-result.active {
+  display: block;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.compare-col {
+  padding: 22px;
+}
+
+.compare-col.left {
+  border-right: 1px solid var(--border);
+}
+
+.compare-col.right {
+  border-left: 1px solid var(--border);
+}
+
+.compare-col h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.compare-col .index {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-light);
+  font-size: 16px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.compare-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+  background: #0a1018;
+  min-width: 130px;
+}
+
+.compare-middle .cat {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.compare-stat .winner {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+/* ABOUT */
+.about-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 26px;
+  max-width: 800px;
+}
+
+.about-content p {
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.about-content h3 {
+  margin: 18px 0 10px;
+  color: var(--accent);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.score-list {
+  list-style: none;
+  margin-bottom: 18px;
+}
+
+.score-list li {
+  padding: 5px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.score-list li::before {
+  content: "▸ ";
+  color: var(--accent);
+}
+
+.note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #667;
+  font-style: italic;
+}
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .logo-text h1 {
+    font-size: 16px;
+  }
+  
+  .flag-img {
+    width: 40px;
+    height: 27px;
+  }
+  
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .detail-index {
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .detail-flag {
+    width: 72px;
+    height: 48px;
+  }
+  
+  .strengths-weaknesses {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-col.left,
+  .compare-col.right {
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .compare-middle {
+    display: none;
+  }
+}
+
+/* ===== GFP-style Compare ===== */
+.cmp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  border-bottom: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cmp-country {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.cmp-country.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+.cmp-flag {
+  width: 56px;
+  height: 37px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+}
+.cmp-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.cmp-rank {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.cmp-vs {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 0 10px;
+}
+.cmp-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+.leg-blue, .leg-red {
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+.leg-blue { background: #1e6bb8; }
+.leg-red { background: #c44536; }
+
+.cmp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cmp-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+}
+.cmp-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.cmp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cmp-side.left { align-items: flex-start; }
+.cmp-side.right { align-items: flex-end; }
+.cmp-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+}
+.cmp-side.better .cmp-value {
+  color: var(--accent-light);
+}
+.cmp-bar-wrap {
+  width: 100%;
+  height: 14px;
+  background: #1a2330;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cmp-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.cmp-bar.blue { background: linear-gradient(90deg, #0a3d6e, #1e6bb8); }
+.cmp-bar.red { background: linear-gradient(90deg, #c44536, #e05545); }
+
+.cmp-diff {
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+.diff-pos { color: #4caf50; }
+.diff-neg { color: #e05545; }
+.diff-eq { color: var(--text-secondary); }
+
+@media (max-width: 700px) {
+  .cmp-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .cmp-diff { order: -1; }
+  .cmp-side.right { align-items: flex-start; }
+}
+
+</style>
+</head>
+<body>
+<div class="background-grid"></div>
+<header class="header"><div class="container">
+<div class="logo"><span class="logo-icon">⚔</span><div class="logo-text"><h1>ИНДЕКС ВОЕННОЙ МОЩИ</h1><p class="subtitle">Вымышленные государства • 2026</p></div></div>
+<nav class="nav">
+<button class="nav-btn active" data-section="ranking">Рейтинг</button>
+<button class="nav-btn" data-section="compare">Сравнение</button>
+<button class="nav-btn" data-section="about">О проекте</button>
+</nav></div></header>
+<main class="main"><div class="container">
+<section id="ranking" class="section active">
+<div class="section-header"><h2>Глобальный Рейтинг Военной Мощи</h2>
+<p class="section-desc">Чем ниже индекс — тем сильнее армия.</p></div>
+<div class="table-controls">
+<input type="text" id="searchInput" placeholder="Поиск страны..." class="search-input">
+<select id="sortSelect" class="sort-select">
+<option value="index">По Индексу Мощи</option>
+<option value="manpower">По личному составу</option>
+<option value="tanks">По танкам</option>
+<option value="aircraft">По авиации</option>
+<option value="navy">По флоту</option>
+</select></div>
+<div class="table-wrapper"><table class="ranking-table" id="rankingTable">
+<thead><tr><th>#</th><th>Страна</th><th>Индекс Мощи</th><th>Личный состав</th><th>Танки</th><th>Авиация</th><th>Флот</th><th></th></tr></thead>
+<tbody id="rankingBody"></tbody></table></div>
+</section>
+<section id="countryDetail" class="section">
+<button class="back-btn" id="backToRanking">← Вернуться к рейтингу</button>
+<div id="detailContent"></div>
+</section>
+<section id="compare" class="section">
+<div class="section-header"><h2>Сравнение стран</h2>
+<p class="section-desc">Выберите две страны для детального сравнения.</p></div>
+<div class="compare-controls">
+<select id="compare1" class="compare-select"></select>
+<span class="vs">VS</span>
+<select id="compare2" class="compare-select"></select>
+<button id="doCompare" class="btn-primary">Сравнить</button>
+</div>
+<div id="compareResult" class="compare-result"></div>
+</section>
+<section id="about" class="section">
+<div class="section-header"><h2>О проекте</h2></div>
+<div class="about-content">
+<p>Неофициальный рейтинг военной мощи вымышленных государств по мотивам Global Firepower.</p>
+<p><strong>Чем ниже индекс — тем сильнее армия.</strong></p>
+<p class="note">Все данные вымышленные.</p>
+</div></section>
+</div></main>
+<footer class="footer"><div class="container"><p>Индекс Военной Мощи © 2026</p></div></footer>
+<script>
+// Optimized flag data URIs
+const FLAG_DATA = {
+  "flag-byzantium.png": "data:image/jpeg;base64,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",
+  "flag-charisma.png": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB4ALQDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAABQADBAYIBwIB/8QASBAAAQMCBAIGBQgFCgcAAAAAAQIDBAARBQYSIQcxEyJBUWFxFFKBkaEIQmKSo7Gz0RVDZHLBFhcjJ1NzdIKisiQyNkVlk+H/xAAaAQACAwEBAAAAAAAAAAAAAAADBAACBQEG/8QAKhEAAgIBBAAFBAMBAQAAAAAAAAECAxEEEiExBSIyQVFxkbHRYaHhI/D/2gAMAwEAAhEDEQA/AOyZszGxlPLM3G5LDj7UUJJbasFKKlBI5+JrneHfKAwWe6WxgGNqUBqUGG0O2HeQFXtVo4uNdNwrx9Nr2YSv6q0n+FZPgvPRZDUmI+7GkNkKQ60spUk94Io1VMrcqPaKyko9moo3GzJLrgbkzpUFZ+bKiOJ+4EVYYGfcpYlYRMx4YtR5JMlKVe5VjXFMu8XUyEJw3Okdt9B2TiAZC/8A2Jtv+8n3VaZmVMr4lHTLbwnDZLDw1IeYQAFDvCk2oUouLw0WTz0dgZkMyUa2Hm3U96FBQ+FOew+6uCNZAykXerFlRFX5x5a0/ferBD4X5fkoATjmYUj1RiJt/trhDrLjrbKCt1aUJHao2HxoBiGe8qYUD6ZmHDW1DmgSEqV9VNzVEmcFsuEal/pGWf2iYpX3WqEnIGC4WoKYwaLdPIuN6z/qvUIWR/jZk5LhbhOz8SWOyHDWq/1rUyri66vrRsjZndb9b0UJ/OvOGzjh6g2htDSR2NpCR8KuMHE0SUAFZN+81CFMHGvDo5timWcxwB67sO6R8RRjDeL2RsTslGPMsLOxRKQpm3tULfGrE/FLqboUSO69Ap+XMHxAFOJ4NCkj1nGEk++16hCzQ8Ww3EUhULEIslJ7WXkrHwNTK5ZK4P5JmHpWcOXGX3x5C0fC5oa7whwBu6VvYqtHqmabfdUIdUnZgwbDElU/FoMUDn00hCPvNVSfxjyPBVoTjHpbvY3EZW6T5EC3xqtQ+GmUIS+rgrbqu+Q4tz7zb4Vb8NwTD4bYTDgRY4HYyylH3CoQCji+uaq2DZLzFNHYpbAaSfbvXs8Qs521J4ZYho8Zqb+7TVkdYW11hcgU/FmNqGhYAPjUIU5XFvEIW+K5AzBGT2qaQHQPgKfj8ccluLCJb86Av1ZUNYI+reri/GS4nUj4UAxFUKAw7KxIx0xmxdbkgDSkeJNQgv53shaNX8pI9v7ty/u01GhcZMnYljsPCYMqVIflvJZbWmMpKAomwuVWNvZXJc2cRsPxJbmH5TwiFHTyXiKoiA4r+7BT1R4nfutVYyHDLfE3LYWSpZnJUSfDeq7lnARUzcHZjhGwKVIcqVWBla4iM9Pw5zEi1z+j3iPYkn+FY1bUUpSfCtr5sQHMnY4g8lYe+Ps1Vi9LOuK2oeqKe0Kbm8fAO3ofbcQ83oWL0TwPMmMZTkleHva4yzdyK7u2v2dh8RvVeClNqqcy+l0aF1pSrr1C2z7+QGXDlHacAzbhOa2wmOr0aeBdcRw9bzSfnDy38KsEaa7DWASbXrObsdbLiXmlqQtJ1JWg2IPeCO2r1lviUpOiDmMFSeSJqRuP3wOfmN+8GsfUaWdL56GYWKRoTC8ZbkJCFns7aJvQ2ZKLgA3rmMaVpabkxXkusLGpC0KuFDwNWrCMw8kOGlix8xPAiLrQk0ES7IgPdoFdEbeakt3BBvQXF8KQ4kqSN6hCPhuPpICXFUfaksS0bEG9c3ksORXDa9qfg4y6w4kEm1Q6XmRFU1126bbdS6NDg61ecOxlqUkJUoXp+TE26Ro8+6unAfKiKQSoDam485LSwlW1E2XA4no3KH4jhZKStv4VwgVbW3IRcEGoUqAb62+dV39KLwcLckuJbZQLrWtVgkd5Jqi5q41uTNeGZUSQs9VeIrTy/u0nl+8fYO2p12WUXJ4XZcczcSsMyU0pmWTJnlN24bahqPcVH5o8Tv3A1xLM2OY3nmR6ZikjRGSbtQ2tkN+zv+kd6DvYc5065Uh1UiS4rUtxaioknmbncnxpyPLUwqyuXdS07s8QNfTeHKL3X/b9kRDfox0oTpFWjh+oPcT8s94kk+5CqDSejdRrRt4UW4aD+tbLgP8Abr/DVVKXmabGNettEorrj8mtByFKkOVKnTzwLzNtlTGD+wv/AIaqxhBXdlCT6tbNzTtlHGv8A/8AhqrFEZwoSjfsrQ8Olttb/gFcsxJEtix1AVEQooNGVJDrQPMGhUhrQs1qaira98QEJZ4ZPjSA4nQvlTcqJa5tcGoCFlKqKRpIcHRr3q1dkbY7ZkcXF5Q7gGaMVyu8fRV9LEUbuRXDdCvEdx8R8a69l3M2GZla1wHS1KSLuRXCAtPiPWHiPhXGpMW3WSLpqCnpYshD8d1bLzZ1IcQogpPeCKzNVoHF5gGhbns1XhOKrZWEOE2q1tPIlNbb7VnXKvFFKy3CzH1F8kzkDY/vgcvMe0dtdnwqdpabcbcS4ysBSVoVdKh3gjnWY008MN2TsSwoOpJA3qoTsNcYWSAdq6K0+h9G9D58BLqTYCuEKLEmORXAb8qu2D42h9AbcIqtTsKKLkJNC1TE4UlciQ6lplsXWtZsEjzqHTpMiPt0rVVDM/E3A8otrZmumRPt1YbJBX/mPJA89/A1zbMHGbEMRQrCstlUdg9VyedlqH0PUHjz8qobmEJaJkalPOqOpTizck9//wBoc7Yw7G9NordRzHhfJOzbmTG86SC9NUI0EG7cNq4SPE9qj4n2AVXGrxiAkWAoq08UK0r3HjXmVES4nW3ypZ2uT8xs16GFUc19kiHOQ8no3PfSlQwrrI38qC9ZlfaKJxMQt1V7pqjjjlDELVJbZjFlt3B5VY+Gm/FbLm365w/ZqoctDTydSbHwo3w1ZCeLWXgB854/ZLolLzNCviMNtDf0/JqgcqVKlTp5wFZnGrKeMjvgv/hqrETZshPlW3szG2VcYPdBf/DVWIQkhpB8Kb0mdzwUn0FoTwUnQfZXp9kOAj51DGHShYNFSvpWgtPMc69BTNWQwxSS2sEOtlCrGviFlJog4hLyfpUPcbKFEWpO2p1vdELGWVhhSLKCk6F7jxr1JiAjWgbUJQspNFIkvbQvceNM1WqxbZA5R2vKB62yDZQ2qx5Szri2UngmMsSYBN3IbpOnzSfmnxHtBqE/FS4nWihzjSm1cqW1GjjLsvCzBqXJ+bsHzZD6XDn9L6Rd2K5YOt+Y7R4jarXzFiaxrBlyIEtuZCkuRpTR1IdaVpUD510j+fDHV4CIaYkYYqToM75mn1tHLV8O23ZWNdRKp89DEZbujqudc3YLlKDrnO9JKWm7MRqxcc8fop8T7L1nXMmYcWzZK6acoR4iTdqI2SEp8T3nxPwr0UuypTk2fIclTHTqW66oqJPmedeJDN96QnfziJtafw1432/b9gtpXQ2SkWA7BRuDPFg2vcHvoQ63blTaFlCqFKO4ersdTx7FhmRAtOtvl4VBQ6tlVje1PwJ9rIXuKfmRAtPSNjY70Lrhj3EluiRHmG5KdSOdC3G1NL5G1TErU0upKkokp3FlVZNoDOtWcrhkBmUpJ2UauvClz0ji5gf0UPn7JVUl+Kps3FW/g3txcwgH+yf/AAlUepLdlGZrZSVLjI1bSpUqaMQE5o/6Sxn/AAD/AOGqsVspC2EC2+mtpZtVpyZjiu7D5B+zVWKo6yhKPKntA0rHn4BW9Da0lCqkxJBbWBfbtFOPNhxrWmoJBSqtF5pnldA15lyFXU/rGztTS0peT9KvMR+x0q5GnnmS2QtHI705lTjuQLp4BzjZQTtSQspNTlJDyeW9QXWyg0nZW4PdEKnnhhKJMI2JqRMDXRa7i/YBzoE24tS9DQKlHuqyYNFZacS5KIdc7Ad0j86i1jktkFl/Psg9GindLjhAlrDpEk9IsFpnsJG6qJNQ4vR9EpJt59vfVklR0PN60C9V+Q0ppZ7KC6UuZcs3a9JXTHCWRotyMONzd6N6w5p/Kpra25TWptVx91MMylINibjuNelQCVekQF9G52t32V5Vm6nw9T81X2DVWTp9Pmj8e6+n6GpEe3KhrqLGi7UtL4LTyS0+Nik7XNRJLOknaslKUXiQxLZbHfB5IbThQob2o9AmBSOjWb1Xlgg06w+UEb1aUcopTa4PDDk2GCCtHKhYUW1b0Viy0ut6Fmos1jQq4G1CXHDHZpSW6J8DiXUWVa9WThWOg4v4F2BSXh9kuqelZSatfDZ3+tbLau3pHE+9tdGp4mZviDUtO/nj8mr6VIcqVOHngBnlfR5BzCruw6R+GaxiEWZQR3VsbiMvo+G+Y1f+PeHvTasftJ1Rx4Cn9BHdKS/gFa8JH2K5zQo7Gm5LWlVxyryjquVLeSFt1qpb68P2At4eQehVjRWK8HU9GqhShY17YdcU4EMpKlmgV3ql+Yu4OfCJcgiOu5NvCvTMF/ERrI6NrvPNXlRqBg7TjQekEOvc7H/lH50+oFpw3Fcnvu9XEfj9mtpfDMYlb9gGYqYo0tpt3ntNemnyk86Lvx0uo1J50IfYLaqDKDh0Pyr2enoOwMQ2CVGpE6Il1rpG96rDTxQedHsPn9XQo3Botdm5YYWuxSWGCHUFtXKno0koI3ojPiBQ1o3BoItJbXVJZgykk4PKDDrMfEWgHE2cA6q08x+dDn0yIJDclJcaOyXRX2O+Ukb0VbdS+3oWAQdiD20O7T16hc9ndu574PEvz9SvutpUNSCFJPIioigUmjEvC1tLLsM7Hm2Tz8qFlSHCUkFDg2KTWNbp50vEuisp5e2axL+n9ByPIKFDei4eTJZ3O9ACClVSo0gpUN6WnH3QxRc4+WQ6+jSo0e4cr08UMtn9qI96SKDvWcTqAolkI9HxMy0f25A9+1Wp9SA+IL/jL/3ubAHIUqQ5ClTh58pvFh3oeFuYF98bR9ZSR/Gsms7MeytRcbnS1wpxVI/WLYR9qn8qy2taWmgCbbVo+HNJykwNvshnm5UtakobGo9nKoLRW85ZvSkdqlGwFGIzcGOApyQ2673lQsPIUytT2q/u+v8AQtWkla+XhA1MJ6SdSh0bXZfmalNITG6qBYdvjU9TzTp6riD/AJhUdxF97UDZzuzlmtXp4VLyE+DN0KFztRR9KX0a01WmyULFHITwIsSd6YqnnhjlU8rDPjaihVjSkxg6m4F6+THGmVXK0p81WqGMaht7F9J8t6tKcFxJlpThHiTIL8ctqr4y6UKHOnnsUgvfrR7Qahl1lR/o3UH20q5RTzFikpQTzFossOUh1ro1+yos6HZWoDbvodGeKSLGjrDwfa0qHtpiMlNYYzCSmsMr5BQo1Kjv2I3qTLg8yke6hagWTuQPM0JpwYNp1sPoWHW96hzYDMkdcWX2LHOorGJx2tlvoHtp9eLwFcpCR76s51yWJNF5WVTjiTQGkMPwzZ1Jcb7Fim0kHrINxRtM+G4CgvtqB7CagycMQol2E4lJ9W9wazrtGnzUwHMfQ9y/v/Tyy/tpJo1k0hHEbLKr/wDcmh71CqyHFNuaHUltY7+VHcrOaM8ZaXflibH+9NZ8YOM+SXWqzTySNmUqVKmTGAebsrRM45dfwaa8+yy6pC+kYICgUquOYIqjxvk/5OZsX3cUlHt6SSEj/SkUqVQgbi8HchRANOX2nCO155xz71VPHDTJQTb+TGF+1gUqVQhEk8I8iSwQvLkZN+1pS27fVUKByuAeTH79B+kond0Mq9vrA0qVQgMX8nbBNX9Fj+LpHcroz/AVIjfJ8y42q8nFsZkfR6ZCB8E0qVdyzu5/JYIHBvIsCyv0ImSsfOlPLc+BNvhVmiZWy/ASEw8Dw1gDl0cVCf4UqVcOEpzCMNeTpdw+ItPcphJH3UDxDhvk3E7mTlvDrnmppkNK96LGlSqEKvM4B5LkEmOnEYV+XQSrgfXCqFn5PeGoV/QZkxZA7lBCvypUq6m10dUmumPs8AMHJHpeYMZeT3JWhH8DReFwOyNEUFO4fImKHbJlLPwSQKVKo232Ryb7LLCyHlLDwBGy3haCPnGKlSveQTRH9A4OU6ThUHT3ejIt91KlXDgOmZCylPH/ABGW8KUfWEVCT7wAar0zglkSWSpGFORVHtjyXE/AkilSqEAkr5PGV3jdnE8Ya7gXULA96a+YXwBwnC8Zg4gnG8Qc9EfQ+ltSEAEpUFAXt4UqVQ7lnXqVKlUOH//Z",
+  "flag-indirland.png": "data:image/jpeg;base64,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",
+  "flag-knr.png": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB4ALQDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAABQADBAYHCAIB/8QASxAAAgEDAQUEBAoECQ0AAAAAAQIDAAQRBQYHEiExE0FRYXGBkaEUIiMyQlKisbLBFWJy0SQmMzQ3U3WSwggXJSc2RGNlgoSTo9L/xAAbAQABBQEBAAAAAAAAAAAAAAAEAQIDBQYAB//EADkRAAEDAgIFCgUCBwEAAAAAAAEAAgMEESExBQYSQXETMjNRYYGRscHwFCKh0eE0QhUjJFJTYnLx/9oADAMBAAIRAxEAPwDfao21u9TQ9ldQbS+yutR1RVBa1s04imenGx5D3mryelcx6qWg3k7Wq+STflie/hPMVHNJybC5GaPpRVVDYSbX+yuFxvj2quWJsNlLS1T6JvbssT6lxUP/ADm7xXbK2uzij6vDIf8AFQJogy8SMeE1Gd5Ij31XmskK1jdXaQDEk9/4VuTett3BzudB0a5A69hM6E+0miFtv17AgazslqNsO97WRZx7+GqNBqHc9SZFSdcjGTSiseMwmP1cpnc1xHgfRappm+PYfUiEOsrZy98d5E0WPWRw++rhZatpupKHsb+1ulPQwTK49xrmG9sInJEsCSD9dQaHDQ9LdwTbdmw6NE5X7qnbWN3hV8urUwP8t4PG4+6679vsqNd6hZWCcd5d29uo6tNKqD3muXotDt3ThF/qIX6ou2xSGy2kK3aPbNM/jLKzfnSmsj7VC3VyrJxLR3n7LdtT3s7D6WSs20FtM45cNqGmJP8A0Aj30An37aDnhsdG1y88GS2CqfWWz7qzKK3tLMYt7WGIfqxgVLjuQ3Imo3VvUEbHqx/kk8Arwd+Qzy2P1fh8SyZ9lPQ7+dGDcN7s/rtt+t2CuB9oVRG5jlTDZpnxzupTnViEjB5+i1zT98uwt+3AdZFrJ9S7hePHrIx76tthr2kaqobT9UsrsHp2Fwj/AHGua57aCYYmijkz3MoNDJNA0uRs/BFRu4xsV+6pG1rd4QcurEw6OQHjcfddb+2l7a5ItY7qNcWur61ZDAZFS8YBkPzWHkcH2VNX9LSDD7W7QEeHw5/31L8XGgWaCq3t2mWI67rqkkKCScAdSaC6jths3pIJv9d063I+i9yvF7Ac1zbJokF3/PL7UbzPXt7pmzT0OgaTb47OwhJH0nHFj20w1rBkEQzVuqPPcB4/ZbBe78dibaQpb3V5fsOR+CWrEe1uEVbNltrNJ2x0n9I6TM7xBzHIki8LxuPosO44INc3XU8cOYoFUfsjFaTuBVjZ7SyHo1+o9YU5++pIZ+UJFrIbSWihRMa7buSeq3qtjpUqVEKnS7q5t2rh7Le9tWnc4gk9sa/vrpKuedt0xvl1vl8+ygb7KioKnoirPQxtXR9/kUJguOyl4G+aalTRqw8QelDr1CpDjuqTY3PbR9mevdVOvQ72NlEnhKEkUre7aJsE8qnyICCCOdDbiDhORSjFIRbEIo3BcR5zzoTcQmJ8ivVtcmNsE0QYJcR576XJdg4IdbzlWotFKJE59aESwmN8ivcNwU61xXNNsCp8yZ61BfijORRGORZkwetRp4SO7lTbpxF14huu4mi2z+iQ62b+FL6e2vIXEisflI2R+gKnpghhyI5YqvOjDJWpOj7S6poNuscUdo6cfaTgRN2k3j8YtyOOQ5YGBUVQ2V0REJ+bcqzSPKlreTBuMbg2RjaXQINCu7F0jlaLsnEt7IM8crMMKT0UYHIchz8aGWNhb3V/8F1K5vI0uHEcMltw8ILcgjAqSPJgfTipmu7XT393dfBb+c6ZwRqscBVePiUFuLI/WwQTywahwfCLe+sbfTrdxfW8mUtpomLghSAcHqBnOSeHl1qOBs3wwEps62f1xvlbwVdG9wpnNLrHnD5rE7sesd6tW0mh6VHp6Xl01zbx2MIiVrYjiZMgKvMHPPGPSao1pDKZJCWfgZsojsGKDwLADJ9VE2u9ae31C1ub0zmVpYJ4pn7SNiCVypAHCQR9Hly6Gvlv8jEplwWwOIjpnvpKSGSGMte7a9/f3mjNGQPB23X2bAjHDHs/CdigwvL1k1A1C+CDsYj6T419vtRJXgTkPKhkaNNLk0YBvVm99zYJ+1tjNIGNavuDi4dmNbm/rNXlHsRf31n0EawQA95rStww/iHdt3vqk59yUZRYlxWb1lGzHGO0+i1ClSpVYrIpVz/t6ODfPeZ+npkR9+PyroCufd5bdnvkc+Okx/iNQ1HRFWGij/Wx8UMu4wyHlQWKU29yPI0b7QOuDQW+j4ZSwqnC9EfldGywmiEi+uo7qGHPrUbTbr6DHkamyrwnl0pMk5puEMmhKtyr1b3DRtg9KlOAwqHLHwnIpwN00jZNwiTBZ0zQ+aAq3KpOkQi/1mx0+SV4455CHZDhuEKzEA92cYzViu9iNSF0IrS5hltHPKeY4kiXzUDDnwIxnvoeSqhhfsSOsbXQc1fFG8sff3uVTimMZFEYp1lXDVK1XYzVtPeV7TF9aqOJSWCzY7xw4wx8MYz6ar8Vyqp2gcBMZyeQAp8UsczdqM3T6esjl5pU+5iCDiCs2SAqqMliTgADvJPKvGoaLqenwpPfWJhidgvGJVfhY9AwHTPTvGasuyekTX91Bqt2phsoD2kAcYMzYOHIPRB1HiefQc2NqNe/TZ+CWIH6ORwzTd9wynI4fBAR178eHUb4l7qgRRAEDnHq7OPvcUFJWSTVAjp8R59Z4e8cFSpUWACICJTM3AA7BFYnrknkB3k1qmzup2aaZDCmqQX0llAqTTowPIDqfAcvdWevGsowyj1iorfC7IyyWbBXlheBweQZGGPceY8x51JWUoq2Bt7WXV1HI752YgDAW8UWuLqwW/H6KuZr21mkLtxwlOy4iWJDkAMMnwz6afMaupxzBquRyGEKo6KABRK0viCATmiAzZAF726/YR1I0xR7DnX9OxeLjTjxkrzFfYIRGeYooHSUZFNyQg0t0Vsi9wo8kuQBWobhv6P5/wC0p/8ADWWPEVb11qW4Y/xBuh4anOPctHUWZWX1m5kfE+i1ClSpVYLIpVz3vSH+uEeekIfttXQlc/7zxnfIg/5On42qKfoyj9F/rI+KrfalHxzrzcgSx56mvlyhVs14R8jBqnXot9yhI5hl5HFHbWZbiEKTzoLcxEHIFK1uDE/WlIuFEx2y6xRl1KsRimnXNSEkWeMfWpl1INMRGajw3DabqNrfqhc20okKL1ZcEMB54JrW7G+iuLeKaJxJFIodHHRgeYNZLIOXKrXsPcM2lXNoSf4LcEIPBHHEB7eKqrS9OHxiXeMO7/3zVFpOHZcJBvwV9IDDNUfTNiIrSZ7zVDHeXLTPIsYHyUeWJBAPzjz7+nd41bLa4+ixoPtpqMlpo6W1sxSe9cxCQcjGuMuR545D057qpKR0wfyMRttZqrDSXADfhxuqhtLtI+pzyadayfwCNuGZ1P8AOGHVf2AevifIc4dtMrqFPSh8tqIUCovCqjAA7hTccxjbFa2GBkTAxmQWkpYRTNtvOZRaW3GOJajED5rU/bXSuuDXueEMMrT8kbmhlxa961B+NG1F+LhPC1Mz24YZAp4coXx7wmbe8KEZNFoLpZFGarskbIacguWRhmlLbprJCMCrGyh8YrQ9w3+w9+PDVp/uSsvt7rixzrT9wxzsTqP9rT/hSi6LNyz+sxBjj4n0WpUqVKrBZBKsA3m/0zR/2On42rf65+3mnO+UeWkxj7bVFP0ZR+i/1kfFBL2McJ5ULB4WxRy7UdiCfCgTn5SqcL0RyklRInnUCWMo2aJwLy6V4uYMjOKUFI9lxdR7S5KMATRZXWZAe+gDqUapNvclT1riE2OS2BRB151cdh7Dg0We8YYN5MXTzjUcKn14Y+uqaVN6qW0ZxLcOsKkeLED7iT6q1yKCO2iSCJAkUahEUdAo5AVS6Ym2IhGP3eQ/PkqzSst3NjHH0HqoDq0bcqD7T2U+pafBNaoZbm0kLiIdXUjDAefQj0Y76sskYYGgeparYaOwN7eQwFuaqzfGb0KOZ9lU1LI8Sh0Yu4KqDtkhwNrKhTSoQVkjnRx1V4HBHqxQyQJIvHE6up71Oa02z270OR1ja+aLJwGmieNT6yMUD2zXSbm/s5NPe3e7YObhrdgcpj4pfHLPF0zz61oqetkdKI5Ii2+/2ArKLSMkkjY3gY4YeyqXHM0bDnii9rdB1Ck0MubcoxOKahlMbVYkXVq1xYbFGp4gw4lqOjYPC1O29wHXBNK4h+kKYiMxdR5oAwyBQ+SEq3Sicb5+Ka8TRg91OBUT2A4qHA5Uith3Cj+I1+fHVZz9lKx8rwtmti3CjG76dvrajOfw0dR5lZfWLBkY7T6LUKVKlR6yqVc+byG4t8k36mlxD7RP510HXO+3p7TfNqo/q7OBfaoP51DUdEVY6JF62Pih99JwwKOhxQWNeOWp+py5bhB5190+0LfHYegVTr0K1zZSYIeFByrzMMDFSbiVIFwSM0Lkug74FcAnkgJmaMEmojoVPKiSqHpqeJVUsTgAZJ8BTwVC5m9EtjLZ7zX1nb+RsB2p85GBCj1DJ9laklwrjBqrbIaU1js9A8iFZrom4kB6ji+aPUvDRwoynIrJ6SmE9QbZDAd35Wakk5V5ed/luRE8xkdKyPXEeTaTVpJP5QXTJk9ygDhHoxj21qUU5Xk1ZdLdLqd3d34HCLqdpVU9QvRfcBROhGESPdut6/hE6PbtVA7AfRDgeEnPSpVrIka8KIqA9ygCmp4u8VFDlCM1o81e80oxLEsq+dB7m3KHIojbXIIwTTs0SyoaQGyc5oeEGt7go+CaNQSrMmCaC3FsyMSBX21ujG2CaUi6jY8tNiiM6FGyK+qRInnTwZbiLzqIpMUmD0pinXiZcZNbBuJXG7SFvr3c7fax+VZJcD5J2HgTWw7jU4d1OmMfpSTt/wC1qPov3LJ6zYckOPotFpUqVHrKpHpXNu1c3bb4dqZT0iECA+iNa6SPSuYNYlEm8Pa6WRgv+kChJ8FyKgqeiKtdCC9czv8AIpqGBrqcu3zfOpdxfRWicEZy2OtDLrVQqGOH4id7McZoQ2p2CnM97HnwU8X3VVtYTuW3lqY483AcTZT5bmW5kOM4pxIJfirGoaWR1jQHpxMQBnyyahw69pYHyS3EvmkJNeptotLZCk4uIlP1omX0c+6n8lJ/ahX1tMWkCVu1uxGa0qHYjS44As91fPMB8eZZygz5KOQFOWmw2lvKJJry6vYAc9k7JwN5MVAJHlms3m1y11YKtzrEl2B81LmY4/u8gfXX2OOBDmEdmD3wuUz/AHSKqvgaux2piCezyxFu5AMppZGnZkBv/sT4rV9b2msNHlFsqNdXfUwQkZQeLE8l8h1PhTulaxp2tx5tJh2qrmSB/iyR/tL+YyKy2CSOJeCNQq5zyp/4ryRyqzRzRnijlQ4ZD4g0O7Q0PJ7IJ2uv8e+9T/wt2xcO+b6e+36LT9UsZbrTLq3t5OymlhdEk+qxBANZvb7Oa/Ey240koEAXiadBHgeBySfZU8bVbQp/vttJ+3aD8iK+Ptfr5HztOP8A27f/AHSUtNWUoLW7Jvx/ChjgrISSxtr/APP3Q+5guLO6azvYRFMFDjhcMrqeWVPfzBHdUGe3zkivV5f3V3fNeX8yNKUCDhXgVVBJwBnxJPWmf0zYJylu4V9LiriMP2RtZ77ZK2ikIiHxBAd3JgFomojbXQIwaHvqGnTnEd5Ax/bFeQ4ByjBh5HNSEHenMlbf5SCjEkayqelCbm0ZGJUVMt7sYAJqUwSVelNBspnNDwhFrdtC4DZolJwzp2iHn31EubIHJXrUaOWW1fvxSkAqMOLMHZIjnjhdO/hI91bHuPkD7qNKXvR51P8A5W/fWLpPHIQynDd4rXNwshfd9NH3Q6jOi+j4p/OjKLDaCzmstiInDt9FqFKlSo9ZRKs02o3MaRtHr9xrEWpX2nTXRDXCW5UrI3TiAPQmlSriLpWuLTcFfdO3F7F2ZVruC81KQfSu7lsZ9C8Iq3afsZszpagWOgabAR9JbZOL2kZpUq5cSTiUaSNIl4Y0VB4KMV8kijmXhkjVx4MoNKlXJEB1LYTZTVwfh2z2nSseri3VW/vLg1UNQ3D7I3BZrB9R0xzzHwa5LKPU4P30qVclBINwgFzuG1OI507a9iO5Lq0z7w35VAbcxtvGfkta0WQfrrIp/DSpVGYmHMIpldVM5sh8Svce5vbh+U2uaNEPGNHY+9RRK13EX0vPU9sbhh3paWwj95P5UqVcImDIBc+vqn4OkPiUdstxOxluVa7jv9RYdTdXTc/UnDVht92exNqoEezGmkD+sh7Q+1s0qVSIUknEr7cbtdirlSJNmNMGe+OAIfauKr19uK2KuizWsF7p7HvtbpuXqfipUq5cCRkq9d7griPnpe1twgHRLq2D+8EfdQ6Tc7t1b/zbWNFnH/EDofw0qVRmJhzCJZXVMfNkI7ym03S7wpTiS90CIfWDyH/DU2DcXr9wwN/tZbwjvFtaFveSKVKuEMYyCc/SFW/AyHxRO3/yftKLA3+0Wr3A71jKRg+41p+gaBpuzOjw6XpVuILWHOFySSTzLEnqTSpU8ADJCue55u43RKlSpUqav//Z",
+  "flag-shi.png": "data:image/jpeg;base64,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",
+  "flag-tnr.png": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAB4ALQDASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAABQYABAcDAgEI/8QAThAAAQMDAQQFCAINCAsAAAAAAQIDBAAFEQYHEiExE0FRYZEUInGBobHB0SNSFTIzNEJiY5KToqOysxYXJFNUc4KDJ0RFRlVkcnR14fD/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANtvl6hadsku73BakRYqN9wpTknjgADtJIHrrPF7WrvLVi1aLkFJ5LnTUMn80Amj211su7Kr+kdTCVeDiT8KzlS1MoadR9qpCT7BQH3domuUnP2BsjaexUtaj4gV5RtT1YyfptL258dYZuO4f1k1wgzWZTfRu4z31wn2vdytv1VFHWNsfRgG56RvMcdao25IA8CDRWLth0TIUEPXVcJ3+rmRnGiPWRj21mnSOxXPOzwNEGJUeUkJfQlY/GGffVRrMXWulpid6PqO0udwmN58M13c1Tp9pO87fbYhPaqY2PjWOydK2aXlz7Gwlk9fQJz7BQd3S9pZUcWqJ62hQbDM2paIg56XUsFZ7GFF4/qA0Kc2y6eP3jAvlw7DGt6sH1qxWcx2mYuAzHZaA+o2E+4UbhTwfNWSR6aBiVtdWeLWjb6QfrhtB8N6vo2v7nGRo7UKU9Zbbbc9yqGrYbeb3kEGh7nSxlcAcCoGtrbPpUY8uRdbdn+1wHBj83NHIG0XR1zwI2pbaVHklx8NqPqVg1n7U5t9G45zqrLsFsnpJegRXu9TSSfdVG1R5kWUkKjyWXknkW3Ar3Gu9fnCToaylRUiAhB7WlqQfYaou6TtyOBRJ3ewynMe+g/Scm4wYaSqVMjsJHW66lPvNL87aTou3EiRqW25HMNPB0j1IzWGRtPWJhWVWxlZ7XMr95plt7FsZaCY8KKz/dspT7hQOzu2fSQz5IbnOH/LQHDn84Cqp2zwCfotLamWO3yRA966BqUnGATj017bZCuOOFAeb2z2PI8rs2oYY61PQCUj1pJpjsGvdMankeTWm7svScFXk6gptzA5+aoAnHdWazpSY6cBXHuNB7Irptp+kzgBRkvHIHHAaV10H6GqV8qUCttLb6XZpqJPZAcV4DPwrMbckS7HGWeOWUHP+EVrOuGum0DqFvttsj+Gqsh0i8F2CBnjvRm/3RQU1FcSRzOKZbfcm32g25g0MucQKBIFBmXnIzuM4qKbJ9sQ6kqSAQeWKWX47kR0kcuymK2XRLiAhw5yK7T4KH2ytOCO2gDW+6FCt1RoyehmN5GM0ryYq47hwOGa6xbgppWCaC7LgKQScVQwps9ho+xMbko3V4z21ylQARvpGaCrCuKmlbqicUY32pjeQeOKWX2S3kiusSctlQyT40FyVEW0reRXJi4OMKwomizMluU3hWM1Sm28KypAoLrEtmSBkjNfX4SXEk4BHdSwVOxV9fCikG8EYCjkHnQcJNtIyU8arNRZCF4CTimZK2JCd5Bwa5vFqOnKyVd1BXiRl818fhXSbObjNFCSCe0UPk3g4KGhup7qErcXIWck0H11xyW9xzjNX9MMZ2saWR1Nty3D+ix8a8Q427g4q9pFIc2v2sf1VvkL8SBQblUqVKqBOqU7+kr0j60B8fs1Vg+kH8WS3AcT5OgcPRW+39O9p25p7Yjo/UNZ3oBaGtFWFQSkEw28kADjQUpEZx1sKDThBH1DS1cIikqJ3SPSMVvUV3pmRxPjVSbGS4k7yAr0jNBg0aSplY4+2mi23IOJ3FKHjTROtsdKyoxmT/lj5V6gOMxnAAy0n0IAoFifEQ6nKcUtSoqm18MVvER1mQ0AUIP+EVXnWmG6CVRGFZ7Wk/Kgw5iSplXE0ehzw4kJUoeNN8uyQkKKhCYB/uhXuEWYywEsNJ9DYFApyIyXU5SPCg0iKUKJHDFbbDkNuoAwnwqs27GnTJsbom1GOoDikHeBHH25FBjMeQplznR2PKDqQCRyp3nWaJxV5GwfS0KqR40BpeFQo/6MUCZMhJdSSOdL78ZyO5kA4rb48W2uoA8ijfoxXiXpu1SUHMCPx6wnFBjESetpQCieFHmX2ZrYSsjNMM7S0CO4VJgtEeg17gGJDcAEOOAPyYoFJ+2IB5VWEQIVwrYIr8OQ2AWWT3bgrsu2QHOJhxz/AJSflQZEnDTZ4jNetB+ftgaz+DZ3VftEitTct0BCDiFGH+Un5UnWxhhjbgyllltpJ0+4SEJAyenHGg0+pUqUFG88bJP/AO2c/dNZXotZGg7ErsiJ95rUr4rcsFxV2RXT+oazbRsU/wA3lhVjnCQffQOdom580nlRxxIcRkUiRpCo73PFNtvnJdQATQVZ0YKB4UuyWS05kcqd3mg4MjiKA3CFzwKCrbZxbUATTOy6l9vmM0jKSph2jVsnkEAmgKy4u+DwpelstsrOXEJUOoqApsSoPIz10EvunIV4ZPTtAOgea6kecn5juoBTd5ZgMuOqfbIbSVYCxxxQrSt7Cb22t5wbr5KHCT1q458aWbjaJmnLk2shtWCS05u5Curl2jNXReJ0e3QVKWT0jbiXA4gYV5xAzw7KDWHVR3EndfaOexYoHMijipspOOw5oBpmw/ZNlEiWoIin7UJPnL+Qp5Tbo0eMGYzKG2x+Ckf/AGaBdjy1sqwaPRJyVpAJoROgFKipI41SZeWyrBzQNj7CJDfUaWLjbFNqK0ijEKcFYyauvNofbOAKBKYlORnBgkUyW+6JdACjxoPcreUqKkCh7Li2VjiRQPDuHUZSaSo6Oj24wz9bT7o/bimK3Td9ISo0BdITtrsyh+HZJCfB0Gg0WpUqUAnVK+j0jel/VgPq/ZqpZ0RGCtnWnhj/AGeyfFIPxph1lkaG1Bj/AIbI/hqpX0Tf7WxouxsuTGgpEBhJTxODuDhyoOs+GW1EgV4gzFMLwTRKbebO4gkSs+htXypVmXq1tLJS+s+hpVBoUCcl5IBNWnmEuJzzrNIWsbcyvi85+jNM0LXNocABfc/RGg63CBxKgKEo3mHKOP6js7qM9Mvj+SVQCdebTkqTLA9KFD4UDLbpgKQCaL4C05FZwxqa2sOffiPBXypkg6ws6gAZqc/9CvlQLOqmH7vqQxIjanFMpDYCeo8ye7iefdVK8aYvLMHfM12WcZcZ3ifDPOniNdLBDSvopSApxRW4tSVbyyeOScV4kX2zLB/p7Prz8qBS0XdlNxXYiyd5leQD2H/3mtAhz0ugAmkiU/Y0TlTGpzCXVJKV7p+3Hfw514Z1NAjOffrZHdn5UGhvMpcRkDOaBzoBGVJFcYOtLQtICpqB6Un5UQXfrO8jKZiDn8U/KgApccZXxo3BnBQAJoNPuVpB3kzWge/I+FDUahtrC8mc1juz8qB4fYQ+jI40uz7eUKKkiu0HV1oUkJVNb8D8qsSL3aHE8ZaMHtSr5UAeM4plziaprf3tr+l1Z+6W+Y34YVXeVcrWFkonMeOKCNTo8javoxTD7bvmzUK3FZxlrI91BsdSpUoAusBnRF//APGyP4aqw3Tbm7p22nP+rN/uitv1qvo9CahWeq2yP4aqw6zI3NN24Dn5M3+6KBljSEOJ3Sa5TYIcGQOdCmFuoXwBphirK2CXOA76ilKTDU2skA1xZkrZUKY5oaWSAQaBSYp3iRyoDcC5hQCVnNXJMZDyCpOCDSe2tbKh6aO2+54wlR4UFKXEU2onHKuLEhTSxTM+y3Jb3kYyaXZsRTSyQKA3EmB5G6o16eYOMjiKXY8lTawOVMESYl1GFHJoKDzXdQ55og5FMrzCV8QaGSYuByogQ06ptfoo5AuJGEqPA0FeYKSTXNt0tqoHB5pMlvI50ClwyhSiBVmBccYSo0UcbblN5GM0UrNuKaX3UwwpAkM7hOTQubCKCcA1yhSSw8ATQXJrOSoEVS04nc2q6TH5ST/BNGJIDrQcT1jjQ3T4/wBLOkx+PJ/gmiP0F1VKlSqFfaO70OzbUas87e8nxTj41kdsYxboTIHBLDY/VFabtedLOyq/KHNTSED/ABOJHxpDY6KGynf+2CQN3r5UFhuO22jfWQEjrqjOugVltrgnlwqlPuqVH6V9tlsda1hIHjQv+UenovF25srV2N5X7gaiirLT7yskkCiIhgt+d7aXv5cWwJ+gRJUn6wjLPwqsrXFucXuqmdET1OtqT7xQGpcFIyRQ3CmV8MiusW8wpf3O4xXD2B0Z8KsOtpcTkHI7RQWYFxKcJJ4USdS3KbJ4ZpYyW1cKIRZm6QCaDjMiFtWRXKNIU2vB4Yos6pDqeYoa9FJO8n2UQZjTAsAKNWFbrneKVDObh/dZDTePrLArq3q20N/b3GN+kB91FGn4gUOVDJELGSBXRGr7I7hP2SietwD31dRNhS0/QyGXM/UWFe6gB7q2jkZohDuSmiAScVYcjA54cO+qjsPhlNAfQ4zMa5jexQmdAU0sqSKpNuuxljjRhmciQjdc8aDhAkBQLKzjPbXizI6Pa1pPvckj9ia+SY+6vpGiOHZXy1Ohe0nR7pGFeUvJPraNEfoCpXwcqlUUb1Z4WoLPJtVxZ6WJJRuuJBIPPIII5EEAj0Uh/wAyGmirK599cT9Vc84/dqVKApA2RaGgEKFhZkOda5Ti3ifUokeymiHY7TbgBCtcKMByDMdCPcKlSgv1xeix5KSl9ht1J6loCh7alSgA3DZ/pC558r05bFKPNSY6UK8U4NLknYlpBZJhC5W7P9kmrAHqVvVKlALe2IEcImsLq2Orp2kO/Kqp2J3tJ8zW5x321Of3qlSgsM7Frjw8o1vMUOsMw0N+3JogxsQsB43C63yeetLsvdT4JA99SpQGoWybQsADo9ORHCOuQVPE/nk0bZ0npyOkJZsFrbA6kw2x8KlSg+PaR03ISUvaftTgP1obZ+FBJuyXQs7JXp2M0rqVHUpkj80ipUoAz+xKyDjb7zfYJ6kty99PgoH31Rd2OXZOfJdcS0jqD8JDntyKlSgqr2QaoP8AvfEX3qtuPcqvjexrUalfSazZbT+StwJ9qqlSgIsbFULAFx1denx1iOUMA+w0w6d2Xaa01dW7nFZlSJzQIbflyFOFGRgkDkDjhnFSpQOlSpUoP//Z",
+};
+
+// ==================== DATA ====================
+const countries = [
+  {
+    id: "shi",
+    name: "ШИ",
+    fullName: "ШИ",
+    type: "Сверхкрупная военно-промышленная держава",
+    flag: "flag-shi.png",
+    rank: 1,
+    description: "ШИ обладает наиболее мощной и комплексной армией в рейтинге. Главная сила — огромная сухопутная группировка, колоссальная артиллерия и очень развитая военная инфраструктура.",
+    strength: "Огромная масса войск, артиллерии, авиации, БПЛА и логистики. Способна вести масштабную и продолжительную войну.",
+    weakness: "Ранее отсутствовали подлодки (теперь 30 единиц).",
+    manpower: { 
+      active: 1000000, 
+      reserve: 600000,
+      note: "1 000 000 действующих + 600 000 резерв = 1 600 000"
+    },
+    land: {
+      tanks: 10950,
+      tanksNote: "Karakal 2-140",
+      bmpBtr: 25000,
+      bmpBtrNote: "SpPz-75, Karaket",
+      armored: 80250,
+      artillery: 105000,
+      mlrs: 9130,
+      sau: 0
+    },
+    air: {
+      carrierAircraft: 5100,
+      carrierAircraftNote: "Ho 210 V1 (палубные)",
+      multiRole: 3250,
+      multiRoleNote: "многоцелевые истребители",
+      transport: 305,
+      fighters: 0,
+      bombers: 0,
+      interceptors: 0,
+      helicopters: 0,
+      missiles: 11000,
+      uavRecon: 3025,
+      uavLarge: 4000,
+      uavSmall: 400000,
+      satellites: 60,
+      radioPoints: 5000
+    },
+    navy: {
+      ballisticSubs: 30,
+      carriers: 0,
+      battleships: 0,
+      cruisers: 750,
+      cruisersNote: "Ragnarök",
+      frigates: 310,
+      frigatesNote: "Hessen-Type",
+      corvettes: 100,
+      corvettesNote: "Braunschweig-Type",
+      minesweepers: 100,
+      supplyShips: 1500,
+      destroyers: 0,
+      landing: 0,
+      recon: 0
+    },
+    logistics: {
+      hubs: 600,
+      supplyVehicles: 25000,
+      equipmentSets: 5500000,
+      bases: 300,
+      repairCenters: 750
+    }
+  },
+  {
+    id: "byzantium",
+    name: "Византийское Королевство",
+    fullName: "Византийское Королевство",
+    type: "Универсальная военная сверхдержава",
+    flag: "flag-byzantium.png",
+    rank: 2,
+    description: "Византия — одна из самых сбалансированных армий. Мощь сильно распределена между сухопутными войсками, авиацией и особенно флотом. Имеет легионную структуру (6 легионов).",
+    strength: "Огромный флот (323 крейсера + 123 подлодки), сильная авиация и 10 000 БПЛА Bayraktar. Хорошо сбалансированная армия с элитными легионами.",
+    weakness: "Значительно уступает ШИ по артиллерии, РСЗО и общей массе сухопутных войск. Меньше логистических возможностей.",
+    manpower: { 
+      active: 200200, 
+      reserve: 0,
+      note: "6 легионов: Lec I Naropol (40k, 20k элиты), Lec II Roma, Lec III Costantinopoli, Lec IV Hispana, Lec V Egitto-Sparta (40k элиты) + 200 солдат."
+    },
+    land: {
+      tanks: 5500,
+      bmpBtr: 3625,
+      bmpBtrNote: "БТР (БМП — 0)",
+      armored: 5650,
+      artillery: 725,
+      mlrs: 125,
+      sau: 0,
+      pvo: 550
+    },
+    air: {
+      fighters: 347,
+      bombers: 170,
+      helicopters: 850,
+      uav: 10000,
+      uavNote: "2 000 Bayraktar Akıncı + 8 000 Bayraktar K2",
+      satellites: 0,
+      shaheds: 0,
+      kamikaze: 0
+    },
+    navy: {
+      ballisticSubs: 123,
+      carriers: 0,
+      battleships: 0,
+      cruisers: 323,
+      destroyers: 150,
+      corvettes: 0,
+      frigates: 0,
+      landing: 0,
+      recon: 0,
+      boats: 140
+    },
+    logistics: {
+      supplyVehicles: 6000,
+      bases: 50,
+      equipmentSets: 600000
+    }
+  },
+  {
+    id: "knr",
+    name: "Кошачья Народная Республика",
+    fullName: "Кошачья Народная Республика (КНР)",
+    type: "Крупная континентальная держава с мощной ПВО",
+    flag: "flag-knr.png",
+    rank: 3,
+    description: "КНР имеет крупную армию по численности и очень сильную систему противовоздушной обороны. Проводилась мобилизация и регулярные тренировки (ежедневные + учения раз в две недели).",
+    strength: "Большая численность (625 000), мощная ПВО (560 систем), крупный флот крейсеров. Хорошая подготовка мобилизованных.",
+    weakness: "Сравнительно небольшое количество танков и авиации. Нет подтверждённых РСЗО и подлодок. Ограниченная логистика.",
+    manpower: { 
+      active: 625000, 
+      reserve: 0,
+      note: "400 000 исходно + 200 000 мобилизация + 25 000 от последней поставки = 625 000"
+    },
+    land: {
+      tanks: 650,
+      bmpBtr: 1100,
+      bmpBtrNote: "300 БТР + 800 БМП",
+      armored: 600,
+      artillery: 270,
+      artilleryNote: "170 + 100 PCL-181",
+      mlrs: 0,
+      sau: 0,
+      pvo: 560
+    },
+    air: {
+      fighters: 155,
+      fightersNote: "включая 5 Meow-meow J-20",
+      bombers: 0,
+      helicopters: 305,
+      helicoptersNote: "включая +5 CAIC WZ-10",
+      uav: 600,
+      satellites: 0,
+      shaheds: 0,
+      kamikaze: 0
+    },
+    navy: {
+      ballisticSubs: 0,
+      carriers: 0,
+      battleships: 0,
+      cruisers: 323,
+      destroyers: 0,
+      corvettes: 0,
+      frigates: 0,
+      landing: 0,
+      recon: 0,
+      boats: 100
+    },
+    logistics: {
+      supplyVehicles: 1000,
+      bases: 15,
+      equipmentSets: 0
+    }
+  },
+  {
+    id: "charisma",
+    name: "Харизма",
+    fullName: "Харизма",
+    type: "Быстро растущая военно-промышленная держава",
+    flag: "flag-charisma.png",
+    rank: 4,
+    description: "Харизма — страна с самой заметной динамикой развития. Арсенал быстро растёт благодаря строительству военных заводов. Имеет уникальные системы «Антиракет».",
+    strength: "Быстрый рост ВПК, авианосцы, линкоры, «Антиракет». Заметный прогресс по всем направлениям.",
+    weakness: "Всё ещё относительно мало ПВО/ПРО и личного состава по сравнению с лидерами.",
+    manpower: { 
+      active: 100000, 
+      reserve: 0,
+      note: "100 000 солдат"
+    },
+    land: {
+      tanks: 248,
+      bmpBtr: 248,
+      bmpBtrNote: "БТР",
+      armored: 226,
+      artillery: 125,
+      mlrs: 0,
+      sau: 0,
+      pvo: 16
+    },
+    air: {
+      fighters: 220,
+      bombers: 24,
+      helicopters: 112,
+      transport: 5,
+      uav: 0,
+      shaheds: 270,
+      kamikaze: 390,
+      satellites: 0,
+      antiraket: 3
+    },
+    navy: {
+      ballisticSubs: 5,
+      carriers: 3,
+      battleships: 50,
+      cruisers: 0,
+      destroyers: 0,
+      corvettes: 0,
+      frigates: 0,
+      landing: 0,
+      recon: 0,
+      boats: 0
+    },
+    logistics: {
+      bases: 0,
+      supplyVehicles: 0,
+      note: "6 авиационно-военных заводов, 2 тяжёлых военных завода, заводы снабжения"
+    }
+  },
+  {
+    id: "tnr",
+    name: "ТНР",
+    fullName: "ТНР",
+    type: "Крупная механизированная региональная армия",
+    flag: "flag-tnr.png",
+    rank: 5,
+    description: "ТНР имеет необычно большое количество бронетехники относительно численности личного состава. Сильный механизированный акцент.",
+    strength: "Очень высокая насыщенность бронетехникой (более 21 000 единиц БТР/БМП/бронемашин при 55 000 солдат). Мощная артиллерия.",
+    weakness: "Малая численность личного состава. Авиация и флот указаны только общим числом без детализации типов.",
+    manpower: { 
+      active: 55000, 
+      reserve: 0,
+      note: "55 000 солдат"
+    },
+    land: {
+      tanks: 250,
+      bmpBtr: 14000,
+      bmpBtrNote: "7 000 БТР + 7 000 БМП",
+      armored: 7000,
+      artillery: 3000,
+      mlrs: 0,
+      sau: 0
+    },
+    air: {
+      fighters: 0,
+      bombers: 0,
+      helicopters: 0,
+      uav: 3000,
+      uavNote: "Связь / разведка / дроны — 3 000",
+      totalAircraft: 150,
+      satellites: 0,
+      shaheds: 0,
+      kamikaze: 0
+    },
+    navy: {
+      ballisticSubs: 0,
+      carriers: 0,
+      battleships: 0,
+      cruisers: 0,
+      destroyers: 0,
+      corvettes: 0,
+      frigates: 0,
+      landing: 0,
+      recon: 0,
+      boats: 0,
+      totalShips: 150
+    },
+    logistics: {
+      supplyVehicles: 20000,
+      bases: 16,
+      equipmentSets: 500000
+    }
+  },
+  {
+    id: "indirland",
+    name: "Индрландия",
+    fullName: "Индрландия",
+    type: "Малая комбинированная армия",
+    flag: "flag-indirland.png",
+    rank: 6,
+    description: "Малая комбинированная армия. Имеет практически все основные виды вооружённых сил, но в небольших количествах.",
+    strength: "Универсальность — присутствуют почти все виды вооружения, несмотря на малые масштабы.",
+    weakness: "Очень малые масштабы не позволяют вести крупные самостоятельные операции против сильных противников.",
+    manpower: { 
+      active: 3500, 
+      reserve: 0,
+      note: "3 500 солдат"
+    },
+    land: {
+      tanks: 10,
+      bmpBtr: 100,
+      bmpBtrNote: "80 БТР + 20 БМП",
+      armored: 30,
+      artillery: 15,
+      mlrs: 0,
+      sau: 0
+    },
+    air: {
+      fighters: 0,
+      bombers: 0,
+      helicopters: 0,
+      uav: 50,
+      uavNote: "Связь / разведка / дроны — 50",
+      totalAircraft: 15,
+      satellites: 0,
+      shaheds: 0,
+      kamikaze: 0
+    },
+    navy: {
+      ballisticSubs: 0,
+      carriers: 0,
+      battleships: 0,
+      cruisers: 0,
+      destroyers: 0,
+      corvettes: 0,
+      frigates: 0,
+      landing: 0,
+      recon: 0,
+      boats: 0,
+      totalShips: 6
+    },
+    logistics: {
+      supplyVehicles: 400,
+      bases: 4,
+      equipmentSets: 8000
+    }
+  }
+];
+
+// ==================== SCORING ====================
+function calculatePowerIndex(c) {
+  let score = 0;
+
+  // Manpower
+  score += (c.manpower.active + c.manpower.reserve) / 1000;
+
+  // Land
+  score += (c.land.tanks || 0) * 12;
+  score += (c.land.bmpBtr || 0) * 0.5;   // сильно снижен вес массовой лёгкой бронетехники
+  score += (c.land.armored || 0) * 0.4;
+  score += (c.land.artillery || 0) * 5;
+  score += (c.land.mlrs || 0) * 15;
+  score += (c.land.sau || 0) * 10;
+  if (c.land.pvo) score += c.land.pvo * 35;  // ПВО важнее
+
+  // Air (support both old and new structure)
+  if (c.air.carrierAircraft) score += c.air.carrierAircraft * 30;
+  if (c.air.multiRole) score += c.air.multiRole * 25;
+  if (c.air.transport) score += c.air.transport * 8;
+  if (c.air.missiles) score += c.air.missiles * 1.5;
+  if (c.air.uavRecon) score += c.air.uavRecon * 4;
+  if (c.air.uavLarge) score += c.air.uavLarge * 5;
+  if (c.air.uavSmall) score += c.air.uavSmall * 0.15; // many small ones
+  if (c.air.radioPoints) score += c.air.radioPoints * 2;
+  if (c.air.antiraket) score += c.air.antiraket * 150; // unique systems
+
+  score += (c.air.uav || 0) * 3;
+  score += (c.air.fighters || 0) * 25;
+  score += (c.air.bombers || 0) * 40;
+  score += (c.air.helicopters || 0) * 10;
+  score += (c.air.satellites || 0) * 80;
+  score += (c.air.shaheds || 0) * 2;
+  score += (c.air.kamikaze || 0) * 2;
+
+  // Navy
+  score += (c.navy.ballisticSubs || 0) * 120;
+  score += (c.navy.carriers || 0) * 350;
+  score += (c.navy.battleships || 0) * 180;
+  score += (c.navy.cruisers || 0) * 50;
+  score += (c.navy.landing || 0) * 20;
+  score += (c.navy.recon || 0) * 10;
+  score += (c.navy.destroyers || 0) * 35;
+  score += (c.navy.corvettes || 0) * 15;
+  score += (c.navy.frigates || 0) * 25;
+  if (c.navy.minesweepers) score += c.navy.minesweepers * 8;
+  if (c.navy.supplyShips) score += c.navy.supplyShips * 3;
+  if (c.navy.boats) score += c.navy.boats * 5;
+  if (c.navy.totalShips) score += c.navy.totalShips * 8;
+  if (c.air.totalAircraft) score += c.air.totalAircraft * 12;
+
+  // Logistics bonus for countries that have it
+  if (c.logistics) {
+    score += (c.logistics.hubs || 0) * 15;
+    score += (c.logistics.bases || 0) * 20;
+    score += (c.logistics.repairCenters || 0) * 5;
+  }
+
+  // Invert: lower = stronger (like GFP)
+  // We take a large base and subtract, then normalize a bit
+  const raw = score;
+  // For display we keep the raw as "points of power", but rank by highest score = strongest
+  return Math.round(raw);
+}
+
+// Calculate scores
+countries.forEach(c => {
+  c.powerScore = calculatePowerIndex(c);
+});
+
+// Предпочтительный порядок рейтинга (по запросу):
+// 1. ШИ  2. Византия  3. КНР  4. Харизма  5. ТНР  6. Индрландия
+const preferredOrder = ["shi", "byzantium", "knr", "charisma", "tnr", "indirland"];
+countries.sort((a, b) => preferredOrder.indexOf(a.id) - preferredOrder.indexOf(b.id));
+
+// Assign ranks according to preferred order
+countries.forEach((c, i) => {
+  c.rank = i + 1;
+});
+
+// Display index (lower = stronger), based on rank position
+const indexValues = [0.1000, 0.2474, 0.3562, 0.4015, 0.5777, 0.6881];
+countries.forEach((c, i) => {
+  c.displayIndex = indexValues[i].toFixed(4);
+});
+
+// ==================== HELPERS ====================
+function formatNumber(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function getTotalManpower(c) {
+  return c.manpower.active + c.manpower.reserve;
+}
+
+function getTotalAircraft(c) {
+  // Support both old and new air structures
+  if (c.air.totalAircraft) return c.air.totalAircraft;
+  let total = (c.air.fighters || 0) + (c.air.bombers || 0) + (c.air.helicopters || 0) + (c.air.uav || 0);
+  total += (c.air.carrierAircraft || 0) + (c.air.multiRole || 0) + (c.air.transport || 0);
+  total += (c.air.uavRecon || 0) + (c.air.uavLarge || 0);
+  // Don't count 200k small UAVs fully in "aircraft" display
+  return total;
+}
+
+function getTotalNavy(c) {
+  if (c.navy.totalShips) return c.navy.totalShips;
+  let total = (c.navy.ballisticSubs || 0) + (c.navy.carriers || 0) + (c.navy.battleships || 0) + 
+         (c.navy.cruisers || 0) + (c.navy.landing || 0) + (c.navy.recon || 0) + 
+         (c.navy.destroyers || 0) + (c.navy.corvettes || 0) + (c.navy.frigates || 0);
+  total += (c.navy.minesweepers || 0) + (c.navy.boats || 0);
+  // supply ships not counted as combat fleet
+  return total;
+}
+
+// ==================== RENDER RANKING ====================
+function renderRanking(list = countries) {
+  const tbody = document.getElementById("rankingBody");
+  tbody.innerHTML = "";
+
+  list.forEach(c => {
+    const tr = document.createElement("tr");
+    tr.dataset.id = c.id;
+    const flagSrc = (c.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c.flag]) ? FLAG_DATA[c.flag] : (c.flag || '');
+    const flagHtml = flagSrc 
+      ? `<img src="${flagSrc}" alt="Флаг ${c.name}" class="flag-img">` 
+      : `<div class="flag-placeholder">${c.name.charAt(0)}</div>`;
+    tr.innerHTML = `
+      <td><span class="rank-badge rank-${c.rank <= 3 ? c.rank : 'other'}">${c.rank}</span></td>
+      <td>
+        <div class="country-cell">
+          ${flagHtml}
+          <div>
+            <div class="country-name">${c.name}</div>
+            <div class="country-type">${c.type}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="index-value">${c.displayIndex}</span></td>
+      <td><span class="stat-value">${formatNumber(getTotalManpower(c))}</span></td>
+      <td><span class="stat-value">${formatNumber(c.land.tanks || 0)}</span></td>
+      <td><span class="stat-value">${formatNumber(getTotalAircraft(c))}</span></td>
+      <td><span class="stat-value">${formatNumber(getTotalNavy(c))}</span></td>
+      <td><button class="btn-detail" data-id="${c.id}">Подробнее</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Click handlers
+  tbody.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", (e) => {
+      if (e.target.classList.contains("btn-detail")) return;
+      showCountryDetail(tr.dataset.id);
+    });
+  });
+  tbody.querySelectorAll(".btn-detail").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showCountryDetail(btn.dataset.id);
+    });
+  });
+}
+
+// ==================== DETAIL VIEW ====================
+function showCountryDetail(id) {
+  const c = countries.find(x => x.id === id);
+  if (!c) return;
+
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById("countryDetail").classList.add("active");
+
+  const content = document.getElementById("detailContent");
+
+  // Flag
+  const flagSrc = (c.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c.flag]) ? FLAG_DATA[c.flag] : (c.flag || '');
+  const flagHtml = flagSrc 
+    ? `<img src="${flagSrc}" alt="Флаг ${c.name}" class="detail-flag">` 
+    : "";
+
+  // Manpower note
+  const manpowerNote = c.manpower.note ? `<div class="stat-note">${c.manpower.note}</div>` : "";
+
+  // Build Land card
+  let landHtml = `
+    <div class="detail-card">
+      <h3>Сухопутные войска</h3>
+      <div class="stat-row"><span class="label">Танки ${c.land.tanksNote ? '— ' + c.land.tanksNote : ''}</span><span class="value">${formatNumber(c.land.tanks || 0)}</span></div>
+      <div class="stat-row"><span class="label">БМП / БТР ${c.land.bmpBtrNote ? '— ' + c.land.bmpBtrNote : ''}</span><span class="value">${formatNumber(c.land.bmpBtr || 0)}</span></div>
+      <div class="stat-row"><span class="label">Бронемашины</span><span class="value">${formatNumber(c.land.armored || 0)}</span></div>
+      <div class="stat-row"><span class="label">Артиллерия ${c.land.artilleryNote ? '— ' + c.land.artilleryNote : ''}</span><span class="value">${formatNumber(c.land.artillery || 0)}</span></div>
+      <div class="stat-row"><span class="label">РСЗО</span><span class="value">${formatNumber(c.land.mlrs || 0)}</span></div>
+      ${c.land.sau ? `<div class="stat-row"><span class="label">САУ</span><span class="value">${formatNumber(c.land.sau)}</span></div>` : ""}
+      ${c.land.pvo ? `<div class="stat-row"><span class="label">ПВО / ПРО</span><span class="value">${formatNumber(c.land.pvo)}</span></div>` : ""}
+    </div>`;
+
+  // Build Air card (adaptive)
+  let airHtml = `<div class="detail-card"><h3>Военно-воздушные силы / Luftwaffe</h3>`;
+  if (c.air.carrierAircraft) {
+    airHtml += `
+      <div class="stat-row"><span class="label">Палубные самолёты ${c.air.carrierAircraftNote ? '— ' + c.air.carrierAircraftNote : ''}</span><span class="value">${formatNumber(c.air.carrierAircraft)}</span></div>
+      <div class="stat-row"><span class="label">Многоцелевые истребители</span><span class="value">${formatNumber(c.air.multiRole || 0)}</span></div>
+      <div class="stat-row"><span class="label">Транспортные самолёты</span><span class="value">${formatNumber(c.air.transport || 0)}</span></div>
+      <div class="stat-row"><span class="label">Боевые ракеты</span><span class="value">${formatNumber(c.air.missiles || 0)}</span></div>
+      <div class="stat-row"><span class="label">Разведывательные БПЛА</span><span class="value">${formatNumber(c.air.uavRecon || 0)}</span></div>
+      <div class="stat-row"><span class="label">Крупные боевые БПЛА</span><span class="value">${formatNumber(c.air.uavLarge || 0)}</span></div>
+      <div class="stat-row"><span class="label">Малые боевые БПЛА</span><span class="value">${formatNumber(c.air.uavSmall || 0)}+</span></div>
+      <div class="stat-row"><span class="label">Спутники</span><span class="value">${formatNumber(c.air.satellites || 0)}</span></div>
+      <div class="stat-row"><span class="label">Пункты радиопередачи</span><span class="value">${formatNumber(c.air.radioPoints || 0)}</span></div>
+    `;
+  } else {
+    if (c.air.totalAircraft) {
+      airHtml += `<div class="stat-row"><span class="label">Авиация (всего, типы не указаны)</span><span class="value">${formatNumber(c.air.totalAircraft)}</span></div>`;
+    }
+    airHtml += `
+      <div class="stat-row"><span class="label">БПЛА / дроны ${c.air.uavNote ? '— ' + c.air.uavNote : ''}</span><span class="value">${formatNumber(c.air.uav || 0)}</span></div>
+      ${c.air.fighters ? `<div class="stat-row"><span class="label">Истребители ${c.air.fightersNote ? '— ' + c.air.fightersNote : ''}</span><span class="value">${formatNumber(c.air.fighters)}</span></div>` : ""}
+      ${c.air.bombers ? `<div class="stat-row"><span class="label">Бомбардировщики</span><span class="value">${formatNumber(c.air.bombers)}</span></div>` : ""}
+      ${c.air.helicopters ? `<div class="stat-row"><span class="label">Вертолёты ${c.air.helicoptersNote ? '— ' + c.air.helicoptersNote : ''}</span><span class="value">${formatNumber(c.air.helicopters)}</span></div>` : ""}
+      ${c.air.satellites ? `<div class="stat-row"><span class="label">Спутники</span><span class="value">${formatNumber(c.air.satellites)}</span></div>` : ""}
+      ${c.air.shaheds ? `<div class="stat-row"><span class="label">Shahed</span><span class="value">${formatNumber(c.air.shaheds)}</span></div>` : ""}
+      ${c.air.kamikaze ? `<div class="stat-row"><span class="label">Камикадзе-дроны</span><span class="value">${formatNumber(c.air.kamikaze)}</span></div>` : ""}
+      ${c.air.antiraket ? `<div class="stat-row"><span class="label">«Антиракет» (уник.)</span><span class="value">${formatNumber(c.air.antiraket)}</span></div>` : ""}
+    `;
+  }
+  airHtml += `</div>`;
+
+  // Build Navy card
+  let navyHtml = `<div class="detail-card"><h3>Военно-морской флот / Kriegsmarine</h3>`;
+  if (c.navy.cruisersNote || c.navy.minesweepers) {
+    navyHtml += `
+      <div class="stat-row"><span class="label">Крейсеры ${c.navy.cruisersNote ? '— ' + c.navy.cruisersNote : ''}</span><span class="value">${formatNumber(c.navy.cruisers || 0)}</span></div>
+      <div class="stat-row"><span class="label">Фрегаты ${c.navy.frigatesNote ? '— ' + c.navy.frigatesNote : ''}</span><span class="value">${formatNumber(c.navy.frigates || 0)}</span></div>
+      <div class="stat-row"><span class="label">Корветы ${c.navy.corvettesNote ? '— ' + c.navy.corvettesNote : ''}</span><span class="value">${formatNumber(c.navy.corvettes || 0)}</span></div>
+      <div class="stat-row"><span class="label">Тральщики</span><span class="value">${formatNumber(c.navy.minesweepers || 0)}</span></div>
+      <div class="stat-row"><span class="label">Суда снабжения</span><span class="value">${formatNumber(c.navy.supplyShips || 0)}</span></div>
+      <div class="stat-row"><span class="label">Подводные лодки</span><span class="value">${formatNumber(c.navy.ballisticSubs || 0)}</span></div>
+    `;
+  } else {
+    if (c.navy.totalShips) {
+      navyHtml += `<div class="stat-row"><span class="label">Корабли (всего, типы не указаны)</span><span class="value">${formatNumber(c.navy.totalShips)}</span></div>`;
+    }
+    navyHtml += `
+      ${c.navy.ballisticSubs ? `<div class="stat-row"><span class="label">Подводные лодки</span><span class="value">${formatNumber(c.navy.ballisticSubs)}</span></div>` : ""}
+      ${c.navy.carriers ? `<div class="stat-row"><span class="label">Авианосцы</span><span class="value">${formatNumber(c.navy.carriers)}</span></div>` : ""}
+      ${c.navy.battleships ? `<div class="stat-row"><span class="label">Линкоры</span><span class="value">${formatNumber(c.navy.battleships)}</span></div>` : ""}
+      ${c.navy.cruisers ? `<div class="stat-row"><span class="label">Крейсеры</span><span class="value">${formatNumber(c.navy.cruisers)}</span></div>` : ""}
+      ${c.navy.destroyers ? `<div class="stat-row"><span class="label">Эсминцы</span><span class="value">${formatNumber(c.navy.destroyers)}</span></div>` : ""}
+      ${c.navy.corvettes ? `<div class="stat-row"><span class="label">Корветы</span><span class="value">${formatNumber(c.navy.corvettes)}</span></div>` : ""}
+      ${c.navy.frigates ? `<div class="stat-row"><span class="label">Фрегаты</span><span class="value">${formatNumber(c.navy.frigates)}</span></div>` : ""}
+      ${c.navy.boats ? `<div class="stat-row"><span class="label">Катера</span><span class="value">${formatNumber(c.navy.boats)}</span></div>` : ""}
+      ${c.navy.landing ? `<div class="stat-row"><span class="label">Десантные корабли</span><span class="value">${formatNumber(c.navy.landing)}</span></div>` : ""}
+    `;
+  }
+  navyHtml += `</div>`;
+
+  // Logistics card if exists
+  let logisticsHtml = "";
+  if (c.logistics) {
+    logisticsHtml = `
+      <div class="detail-card">
+        <h3>Логистика и инфраструктура</h3>
+        ${c.logistics.hubs ? `<div class="stat-row"><span class="label">Логистические хабы</span><span class="value">${formatNumber(c.logistics.hubs)}+</span></div>` : ""}
+        ${c.logistics.supplyVehicles ? `<div class="stat-row"><span class="label">Транспорт снабжения</span><span class="value">${formatNumber(c.logistics.supplyVehicles)}+</span></div>` : ""}
+        ${c.logistics.equipmentSets ? `<div class="stat-row"><span class="label">Комплекты экипировки</span><span class="value">${formatNumber(c.logistics.equipmentSets)}+</span></div>` : ""}
+        ${c.logistics.bases ? `<div class="stat-row"><span class="label">Военные базы</span><span class="value">${formatNumber(c.logistics.bases)}+</span></div>` : ""}
+        ${c.logistics.repairCenters ? `<div class="stat-row"><span class="label">Ремонтные центры</span><span class="value">${formatNumber(c.logistics.repairCenters)}</span></div>` : ""}
+      </div>`;
+  }
+
+  content.innerHTML = `
+    <div class="detail-header">
+      ${flagHtml}
+      <div class="detail-rank" style="color: ${c.rank===1?'#d4a017':c.rank===2?'#a8a8a8':c.rank===3?'#cd7f32':'#e8eef5'}">
+        #${c.rank}
+      </div>
+      <div class="detail-title">
+        <h2>${c.fullName}</h2>
+        <div class="type">${c.type}</div>
+      </div>
+      <div class="detail-index">
+        <div class="label">Индекс Мощи</div>
+        <div class="value">${c.displayIndex}</div>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <h3>Личный состав</h3>
+        <div class="stat-row"><span class="label">Действующая армия</span><span class="value">${formatNumber(c.manpower.active)}</span></div>
+        <div class="stat-row"><span class="label">Резерв</span><span class="value">${formatNumber(c.manpower.reserve)}</span></div>
+        <div class="stat-row"><span class="label">Всего</span><span class="value">${formatNumber(getTotalManpower(c))}</span></div>
+        ${manpowerNote}
+      </div>
+
+      ${landHtml}
+      ${airHtml}
+      ${navyHtml}
+      ${logisticsHtml}
+    </div>
+  `;
+}
+
+// ==================== COMPARE ====================
+function populateCompareSelects() {
+  const sel1 = document.getElementById("compare1");
+  const sel2 = document.getElementById("compare2");
+  sel1.innerHTML = "";
+  sel2.innerHTML = "";
+
+  countries.forEach(c => {
+    const opt1 = document.createElement("option");
+    opt1.value = c.id;
+    opt1.textContent = `#${c.rank} ${c.name}`;
+    sel1.appendChild(opt1);
+
+    const opt2 = document.createElement("option");
+    opt2.value = c.id;
+    opt2.textContent = `#${c.rank} ${c.name}`;
+    sel2.appendChild(opt2);
+  });
+
+  // Default different
+  if (countries.length > 1) {
+    sel2.selectedIndex = 1;
+  }
+}
+
+function doCompare() {
+  const id1 = document.getElementById("compare1").value;
+  const id2 = document.getElementById("compare2").value;
+  const c1 = countries.find(x => x.id === id1);
+  const c2 = countries.find(x => x.id === id2);
+
+  if (!c1 || !c2) return;
+
+  const result = document.getElementById("compareResult");
+  result.classList.add("active");
+
+  const flag1 = (c1.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c1.flag]) ? FLAG_DATA[c1.flag] : '';
+  const flag2 = (c2.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c2.flag]) ? FLAG_DATA[c2.flag] : '';
+
+  const categories = [
+    { name: "Индекс Мощи", v1: parseFloat(c1.displayIndex), v2: parseFloat(c2.displayIndex), lowerBetter: true },
+    { name: "Личный состав", v1: getTotalManpower(c1), v2: getTotalManpower(c2) },
+    { name: "Танки", v1: c1.land.tanks || 0, v2: c2.land.tanks || 0 },
+    { name: "БМП / БТР", v1: c1.land.bmpBtr || 0, v2: c2.land.bmpBtr || 0 },
+    { name: "Бронемашины", v1: c1.land.armored || 0, v2: c2.land.armored || 0 },
+    { name: "Артиллерия", v1: c1.land.artillery || 0, v2: c2.land.artillery || 0 },
+    { name: "РСЗО", v1: c1.land.mlrs || 0, v2: c2.land.mlrs || 0 },
+    { name: "ПВО / ПРО", v1: c1.land.pvo || 0, v2: c2.land.pvo || 0 },
+    { name: "Истребители", v1: c1.air.fighters || 0, v2: c2.air.fighters || 0 },
+    { name: "Бомбардировщики", v1: c1.air.bombers || 0, v2: c2.air.bombers || 0 },
+    { name: "Вертолёты", v1: c1.air.helicopters || 0, v2: c2.air.helicopters || 0 },
+    { name: "БПЛА", v1: c1.air.uav || 0, v2: c2.air.uav || 0 },
+    { name: "Подлодки", v1: c1.navy.ballisticSubs || 0, v2: c2.navy.ballisticSubs || 0 },
+    { name: "Авианосцы", v1: c1.navy.carriers || 0, v2: c2.navy.carriers || 0 },
+    { name: "Линкоры", v1: c1.navy.battleships || 0, v2: c2.navy.battleships || 0 },
+    { name: "Крейсеры", v1: c1.navy.cruisers || 0, v2: c2.navy.cruisers || 0 },
+    { name: "Эсминцы", v1: c1.navy.destroyers || 0, v2: c2.navy.destroyers || 0 },
+  ];
+
+  let blocks = '';
+
+  categories.forEach(cat => {
+    let val1 = cat.v1, val2 = cat.v2;
+    let lowerBetter = cat.lowerBetter;
+
+    const disp1 = (typeof val1 === 'number' && !lowerBetter) ? formatNumber(val1) : val1;
+    const disp2 = (typeof val2 === 'number' && !lowerBetter) ? formatNumber(val2) : val2;
+
+    let better1 = lowerBetter ? val1 < val2 : val1 > val2;
+    let better2 = lowerBetter ? val2 < val1 : val2 > val1;
+
+    const maxVal = Math.max(Math.abs(val1), Math.abs(val2), 0.0001);
+    let pct1 = Math.min(100, (Math.abs(val1) / maxVal) * 100);
+    let pct2 = Math.min(100, (Math.abs(val2) / maxVal) * 100);
+
+    let diffText = '';
+    if (typeof val1 === 'number' && typeof val2 === 'number' && !lowerBetter) {
+      const d = val1 - val2;
+      if (d > 0) diffText = '<span class="diff-pos">+' + formatNumber(d) + '</span>';
+      else if (d < 0) diffText = '<span class="diff-neg">' + formatNumber(d) + '</span>';
+      else diffText = '<span class="diff-eq">0</span>';
+    } else if (lowerBetter) {
+      const d = (val1 - val2).toFixed(4);
+      if (val1 < val2) diffText = '<span class="diff-pos">' + d + '</span>';
+      else if (val1 > val2) diffText = '<span class="diff-neg">+' + Math.abs(parseFloat(d)).toFixed(4) + '</span>';
+      else diffText = '<span class="diff-eq">0</span>';
+    }
+
+    blocks += `
+      <div class="cmp-block">
+        <div class="cmp-title">${cat.name}</div>
+        <div class="cmp-row">
+          <div class="cmp-side left ${better1 ? 'better' : ''}">
+            <div class="cmp-value">${disp1}</div>
+            <div class="cmp-bar-wrap"><div class="cmp-bar blue" style="width:${pct1}%"></div></div>
+          </div>
+          <div class="cmp-diff">${diffText}</div>
+          <div class="cmp-side right ${better2 ? 'better' : ''}">
+            <div class="cmp-value">${disp2}</div>
+            <div class="cmp-bar-wrap"><div class="cmp-bar red" style="width:${pct2}%"></div></div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  result.innerHTML = `
+    <div class="cmp-header">
+      <div class="cmp-country left">
+        ${flag1 ? '<img src="' + flag1 + '" class="cmp-flag">' : ''}
+        <div>
+          <div class="cmp-name">${c1.name}</div>
+          <div class="cmp-rank">#${c1.rank} · Индекс ${c1.displayIndex}</div>
+        </div>
+      </div>
+      <div class="cmp-vs">VS</div>
+      <div class="cmp-country right">
+        <div>
+          <div class="cmp-name">${c2.name}</div>
+          <div class="cmp-rank">#${c2.rank} · Индекс ${c2.displayIndex}</div>
+        </div>
+        ${flag2 ? '<img src="' + flag2 + '" class="cmp-flag">' : ''}
+      </div>
+    </div>
+    <div class="cmp-legend">
+      <span class="leg-blue"></span> ${c1.name}
+      <span class="leg-red"></span> ${c2.name}
+    </div>
+    <div class="cmp-body">${blocks}</div>
+  `;
+}
+
+// ==================== NAVIGATION & EVENTS ====================
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const section = btn.dataset.section;
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.getElementById(section).classList.add("active");
+
+    if (section === "compare") {
+      populateCompareSelects();
+    }
+  });
+});
+
+document.getElementById("backToRanking").addEventListener("click", () => {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById("ranking").classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('.nav-btn[data-section="ranking"]').classList.add("active");
+});
+
+document.getElementById("doCompare").addEventListener("click", doCompare);
+
+// Search
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  const filtered = countries.filter(c => 
+    c.name.toLowerCase().includes(q) || 
+    c.fullName.toLowerCase().includes(q) ||
+    c.type.toLowerCase().includes(q)
+  );
+  renderRanking(filtered);
+});
+
+// Sort
+document.getElementById("sortSelect").addEventListener("change", (e) => {
+  const val = e.target.value;
+  let sorted = [...countries];
+
+  if (val === "index") {
+    sorted.sort((a, b) => a.rank - b.rank);
+  } else if (val === "manpower") {
+    sorted.sort((a, b) => getTotalManpower(b) - getTotalManpower(a));
+  } else if (val === "tanks") {
+    sorted.sort((a, b) => b.land.tanks - a.land.tanks);
+  } else if (val === "aircraft") {
+    sorted.sort((a, b) => getTotalAircraft(b) - getTotalAircraft(a));
+  } else if (val === "navy") {
+    sorted.sort((a, b) => getTotalNavy(b) - getTotalNavy(a));
+  }
+
+  renderRanking(sorted);
+});
+
+// Init
+renderRanking();
+populateCompareSelects();
+
+</script>
+</body></html>
