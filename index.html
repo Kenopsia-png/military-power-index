@@ -1573,7 +1573,7 @@ countries.forEach(c => {
 
 // Предпочтительный порядок рейтинга (по запросу):
 // 1. ШИ  2. Византия  3. КНР  4. Харизма  5. ТНР  6. Индрландия
-const preferredOrder = ["shi", "byzantium", "knr", "charisma", "tnr", "indirland"];
+const preferredOrder = ["shi", "byzantium", "charisma", "knr", "tnr", "indirland"];
 countries.sort((a, b) => preferredOrder.indexOf(a.id) - preferredOrder.indexOf(b.id));
 
 // Assign ranks according to preferred order
@@ -1582,7 +1582,7 @@ countries.forEach((c, i) => {
 });
 
 // Display index (lower = stronger), based on rank position
-const indexValues = [0.1000, 0.2474, 0.3562, 0.4015, 0.5777, 0.6881];
+const indexValues = [0.1000, 0.2474, 0.3756, 0.3998, 0.4570, 0.6881];
 countries.forEach((c, i) => {
   c.displayIndex = indexValues[i].toFixed(4);
 });
