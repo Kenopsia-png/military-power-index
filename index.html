@@ -1349,37 +1349,36 @@ const countries = [
     strength: "Быстрый рост ВПК, авианосцы, линкоры, «Антиракет». Заметный прогресс по всем направлениям.",
     weakness: "Всё ещё относительно мало ПВО/ПРО и личного состава по сравнению с лидерами.",
     manpower: { 
-      active: 100000, 
+      active: 90000, 
       reserve: 0,
-      note: "100 000 солдат"
+      note: "90000 солдат, с учетом пострадавших в войне"
     },
     land: {
-      tanks: 2450,
-      bmpBtr: 984,
+      tanks: 3450,
+      bmpBtr: 4450,
       bmpBtrNote: "БТР",
       armored: 1450,
-      artillery: 500,
+      artillery: 625,
       mlrs: 0,
       sau: 0,
-      pvo: 16
+      pvo: 40
     },
     air: {
-      fighters: 350,
-      bombers: 30,
-      helicopters: 550,
-      transport: 155,
+      fighters: 700,
+      bombers: 33,
+      helicopters: 750,
+      transport: 405,
       uav: 0,
       shaheds:410,
-      kamikaze: 590,
+      kamikaze: 10590,
       satellites: 0,
       antiraket: 5,
-      pro: 16
     },
     navy: {
       ballisticSubs: 5,
       carriers: 4,
       battleships: 70,
-      cruisers: 65,
+      cruisers: 245,
       destroyers: 0,
       corvettes: 0,
       frigates: 0,
@@ -1389,7 +1388,7 @@ const countries = [
     },
     logistics: {
       bases: 0,
-      supplyVehicles: 0,
+      supplyVehicles: 3765,
       note: "6 авиационно-военных заводов, 2 тяжёлых военных завода, заводы снабжения"
     }
   },
@@ -1575,7 +1574,7 @@ countries.forEach(c => {
 
 // Предпочтительный порядок рейтинга (по запросу):
 // 1. ШИ  2. Византия  3. КНР  4. Харизма  5. ТНР  6. Индрландия
-const preferredOrder = ["shi", "byzantium", "charisma", "knr", "tnr", "indirland"];
+const preferredOrder = ["shi", "charisma", "byzantium", "knr", "tnr", "indirland"];
 countries.sort((a, b) => preferredOrder.indexOf(a.id) - preferredOrder.indexOf(b.id));
 
 // Assign ranks according to preferred order
@@ -1584,7 +1583,7 @@ countries.forEach((c, i) => {
 });
 
 // Display index (lower = stronger), based on rank position
-const indexValues = [0.1000, 0.2474, 0.3756, 0.3998, 0.4570, 0.6881];
+const indexValues = [0.1000, 0.2474, 0.2780, 0.3000, 0.4570, 0.6881];
 countries.forEach((c, i) => {
   c.displayIndex = indexValues[i].toFixed(4);
 });
