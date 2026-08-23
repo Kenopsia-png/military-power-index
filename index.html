@@ -1174,60 +1174,61 @@ const countries = [
     strength: "Огромная масса войск, артиллерии, авиации, БПЛА и логистики. Способна вести масштабную и продолжительную войну.",
     weakness: "Ранее отсутствовали подлодки (теперь 30 единиц).",
     manpower: { 
-      active: 1000000, 
-      reserve: 600000,
-      note: "1 000 000 действующих + 600 000 резерв = 1 600 000"
+      active: 2000000, 
+      reserve: 0,
+      note: "2 000 000 действующих с переведенными резервами"
     },
     land: {
-      tanks: 10950,
+      tanks: 29900,
       tanksNote: "Karakal 2-140",
-      bmpBtr: 25000,
+      bmpBtr: 90000,
       bmpBtrNote: "SpPz-75, Karaket",
-      armored: 80250,
-      artillery: 105000,
-      mlrs: 9130,
-      sau: 0,
-      pvo: 4610
+      armored: 300000,
+      artillery: 250000,
+      mlrs: 30200,
+      sau: 9600,
+      pvo: 13000,
+      pvoNote: "ПВО: 9000, ПРО:4000"
     },
     air: {
       carrierAircraft: 5100,
       carrierAircraftNote: "Ho 210 V1 (палубные)",
-      multiRole: 3250,
+      multiRole: 9000,
       multiRoleNote: "многоцелевые истребители",
-      transport: 305,
-      fighters: 0,
+      transport: 1200,
+      fighters: 6000,
       bombers: 0,
       interceptors: 0,
-      helicopters: 4130,
-      missiles: 11000,
-      uavRecon: 3025,
-      uavLarge: 4000,
-      uavSmall: 400000,
-      satellites: 60,
-      radioPoints: 5000
+      helicopters: 7000,
+      missiles: 66000,
+      uavRecon: 14025,
+      uavLarge: 15000,
+      uavSmall: 1500000,
+      satellites: 90,
+      radioPoints: 9000
     },
     navy: {
-      ballisticSubs: 30,
+      ballisticSubs: 90,
       carriers: 0,
       battleships: 0,
-      cruisers: 750,
+      cruisers: 3000,
       cruisersNote: "Ragnarök",
-      frigates: 310,
+      frigates: 300,
       frigatesNote: "Hessen-Type",
-      corvettes: 100,
+      corvettes: 500,
       corvettesNote: "Braunschweig-Type",
-      minesweepers: 100,
-      supplyShips: 1500,
+      minesweepers: 300,
+      supplyShips: 5000,
       destroyers: 0,
       landing: 0,
       recon: 0
     },
     logistics: {
-      hubs: 600,
-      supplyVehicles: 25000,
-      equipmentSets: 5500000,
-      bases: 300,
-      repairCenters: 750
+      hubs: 1000,
+      supplyVehicles: 80000,
+      equipmentSets: 9000000,
+      bases: 500,
+      repairCenters: 900
     }
   },
   {
@@ -1583,7 +1584,7 @@ countries.forEach((c, i) => {
 });
 
 // Display index (lower = stronger), based on rank position
-const indexValues = [0.1000, 0.2500, 0.2540, 0.3000, 0.4570, 0.6881];
+const indexValues = [0.0720, 0.2500, 0.2540, 0.3000, 0.4570, 0.6881];
 countries.forEach((c, i) => {
   c.displayIndex = indexValues[i].toFixed(4);
 });
