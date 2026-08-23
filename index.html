@@ -1241,46 +1241,46 @@ const countries = [
     strength: "Огромный флот (323 крейсера + 123 подлодки), сильная авиация и 10 000 БПЛА Bayraktar. Хорошо сбалансированная армия с элитными легионами.",
     weakness: "Значительно уступает ШИ по артиллерии, РСЗО и общей массе сухопутных войск. Меньше логистических возможностей.",
     manpower: { 
-      active: 200200, 
+      active: 320200, 
       reserve: 0,
-      note: "6 легионов: Lec I Naropol (40k, 20k элиты), Lec II Roma, Lec III Costantinopoli, Lec IV Hispana, Lec V Egitto-Sparta (40k элиты) + 200 солдат."
+      note: "8 легионов по 40тыс: Lec I Naropol (40k, 20k элиты), Lec II Roma, Lec III Costantinopoli, Lec IV Hispana, Lec V Egitto-Sparta (40k элиты) + 200 солдат."
     },
     land: {
-      tanks: 5500,
-      bmpBtr: 3625,
+      tanks: 13800,
+      bmpBtr: 13000,
       bmpBtrNote: "БТР (БМП — 0)",
-      armored: 5650,
-      artillery: 725,
-      mlrs: 125,
-      sau: 0,
-      pvo: 60
+      armored: 14500,
+      artillery: 1600,
+      mlrs: 850,
+      sau: 1600,
+      pvo: 2250
     },
     air: {
-      fighters: 347,
-      bombers: 170,
-      helicopters: 850,
-      uav: 10000,
-      uavNote: "2 000 Bayraktar Akıncı + 8 000 Bayraktar K2",
+      fighters: 775,
+      bombers: 470,
+      helicopters: 2350,
+      uav: 17000,
+      uavNote: 4 000 Bayraktar Akıncı + 13 000 Bayraktar K2",
       satellites: 0,
       shaheds: 0,
       kamikaze: 0
     },
     navy: {
-      ballisticSubs: 123,
+      ballisticSubs: 290,
       carriers: 0,
       battleships: 0,
-      cruisers: 323,
-      destroyers: 150,
+      cruisers: 710,
+      destroyers: 315,
       corvettes: 0,
       frigates: 0,
       landing: 0,
       recon: 0,
-      boats: 140
+      boats: 305
     },
     logistics: {
-      supplyVehicles: 6000,
-      bases: 50,
-      equipmentSets: 600000
+      supplyVehicles: 22000,
+      bases: 160,
+      equipmentSets: 1000000
     }
   },
   {
@@ -1574,7 +1574,7 @@ countries.forEach(c => {
 
 // Предпочтительный порядок рейтинга (по запросу):
 // 1. ШИ  2. Византия  3. КНР  4. Харизма  5. ТНР  6. Индрландия
-const preferredOrder = ["shi", "charisma", "byzantium", "knr", "tnr", "indirland"];
+const preferredOrder = ["shi", "byzantium", "charisma", "knr", "tnr", "indirland"];
 countries.sort((a, b) => preferredOrder.indexOf(a.id) - preferredOrder.indexOf(b.id));
 
 // Assign ranks according to preferred order
