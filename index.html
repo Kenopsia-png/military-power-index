@@ -27,7 +27,11 @@
   --yellow-bar: #c9a227;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
@@ -38,29 +42,41 @@ body {
   overflow-x: hidden;
 }
 
+/* Top blue gradient line like GFP */
 body::before {
   content: '';
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 4px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
   background: linear-gradient(90deg, #0a3d6e 0%, #1e6bb8 30%, #3a8fd6 50%, #1e6bb8 70%, #0a3d6e 100%);
   z-index: 1000;
 }
 
 .background-grid {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-image:
-    linear-gradient(rgba(30,107,184,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(30,107,184,0.025) 1px, transparent 1px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(30, 107, 184, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 184, 0.025) 1px, transparent 1px);
   background-size: 50px 50px;
   pointer-events: none;
   z-index: 0;
 }
 
-.container { max-width:1280px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
 
+/* HEADER */
 .header {
   background: #0d1219;
   border-bottom: 1px solid var(--border);
@@ -69,272 +85,1051 @@ body::before {
   top: 4px;
   z-index: 100;
 }
-.header .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
 
-.logo { display:flex; align-items:center; gap:14px; }
-.logo-icon { font-size:28px; color:var(--accent); }
-.logo-text h1 { font-size:20px; font-weight:700; letter-spacing:1.8px; color:var(--text-primary); text-transform:uppercase; }
-.logo-text .subtitle { font-size:11px; color:var(--text-secondary); letter-spacing:1.2px; text-transform:uppercase; margin-top:2px; }
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 
-.nav { display:flex; gap:6px; }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: var(--accent);
+}
+
+.logo-text h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.logo-text .subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  gap: 6px;
+}
+
 .nav-btn {
-  background:transparent; border:1px solid var(--border); color:var(--text-secondary);
-  padding:7px 16px; font-family:inherit; font-size:13px; font-weight:600;
-  cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
-.nav-btn:hover, .nav-btn.active { background:var(--accent); border-color:var(--accent); color:#0b0f14; }
 
-.main { padding:28px 0 60px; min-height:calc(100vh - 140px); }
-.section { display:none; }
-.section.active { display:block; }
-
-.section-header { margin-bottom:22px; border-left:4px solid var(--accent); padding-left:14px; }
-.section-header h2 { font-size:24px; font-weight:700; margin-bottom:4px; letter-spacing:0.5px; text-transform:uppercase; }
-.section-desc { color:var(--text-secondary); font-size:14px; }
-
-.table-controls { display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
-.search-input, .sort-select, .compare-select {
-  background:var(--bg-card); border:1px solid var(--border); color:var(--text-primary);
-  padding:9px 14px; font-family:inherit; font-size:14px; outline:none; transition:border-color 0.2s;
+.nav-btn:hover,
+.nav-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f14;
 }
-.search-input { flex:1; min-width:200px; }
-.search-input:focus, .sort-select:focus, .compare-select:focus { border-color:var(--accent); }
 
-.table-wrapper { overflow-x:auto; border:1px solid var(--border); background:var(--bg-card); }
-.ranking-table { width:100%; border-collapse:collapse; font-size:14px; }
+/* MAIN */
+.main {
+  padding: 28px 0 60px;
+  min-height: calc(100vh - 140px);
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-header {
+  margin-bottom: 22px;
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* TABLE CONTROLS */
+.table-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.sort-select,
+.compare-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input:focus,
+.sort-select:focus,
+.compare-select:focus {
+  border-color: var(--accent);
+}
+
+/* TABLE - GFP style */
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
 .ranking-table th {
-  background:#0a1018; color:var(--accent); font-weight:700; text-transform:uppercase;
-  letter-spacing:0.9px; font-size:11px; padding:12px 14px; text-align:left;
-  border-bottom:2px solid var(--accent); white-space:nowrap;
+  background: #0a1018;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  font-size: 11px;
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--accent);
+  white-space: nowrap;
 }
-.ranking-table td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
-.ranking-table tbody tr { transition:background 0.15s; cursor:pointer; }
-.ranking-table tbody tr:hover { background:var(--bg-card-hover); }
-.ranking-table tbody tr:last-child td { border-bottom:none; }
 
+.ranking-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.ranking-table tbody tr {
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.ranking-table tbody tr:hover {
+  background: var(--bg-card-hover);
+}
+
+.ranking-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Yellow rank bar style */
 .rank-badge {
-  display:inline-flex; align-items:center; justify-content:center; min-width:36px; height:28px;
-  padding:0 8px; font-weight:700; font-size:15px; background:var(--accent); color:#0b0f14; border-radius:2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 28px;
+  padding: 0 8px;
+  font-weight: 700;
+  font-size: 15px;
+  background: var(--accent);
+  color: #0b0f14;
+  border-radius: 2px;
 }
-.rank-1 { background:#d4a017; color:#0b0f14; }
-.rank-2 { background:#a8a8a8; color:#0b0f14; }
-.rank-3 { background:#cd7f32; color:#0b0f14; }
-.rank-other { background:#2a3545; color:var(--text-primary); }
 
-.country-cell { display:flex; align-items:center; gap:14px; }
+.rank-1 { background: #d4a017; color: #0b0f14; }
+.rank-2 { background: #a8a8a8; color: #0b0f14; }
+.rank-3 { background: #cd7f32; color: #0b0f14; }
+.rank-other { background: #2a3545; color: var(--text-primary); }
+
+.country-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 
 .flag-img {
-  width:48px; height:32px; object-fit:cover; border:1px solid #333;
-  border-radius:2px; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,0.4);
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
+
 .flag-placeholder {
-  width:48px; height:32px; background:#1a2330; display:flex; align-items:center;
-  justify-content:center; font-weight:700; font-size:18px; color:var(--text-secondary);
-  border-radius:2px; flex-shrink:0; border:1px solid var(--border);
+  width: 48px;
+  height: 32px;
+  background: #1a2330;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
 }
 
-.detail-flag { width:96px; height:64px; object-fit:cover; border:2px solid #333; border-radius:3px; box-shadow:0 4px 16px rgba(0,0,0,0.5); }
+.detail-flag {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid #333;
+  border-radius: 3px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
 
-.country-name { font-weight:700; font-size:15px; letter-spacing:0.3px; }
-.country-type { font-size:12px; color:var(--text-secondary); margin-top:2px; }
+.country-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
 
-.index-value { font-family:'Share Tech Mono',monospace; font-size:16px; color:var(--accent-light); font-weight:700; }
-.stat-value { font-family:'Share Tech Mono',monospace; color:var(--text-primary); font-weight:600; }
+.country-type {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.index-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.stat-value {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text-primary);
+  font-weight: 600;
+}
 
 .btn-detail {
-  background:transparent; border:1px solid var(--accent); color:var(--accent);
-  padding:5px 12px; font-size:11px; font-family:inherit; font-weight:600;
-  cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-.btn-detail:hover { background:var(--accent); color:#0b0f14; }
 
-.back-btn {
-  background:transparent; border:1px solid var(--border); color:var(--text-secondary);
-  padding:8px 16px; font-family:inherit; font-size:13px; cursor:pointer;
-  margin-bottom:22px; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px;
+.btn-detail:hover {
+  background: var(--accent);
+  color: #0b0f14;
 }
-.back-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+/* DETAIL PAGE */
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 22px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 .detail-header {
-  display:flex; align-items:center; gap:24px; margin-bottom:28px; flex-wrap:wrap;
-  background:var(--bg-card); border:1px solid var(--border); border-left:5px solid var(--accent);
-  padding:20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  padding: 20px 24px;
 }
-.detail-rank { font-size:42px; font-weight:700; line-height:1; min-width:60px; color:var(--accent); }
-.detail-title h2 { font-size:28px; margin-bottom:4px; letter-spacing:0.5px; }
-.detail-title .type { color:var(--text-secondary); font-size:14px; }
+
+.detail-rank {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 60px;
+  color: var(--accent);
+}
+
+.detail-title h2 {
+  font-size: 28px;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.detail-title .type {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
 .detail-index {
-  margin-left:auto; text-align:right; background:#0a1018; border:1px solid var(--border);
-  padding:12px 20px; min-width:140px;
+  margin-left: auto;
+  text-align: right;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  min-width: 140px;
 }
-.detail-index .label { font-size:11px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; }
-.detail-index .value { font-family:'Share Tech Mono',monospace; font-size:26px; color:var(--accent-light); font-weight:700; }
 
-.detail-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-bottom:28px; }
-.detail-card { background:var(--bg-card); border:1px solid var(--border); border-top:3px solid var(--accent); padding:18px; }
-.detail-card h3 { font-size:13px; text-transform:uppercase; letter-spacing:1.1px; color:var(--accent); margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border); font-weight:700; }
-.stat-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(28,37,48,0.7); font-size:13px; }
-.stat-row:last-child { border-bottom:none; }
-.stat-row .label { color:var(--text-secondary); }
-.stat-row .value { font-family:'Share Tech Mono',monospace; font-weight:700; color:var(--text-primary); }
-.stat-note { margin-top:10px; font-size:12px; color:var(--text-secondary); font-style:italic; line-height:1.4; }
+.detail-index .label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-.strengths-weaknesses { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
-.sw-card { background:var(--bg-card); border:1px solid var(--border); padding:18px; }
-.sw-card h3 { font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-weight:700; }
-.sw-card.strengths { border-top:3px solid #4a9c2c; }
-.sw-card.strengths h3 { color:#6bc93a; }
-.sw-card.weaknesses { border-top:3px solid var(--danger); }
-.sw-card.weaknesses h3 { color:#e05545; }
-.sw-card p { color:var(--text-secondary); font-size:13px; line-height:1.6; }
+.detail-index .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 26px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
 
-.compare-controls { display:flex; align-items:center; gap:14px; margin-bottom:28px; flex-wrap:wrap; }
-.compare-select { min-width:220px; }
-.vs { font-weight:700; font-size:16px; color:var(--accent); }
-.btn-primary { background:var(--accent); border:none; color:#0b0f14; padding:9px 22px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:0.6px; transition:background 0.2s; }
-.btn-primary:hover { background:var(--accent-light); }
-.compare-result { display:none; }
-.compare-result.active { display:block; }
-.compare-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:0; background:var(--bg-card); border:1px solid var(--border); }
-.compare-col { padding:22px; }
-.compare-col.left { border-right:1px solid var(--border); }
-.compare-col.right { border-left:1px solid var(--border); }
-.compare-col h3 { font-size:18px; margin-bottom:6px; }
-.compare-col .index { font-family:'Share Tech Mono',monospace; color:var(--accent-light); font-size:16px; margin-bottom:18px; font-weight:700; }
-.compare-middle { display:flex; flex-direction:column; justify-content:center; padding:0 10px; background:#0a1018; min-width:130px; }
-.compare-middle .cat { font-size:10px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-secondary); text-align:center; padding:7px 0; border-bottom:1px solid var(--border); }
-.compare-stat { display:flex; justify-content:space-between; padding:5px 0; font-size:13px; border-bottom:1px solid rgba(28,37,48,0.5); }
-.compare-stat .winner { color:var(--accent-light); font-weight:700; }
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
 
-.about-content { background:var(--bg-card); border:1px solid var(--border); border-left:4px solid var(--accent); padding:26px; max-width:800px; }
-.about-content p { margin-bottom:12px; color:var(--text-secondary); line-height:1.7; }
-.about-content h3 { margin:18px 0 10px; color:var(--accent); font-size:14px; text-transform:uppercase; letter-spacing:0.8px; }
-.score-list { list-style:none; margin-bottom:18px; }
-.score-list li { padding:5px 0; color:var(--text-secondary); font-size:13px; border-bottom:1px solid rgba(28,37,48,0.5); }
-.score-list li::before { content:"▸ "; color:var(--accent); }
-.note { margin-top:20px; font-size:12px; color:#667; font-style:italic; }
+.detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  padding: 18px;
+}
 
-.footer { border-top:1px solid var(--border); padding:18px 0; text-align:center; color:var(--text-secondary); font-size:12px; letter-spacing:0.5px; }
+.detail-card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+}
 
-.coalition-layout { display:grid; grid-template-columns:300px 1fr; gap:18px; align-items:start; }
-.coalition-panel { background:var(--bg-card); border:1px solid var(--border); padding:16px; position:sticky; top:88px; }
-.coalition-panel h3 { font-size:15px; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-.coalition-side { border:1px solid var(--border); margin-bottom:14px; background:#0d1219; }
-.coalition-side.blue { border-top:4px solid #1e6bb8; }
-.coalition-side.red { border-top:4px solid #c44536; }
-.coalition-side-title { padding:9px 11px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; }
-.coalition-side.blue .coalition-side-title { color:#5ba8ed; }
-.coalition-side.red .coalition-side-title { color:#ef6a5a; }
-.coalition-picker { display:flex; gap:7px; padding:0 10px 10px; }
-.coalition-picker select { flex:1; min-width:0; background:#11161d; border:1px solid var(--border); color:var(--text-primary); padding:8px; font-family:inherit; }
-.coalition-add { border:1px solid currentColor; background:transparent; padding:0 10px; font-family:inherit; font-weight:700; cursor:pointer; }
-.coalition-side.blue .coalition-add { color:#5ba8ed; }
-.coalition-side.red .coalition-add { color:#ef6a5a; }
-.coalition-members { padding:0 10px 10px; }
-.coalition-member { display:flex; align-items:center; gap:7px; padding:6px 7px; border-top:1px solid var(--border); font-size:13px; }
-.coalition-member .remove { margin-left:auto; border:0; background:transparent; color:var(--text-secondary); cursor:pointer; font-size:16px; }
-.coalition-actions { display:grid; gap:8px; }
-.coalition-actions button { width:100%; }
-.coalition-help { color:var(--text-secondary); font-size:12px; line-height:1.45; margin-top:10px; }
-.coalition-result { background:var(--bg-card); border:1px solid var(--border); }
-.coalition-result-head { display:grid; grid-template-columns:1fr 80px 1fr; align-items:center; border-bottom:1px solid var(--border); }
-.coalition-head-side { padding:17px 20px; }
-.coalition-head-side.blue { background:linear-gradient(90deg,rgba(30,107,184,.28),transparent); }
-.coalition-head-side.red { text-align:right; background:linear-gradient(270deg,rgba(196,69,54,.28),transparent); }
-.coalition-head-side h3 { font-size:18px; margin-bottom:3px; }
-.coalition-head-side p { color:var(--text-secondary); font-size:12px; }
-.coalition-members-line { font-size:12px; color:var(--text-secondary); margin-top:4px; }
-.coalition-stat { padding:12px 16px; border-bottom:1px solid rgba(28,37,48,.75); }
-.coalition-stat:last-child { border-bottom:0; }
-.coalition-stat-title { text-align:center; color:var(--accent); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; margin-bottom:7px; }
-.coalition-stat-row { display:grid; grid-template-columns:1fr 90px 1fr; gap:10px; align-items:center; }
-.coalition-value { font-family:'Share Tech Mono',monospace; font-size:15px; font-weight:700; }
-.coalition-value.right { text-align:right; }
-.coalition-value.winner { color:var(--accent-light); }
-.coalition-bars { display:grid; gap:4px; }
-.coalition-bar { height:10px; background:#1a2330; overflow:hidden; border-radius:2px; }
-.coalition-bar > div { height:100%; transition:width .35s ease; }
-.coalition-bar.blue > div { background:linear-gradient(90deg,#0a3d6e,#1e6bb8); }
-.coalition-bar.red > div { background:linear-gradient(90deg,#c44536,#e05545); }
-.coalition-diff { text-align:center; font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text-secondary); }
-.coalition-winner { margin:14px 16px 16px; padding:14px 16px; border:1px solid var(--border); background:#0d1219; text-align:center; font-weight:700; }
-.coalition-note { margin:0 16px 16px; color:var(--text-secondary); font-size:11px; line-height:1.5; text-align:center; }
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(28, 37, 48, 0.7);
+  font-size: 13px;
+}
 
-@media (max-width:900px) { .coalition-layout { grid-template-columns:1fr; } .coalition-panel { position:static; } }
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .label {
+  color: var(--text-secondary);
+}
+
+.stat-row .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.strengths-weaknesses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.sw-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 18px;
+}
+
+.sw-card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.sw-card.strengths {
+  border-top: 3px solid #4a9c2c;
+}
+.sw-card.strengths h3 { color: #6bc93a; }
+
+.sw-card.weaknesses {
+  border-top: 3px solid var(--danger);
+}
+.sw-card.weaknesses h3 { color: #e05545; }
+
+.sw-card p {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* COMPARE */
+.compare-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.compare-select {
+  min-width: 220px;
+}
+
+.vs {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  color: #0b0f14;
+  padding: 9px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+}
+
+.compare-result {
+  display: none;
+}
+
+.compare-result.active {
+  display: block;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.compare-col {
+  padding: 22px;
+}
+
+.compare-col.left {
+  border-right: 1px solid var(--border);
+}
+
+.compare-col.right {
+  border-left: 1px solid var(--border);
+}
+
+.compare-col h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.compare-col .index {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-light);
+  font-size: 16px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.compare-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+  background: #0a1018;
+  min-width: 130px;
+}
+
+.compare-middle .cat {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.compare-stat .winner {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+/* ABOUT */
+.about-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 26px;
+  max-width: 800px;
+}
+
+.about-content p {
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.about-content h3 {
+  margin: 18px 0 10px;
+  color: var(--accent);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.score-list {
+  list-style: none;
+  margin-bottom: 18px;
+}
+
+.score-list li {
+  padding: 5px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.score-list li::before {
+  content: "▸ ";
+  color: var(--accent);
+}
+
+.note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #667;
+  font-style: italic;
+}
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+
+/* ===== SEPARATE COALITION COMPARISON ===== */
+.coalition-layout {
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:18px;
+  align-items:start;
+}
+.coalition-panel {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  padding:16px;
+  position:sticky;
+  top:88px;
+}
+.coalition-panel h3 {
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+.coalition-side {
+  border:1px solid var(--border);
+  margin-bottom:14px;
+  background:#0d1219;
+}
+.coalition-side.blue {border-top:4px solid #1e6bb8}
+.coalition-side.red {border-top:4px solid #c44536}
+.coalition-side-title {
+  padding:9px 11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+.coalition-side.blue .coalition-side-title {color:#5ba8ed}
+.coalition-side.red .coalition-side-title {color:#ef6a5a}
+.coalition-picker {
+  display:flex;
+  gap:7px;
+  padding:0 10px 10px;
+}
+.coalition-picker select {
+  flex:1;
+  min-width:0;
+  background:#11161d;
+  border:1px solid var(--border);
+  color:var(--text-primary);
+  padding:8px;
+  font-family:inherit;
+}
+.coalition-add {
+  border:1px solid currentColor;
+  background:transparent;
+  padding:0 10px;
+  font-family:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+.coalition-side.blue .coalition-add {color:#5ba8ed}
+.coalition-side.red .coalition-add {color:#ef6a5a}
+.coalition-members {padding:0 10px 10px}
+.coalition-member {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 7px;
+  border-top:1px solid var(--border);
+  font-size:13px;
+}
+.coalition-member .remove {
+  margin-left:auto;
+  border:0;
+  background:transparent;
+  color:var(--text-secondary);
+  cursor:pointer;
+  font-size:16px;
+}
+.coalition-actions {display:grid;gap:8px}
+.coalition-actions button {width:100%}
+.coalition-help {
+  color:var(--text-secondary);
+  font-size:12px;
+  line-height:1.45;
+  margin-top:10px;
+}
+.coalition-result {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+}
+.coalition-result-head {
+  display:grid;
+  grid-template-columns:1fr 80px 1fr;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.coalition-head-side {padding:17px 20px}
+.coalition-head-side.blue {
+  background:linear-gradient(90deg,rgba(30,107,184,.28),transparent);
+}
+.coalition-head-side.red {
+  text-align:right;
+  background:linear-gradient(270deg,rgba(196,69,54,.28),transparent);
+}
+.coalition-head-side h3 {font-size:18px;margin-bottom:3px}
+.coalition-head-side p {color:var(--text-secondary);font-size:12px}
+.coalition-members-line {
+  font-size:12px;
+  color:var(--text-secondary);
+  margin-top:4px;
+}
+.coalition-stat {
+  padding:12px 16px;
+  border-bottom:1px solid rgba(28,37,48,.75);
+}
+.coalition-stat:last-child {border-bottom:0}
+.coalition-stat-title {
+  text-align:center;
+  color:var(--accent);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:7px;
+}
+.coalition-stat-row {
+  display:grid;
+  grid-template-columns:1fr 90px 1fr;
+  gap:10px;
+  align-items:center;
+}
+.coalition-value {
+  font-family:'Share Tech Mono',monospace;
+  font-size:15px;
+  font-weight:700;
+}
+.coalition-value.right {text-align:right}
+.coalition-value.winner {color:var(--accent-light)}
+.coalition-bars {
+  display:grid;
+  gap:4px;
+}
+.coalition-bar {
+  height:10px;
+  background:#1a2330;
+  overflow:hidden;
+  border-radius:2px;
+}
+.coalition-bar > div {height:100%;transition:width .35s ease}
+.coalition-bar.blue > div {background:linear-gradient(90deg,#0a3d6e,#1e6bb8)}
+.coalition-bar.red > div {background:linear-gradient(90deg,#c44536,#e05545)}
+.coalition-diff {
+  text-align:center;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;
+  color:var(--text-secondary);
+}
+.coalition-winner {
+  margin:14px 16px 16px;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  background:#0d1219;
+  text-align:center;
+  font-weight:700;
+}
+.coalition-note {
+  margin:0 16px 16px;
+  color:var(--text-secondary);
+  font-size:11px;
+  line-height:1.5;
+  text-align:center;
+}
+@media (max-width:900px) {
+  .coalition-layout {grid-template-columns:1fr}
+  .coalition-panel {position:static}
+}
 @media (max-width:620px) {
-  .coalition-result-head { grid-template-columns:1fr; }
-  .coalition-head-side,.coalition-head-side.red { text-align:center; }
-  .coalition-stat-row { grid-template-columns:1fr; gap:5px; }
-  .coalition-value.right { text-align:left; }
-  .coalition-diff { order:-1; }
+  .coalition-result-head {grid-template-columns:1fr}
+  .coalition-head-side,.coalition-head-side.red {text-align:center}
+  .coalition-stat-row {grid-template-columns:1fr;gap:5px}
+  .coalition-value.right {text-align:left}
+  .coalition-diff {order:-1}
 }
 
-@media (max-width:768px) {
-  .logo-text h1 { font-size:16px; }
-  .flag-img { width:40px; height:27px; }
-  .detail-header { flex-direction:column; align-items:flex-start; }
-  .detail-index { margin-left:0; text-align:left; width:100%; }
-  .detail-flag { width:72px; height:48px; }
-  .strengths-weaknesses { grid-template-columns:1fr; }
-  .compare-grid { grid-template-columns:1fr; }
-  .compare-col.left, .compare-col.right { border:none; border-bottom:1px solid var(--border); }
-  .compare-middle { display:none; }
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .logo-text h1 {
+    font-size: 16px;
+  }
+  
+  .flag-img {
+    width: 40px;
+    height: 27px;
+  }
+  
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .detail-index {
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .detail-flag {
+    width: 72px;
+    height: 48px;
+  }
+  
+  .strengths-weaknesses {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-col.left,
+  .compare-col.right {
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .compare-middle {
+    display: none;
+  }
 }
 
+/* ===== GFP-style Compare ===== */
 .cmp-header {
-  display:flex; align-items:center; justify-content:space-between;
-  background:#0a1018; border:1px solid var(--border); border-bottom:3px solid var(--accent);
-  padding:16px 20px; margin-bottom:12px; gap:12px; flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  border-bottom: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-.cmp-country { display:flex; align-items:center; gap:12px; flex:1; }
-.cmp-country.right { justify-content:flex-end; text-align:right; }
-.cmp-flag { width:56px; height:37px; object-fit:cover; border:1px solid #333; border-radius:2px; }
-.cmp-name { font-size:18px; font-weight:700; letter-spacing:0.3px; }
-.cmp-rank { font-size:12px; color:var(--text-secondary); margin-top:2px; }
-.cmp-vs { font-size:20px; font-weight:700; color:var(--accent); padding:0 10px; }
-.cmp-legend { display:flex; align-items:center; gap:16px; font-size:13px; color:var(--text-secondary); margin-bottom:16px; padding:0 4px; }
-.leg-blue, .leg-red { display:inline-block; width:18px; height:10px; border-radius:2px; margin-right:4px; }
-.leg-blue { background:#1e6bb8; }
-.leg-red { background:#c44536; }
+.cmp-country {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.cmp-country.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+.cmp-flag {
+  width: 56px;
+  height: 37px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+}
+.cmp-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.cmp-rank {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.cmp-vs {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 0 10px;
+}
+.cmp-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+.leg-blue, .leg-red {
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+.leg-blue { background: #1e6bb8; }
+.leg-red { background: #c44536; }
 
-.cmp-body { display:flex; flex-direction:column; gap:10px; }
-.cmp-block { background:var(--bg-card); border:1px solid var(--border); padding:12px 16px; }
-.cmp-title { font-size:12px; text-transform:uppercase; letter-spacing:0.8px; color:var(--accent); font-weight:700; margin-bottom:8px; }
-.cmp-row { display:grid; grid-template-columns:1fr 90px 1fr; gap:10px; align-items:center; }
-.cmp-side { display:flex; flex-direction:column; gap:4px; }
-.cmp-side.left { align-items:flex-start; }
-.cmp-side.right { align-items:flex-end; }
-.cmp-value { font-family:'Share Tech Mono',monospace; font-size:15px; font-weight:700; }
-.cmp-side.better .cmp-value { color:var(--accent-light); }
-.cmp-bar-wrap { width:100%; height:14px; background:#1a2330; border-radius:2px; overflow:hidden; }
-.cmp-bar { height:100%; border-radius:2px; transition:width 0.4s ease; }
-.cmp-bar.blue { background:linear-gradient(90deg,#0a3d6e,#1e6bb8); }
-.cmp-bar.red { background:linear-gradient(90deg,#c44536,#e05545); }
+.cmp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cmp-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+}
+.cmp-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.cmp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cmp-side.left { align-items: flex-start; }
+.cmp-side.right { align-items: flex-end; }
+.cmp-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+}
+.cmp-side.better .cmp-value {
+  color: var(--accent-light);
+}
+.cmp-bar-wrap {
+  width: 100%;
+  height: 14px;
+  background: #1a2330;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cmp-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.cmp-bar.blue { background: linear-gradient(90deg, #0a3d6e, #1e6bb8); }
+.cmp-bar.red { background: linear-gradient(90deg, #c44536, #e05545); }
 
-.cmp-diff { text-align:center; font-family:'Share Tech Mono',monospace; font-size:13px; font-weight:700; }
-.diff-pos { color:#4caf50; }
-.diff-neg { color:#e05545; }
-.diff-eq { color:var(--text-secondary); }
+.cmp-diff {
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+.diff-pos { color: #4caf50; }
+.diff-neg { color: #e05545; }
+.diff-eq { color: var(--text-secondary); }
 
-.history-controls { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+/* PREVIOUS RATINGS */
+.history-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
 .history-year-btn {
-  background:var(--bg-card); border:1px solid var(--border); color:var(--text-secondary);
-  padding:8px 18px; font-family:inherit; font-size:13px; font-weight:700;
-  cursor:pointer; transition:all 0.2s;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.history-year-btn:hover, .history-year-btn.active {
-  background:var(--accent); border-color:var(--accent); color:#0b0f14;
+.history-year-btn:hover,
+.history-year-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f14;
 }
-.history-table .movement { font-family:'Share Tech Mono',monospace; font-weight:800; white-space:nowrap; }
-.history-table .movement.up { color:#4caf50; }
-.history-table .movement.down { color:#e05545; }
-.history-table .movement.same { color:var(--text-secondary); }
-.history-table .history-index { font-family:'Share Tech Mono',monospace; color:var(--accent-light); font-weight:700; }
-.history-table .history-country { display:flex; align-items:center; gap:14px; }
-.history-table .history-flag { width:48px; height:32px; object-fit:cover; border:1px solid #333; border-radius:2px; flex-shrink:0; }
-.history-table .history-placeholder { width:48px; height:32px; display:flex; align-items:center; justify-content:center; background:#1a2330; color:var(--text-secondary); border:1px solid var(--border); border-radius:2px; font-weight:700; flex-shrink:0; }
-.history-note { margin-top:12px; color:var(--text-secondary); font-size:12px; }
-@media (max-width:700px) { .cmp-row { grid-template-columns:1fr; gap:6px; } .cmp-diff { order:-1; } .cmp-side.right { align-items:flex-start; } }
+.history-table .movement {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.history-table .movement.up { color: #4caf50; }
+.history-table .movement.down { color: #e05545; }
+.history-table .movement.same { color: var(--text-secondary); }
+.history-table .history-index {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+.history-table .history-country {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.history-table .history-flag {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.history-table .history-placeholder {
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a2330;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.history-note {
+  margin-top: 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .cmp-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .cmp-diff { order: -1; }
+  .cmp-side.right { align-items: flex-start; }
+}
+
 </style>
 </head>
 <body>
@@ -435,79 +1230,52 @@ body::before {
 </div></main>
 <footer class="footer"><div class="container"><p>Индекс Военной Мощи © 2026</p></div></footer>
 <script>
-// Country data
+// Country data with local flag image references
 const countries = [
-  { id: 'byzantium', name: 'Византия', type: 'Империя', flag: '', index: 0.34, manpower: '245,000', tanks: '3,200', aircraft: '890', navy: '62', strengths: 'Мощный флот, опытные полководцы', weaknesses: 'Устаревшее снаряжение, коррупция' },
-  { id: 'charisma', name: 'Харизма', type: 'Республика', flag: '', index: 0.71, manpower: '180,000', tanks: '1,800', aircraft: '540', navy: '38', strengths: 'Высокий боевой дух, элитные спецподразделения', weaknesses: 'Малая численность армии' },
-  { id: 'indirland', name: 'Индирленд', type: 'Королевство', flag: '', index: 0.55, manpower: '320,000', tanks: '4,100', aircraft: '1,200', navy: '45', strengths: 'Крупная армия, современное вооружение', weaknesses: 'Сложная логистика' },
-  { id: 'knr', name: 'КНР', type: 'Народная республика', flag: '', index: 0.28, manpower: '450,000', tanks: '5,800', aircraft: '2,100', navy: '85', strengths: 'Огромный резерв, развитая промышленность', weaknesses: 'Технологическое отставание в некоторых областях' }
+  { id: 'byzantium', name: 'Византийская империя', type: 'Империя', flag: 'flag-byzantium.png', index: 18.5, manpower: '245,000', tanks: '1,200', aircraft: '480', navy: '95', strengths: 'Сильная экономика, развитая промышленность, мощный флот.', weaknesses: 'Устаревшее вооружение, проблемы с логистикой.' },
+  { id: 'charisma', name: 'Харизма', type: 'Федерация', flag: 'flag-charisma.png', index: 42.3, manpower: '89,000', tanks: '340', aircraft: '120', navy: '25', strengths: 'Высокая мобильность, современные технологии.', weaknesses: 'Малочисленная армия, зависимость от импорта.' },
+  { id: 'indirland', name: 'Индирланд', type: 'Королевство', flag: 'flag-indirland.png', index: 6.8, manpower: '580,000', tanks: '3,200', aircraft: '850', navy: '210', strengths: 'Огромная армия, развитая авиация, ядерный потенциал.', weaknesses: 'Коррупция, устаревшая техника, проблемы с мобилизацией.' },
+  { id: 'knr', name: 'КНР', type: 'Республика', flag: 'flag-knr.png', index: 9.2, manpower: '420,000', tanks: '2,800', aircraft: '920', navy: '180', strengths: 'Современный флот, авиация, кибервойска.', weaknesses: 'Зависимость от ресурсов, недостаток опыта.' }
 ];
 
-const countries2026 = [
-  { id: 'byzantium', rank: 2, index: 0.34 },
-  { id: 'charisma', rank: 4, index: 0.71 },
-  { id: 'indirland', rank: 3, index: 0.55 },
-  { id: 'knr', rank: 1, index: 0.28 }
-];
-
-const historyData = {
-  2036: [
-    { id: 'byzantium', rank: 3, index: 0.42 },
-    { id: 'charisma', rank: 4, index: 0.68 },
-    { id: 'indirland', rank: 2, index: 0.38 },
-    { id: 'knr', rank: 1, index: 0.31 }
-  ],
-  2037: [
-    { id: 'byzantium', rank: 3, index: 0.40 },
-    { id: 'charisma', rank: 4, index: 0.70 },
-    { id: 'indirland', rank: 2, index: 0.36 },
-    { id: 'knr', rank: 1, index: 0.29 }
-  ],
-  2038: [
-    { id: 'byzantium', rank: 2, index: 0.37 },
-    { id: 'charisma', rank: 4, index: 0.72 },
-    { id: 'indirland', rank: 3, index: 0.52 },
-    { id: 'knr', rank: 1, index: 0.27 }
-  ],
-  2039: [
-    { id: 'byzantium', rank: 2, index: 0.35 },
-    { id: 'charisma', rank: 4, index: 0.71 },
-    { id: 'indirland', rank: 3, index: 0.56 },
-    { id: 'knr', rank: 1, index: 0.28 }
-  ],
-  2040: [
-    { id: 'byzantium', rank: 2, index: 0.34 },
-    { id: 'charisma', rank: 4, index: 0.71 },
-    { id: 'indirland', rank: 3, index: 0.55 },
-    { id: 'knr', rank: 1, index: 0.28 }
-  ]
+// Local flag references - using relative paths
+const flagImages = {
+  'byzantium': 'flag-byzantium.png',
+  'charisma': 'flag-charisma.png',
+  'indirland': 'flag-indirland.png',
+  'knr': 'flag-knr.png'
 };
 
-const defaultFlag = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="32" viewBox="0 0 48 32"%3E%3Crect width="48" height="32" fill="%232a3545"/%3E%3Ctext x="24" y="21" font-family="sans-serif" font-size="16" fill="%238a9bb0" text-anchor="middle"%3E%3F%3C/text%3E%3C/svg%3E';
+let currentSort = 'index';
 
-function getFlagHtml(countryId, size = '48') {
-  return `<span style="display:inline-block;width:${size}px;height:${size*0.667}px;background:#2a3545;border:1px solid #333;border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${size*0.375}px;color:#8a9bb0;">${countryId.charAt(0).toUpperCase()}</span>`;
-}
-
-function renderRanking(filter = '', sortBy = 'index') {
-  const tbody = document.getElementById('rankingBody');
-  const sorted = [...countries].sort((a,b) => {
-    if (sortBy === 'index') return a.index - b.index;
-    return parseInt(a[sortBy].replace(/,/g,'')) - parseInt(b[sortBy].replace(/,/g,''));
-  });
-  const filtered = sorted.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()));
-  tbody.innerHTML = filtered.map((c,i) => `
+function renderRanking() {
+  const body = document.getElementById('rankingBody');
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const sorted = [...countries]
+    .filter(c => c.name.toLowerCase().includes(search))
+    .sort((a, b) => {
+      if (currentSort === 'index') return a.index - b.index;
+      if (currentSort === 'manpower') return parseInt(b.manpower.replace(/,/g, '')) - parseInt(a.manpower.replace(/,/g, ''));
+      if (currentSort === 'tanks') return parseInt(b.tanks.replace(/,/g, '')) - parseInt(a.tanks.replace(/,/g, ''));
+      if (currentSort === 'aircraft') return parseInt(b.aircraft.replace(/,/g, '')) - parseInt(a.aircraft.replace(/,/g, ''));
+      if (currentSort === 'navy') return parseInt(b.navy.replace(/,/g, '')) - parseInt(a.navy.replace(/,/g, ''));
+      return 0;
+    });
+  body.innerHTML = sorted.map((c, i) => `
     <tr>
-      <td><span class="rank-badge ${i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-other'}">${i+1}</span></td>
-      <td><div class="country-cell">${getFlagHtml(c.id)}<div><div class="country-name">${c.name}</div><div class="country-type">${c.type}</div></div></div></td>
-      <td class="index-value">${c.index.toFixed(2)}</td>
-      <td class="stat-value">${c.manpower}</td>
-      <td class="stat-value">${c.tanks}</td>
-      <td class="stat-value">${c.aircraft}</td>
-      <td class="stat-value">${c.navy}</td>
-      <td><button class="btn-detail" onclick="showDetail('${c.id}')">Подробнее</button></td>
+      <td><span class="rank-badge ${i < 3 ? 'rank-' + (i+1) : 'rank-other'}">${i + 1}</span></td>
+      <td><div class="country-cell"><img src="${flagImages[c.id] || 'flag-placeholder.png'}" alt="${c.name}" class="flag-img" onerror="this.src='flag-placeholder.png'"><div><div class="country-name">${c.name}</div><div class="country-type">${c.type}</div></div></div></td>
+      <td><span class="index-value">${c.index.toFixed(1)}</span></td>
+      <td><span class="stat-value">${c.manpower}</span></td>
+      <td><span class="stat-value">${c.tanks}</span></td>
+      <td><span class="stat-value">${c.aircraft}</span></td>
+      <td><span class="stat-value">${c.navy}</span></td>
+      <td><button class="btn-detail" data-id="${c.id}">Подробнее</button></td>
     </tr>
   `).join('');
+  document.querySelectorAll('.btn-detail').forEach(btn => {
+    btn.addEventListener('click', () => showDetail(btn.dataset.id));
+  });
 }
 
 function showDetail(id) {
@@ -515,25 +1283,18 @@ function showDetail(id) {
   if (!c) return;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('countryDetail').classList.add('active');
-  const rank = countries2026.find(x => x.id === id)?.rank || '-';
   document.getElementById('detailContent').innerHTML = `
     <div class="detail-header">
-      <div class="detail-rank">#${rank}</div>
-      ${getFlagHtml(c.id, '96')}
+      <div class="detail-rank">#${countries.indexOf(c) + 1}</div>
+      <img src="${flagImages[c.id] || 'flag-placeholder.png'}" alt="${c.name}" class="detail-flag" onerror="this.src='flag-placeholder.png'">
       <div class="detail-title"><h2>${c.name}</h2><div class="type">${c.type}</div></div>
-      <div class="detail-index"><div class="label">Индекс мощи</div><div class="value">${c.index.toFixed(2)}</div></div>
+      <div class="detail-index"><div class="label">Индекс Мощи</div><div class="value">${c.index.toFixed(1)}</div></div>
     </div>
     <div class="detail-grid">
-      <div class="detail-card"><h3>Военная сила</h3>
-        <div class="stat-row"><span class="label">Личный состав</span><span class="value">${c.manpower}</span></div>
-        <div class="stat-row"><span class="label">Танки</span><span class="value">${c.tanks}</span></div>
-        <div class="stat-row"><span class="label">Авиация</span><span class="value">${c.aircraft}</span></div>
-        <div class="stat-row"><span class="label">Флот</span><span class="value">${c.navy}</span></div>
-      </div>
-      <div class="detail-card"><h3>Аналитика</h3>
-        <div class="stat-row"><span class="label">Тип</span><span class="value">${c.type}</span></div>
-        <div class="stat-note">Данные основаны на вымышленных сценариях и не отражают реальную ситуацию.</div>
-      </div>
+      <div class="detail-card"><h3>Личный состав</h3><div class="stat-row"><span class="label">Всего</span><span class="value">${c.manpower}</span></div></div>
+      <div class="detail-card"><h3>Танки</h3><div class="stat-row"><span class="label">Всего</span><span class="value">${c.tanks}</span></div></div>
+      <div class="detail-card"><h3>Авиация</h3><div class="stat-row"><span class="label">Всего</span><span class="value">${c.aircraft}</span></div></div>
+      <div class="detail-card"><h3>Флот</h3><div class="stat-row"><span class="label">Всего</span><span class="value">${c.navy}</span></div></div>
     </div>
     <div class="strengths-weaknesses">
       <div class="sw-card strengths"><h3>Сильные стороны</h3><p>${c.strengths}</p></div>
@@ -542,260 +1303,229 @@ function showDetail(id) {
   `;
 }
 
-function renderHistory(year) {
-  const data = historyData[year];
-  if (!data) return;
-  const tbody = document.getElementById('historyBody');
-  const prev = historyData[year-1] || null;
-  tbody.innerHTML = data.map((item, i) => {
-    let movement = '';
-    if (prev) {
-      const prevRank = prev.find(x => x.id === item.id)?.rank;
-      if (prevRank !== undefined) {
-        const diff = prevRank - item.rank;
-        if (diff > 0) movement = `<span class="movement up">↑ ${diff}</span>`;
-        else if (diff < 0) movement = `<span class="movement down">↓ ${Math.abs(diff)}</span>`;
-        else movement = `<span class="movement same">—</span>`;
-      }
-    } else {
-      movement = `<span class="movement same">—</span>`;
-    }
-    const c = countries.find(x => x.id === item.id);
-    return `<tr>
-      <td>${i+1}</td>
-      <td><div class="history-country">${getFlagHtml(item.id)}<span class="country-name">${c?.name || item.id}</span></div></td>
-      <td class="history-index">${item.index.toFixed(2)}</td>
-      <td>${movement}</td>
-    </tr>`;
-  }).join('');
-}
-
-function renderHistoryYears() {
-  const container = document.getElementById('historyYears');
-  const years = Object.keys(historyData).sort();
-  container.innerHTML = years.map(y => `<button class="history-year-btn${y === '2040' ? ' active' : ''}" data-year="${y}">${y}</button>`).join('');
-  container.querySelectorAll('.history-year-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      container.querySelectorAll('.history-year-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      renderHistory(parseInt(this.dataset.year));
-    });
+function populateCompare() {
+  const s1 = document.getElementById('compare1');
+  const s2 = document.getElementById('compare2');
+  [s1, s2].forEach(sel => {
+    sel.innerHTML = countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
   });
 }
 
-function renderCompareSelects() {
-  const s1 = document.getElementById('compare1');
-  const s2 = document.getElementById('compare2');
-  const opts = countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  s1.innerHTML = opts;
-  s2.innerHTML = opts;
-  s1.value = 'byzantium';
-  s2.value = 'knr';
-}
-
-function renderCompare() {
+function doCompare() {
   const id1 = document.getElementById('compare1').value;
   const id2 = document.getElementById('compare2').value;
-  const c1 = countries.find(x => x.id === id1);
-  const c2 = countries.find(x => x.id === id2);
-  if (!c1 || !c2) return;
-  const r1 = countries2026.find(x => x.id === id1)?.rank || '-';
-  const r2 = countries2026.find(x => x.id === id2)?.rank || '-';
-
-  const max = Math.max(c1.index, c2.index);
-  const bar1 = (c1.index / max * 100).toFixed(0);
-  const bar2 = (c2.index / max * 100).toFixed(0);
-
-  document.getElementById('compareResult').innerHTML = `
+  const a = countries.find(c => c.id === id1);
+  const b = countries.find(c => c.id === id2);
+  if (!a || !b) return;
+  const result = document.getElementById('compareResult');
+  result.classList.add('active');
+  const fields = [
+    { key: 'manpower', label: 'Личный состав' },
+    { key: 'tanks', label: 'Танки' },
+    { key: 'aircraft', label: 'Авиация' },
+    { key: 'navy', label: 'Флот' }
+  ];
+  const stats = fields.map(f => {
+    const av = parseInt(a[f.key].replace(/,/g, ''));
+    const bv = parseInt(b[f.key].replace(/,/g, ''));
+    const diff = av - bv;
+    let winner = 'equal';
+    if (diff > 0) winner = 'left';
+    else if (diff < 0) winner = 'right';
+    return { label: f.key, av: a[f.key], bv: b[f.key], diff, winner };
+  });
+  const leftRank = countries.indexOf(a) + 1;
+  const rightRank = countries.indexOf(b) + 1;
+  result.innerHTML = `
     <div class="cmp-header">
-      <div class="cmp-country">${getFlagHtml(c1.id, '56')}<div><div class="cmp-name">${c1.name}</div><div class="cmp-rank">Рейтинг: #${r1}</div></div></div>
+      <div class="cmp-country"><img src="${flagImages[a.id] || 'flag-placeholder.png'}" class="cmp-flag" onerror="this.src='flag-placeholder.png'"><div><div class="cmp-name">${a.name}</div><div class="cmp-rank">Рейтинг: #${leftRank}</div></div></div>
       <div class="cmp-vs">VS</div>
-      <div class="cmp-country right"><div><div class="cmp-name">${c2.name}</div><div class="cmp-rank">Рейтинг: #${r2}</div></div>${getFlagHtml(c2.id, '56')}</div>
+      <div class="cmp-country right"><div><div class="cmp-name">${b.name}</div><div class="cmp-rank">Рейтинг: #${rightRank}</div></div><img src="${flagImages[b.id] || 'flag-placeholder.png'}" class="cmp-flag" onerror="this.src='flag-placeholder.png'"></div>
     </div>
-    <div class="cmp-legend"><span><span class="leg-blue"></span>${c1.name}</span><span><span class="leg-red"></span>${c2.name}</span></div>
+    <div class="cmp-legend"><span><span class="leg-blue"></span>${a.name}</span><span><span class="leg-red"></span>${b.name}</span></div>
     <div class="cmp-body">
-      <div class="cmp-block">
-        <div class="cmp-title">Индекс мощи</div>
-        <div class="cmp-row">
-          <div class="cmp-side left ${c1.index < c2.index ? 'better' : ''}"><span class="cmp-value">${c1.index.toFixed(2)}</span></div>
-          <div class="cmp-diff ${c1.index === c2.index ? 'diff-eq' : c1.index < c2.index ? 'diff-pos' : 'diff-neg'}">${c1.index === c2.index ? '=' : c1.index < c2.index ? '<' : '>'}</div>
-          <div class="cmp-side right ${c2.index < c1.index ? 'better' : ''}"><span class="cmp-value">${c2.index.toFixed(2)}</span></div>
+      ${stats.map(s => `
+        <div class="cmp-block">
+          <div class="cmp-title">${s.label}</div>
+          <div class="cmp-row">
+            <div class="cmp-side left ${s.winner === 'left' ? 'better' : ''}"><span class="cmp-value">${s.av}</span></div>
+            <div class="cmp-diff ${s.diff > 0 ? 'diff-pos' : s.diff < 0 ? 'diff-neg' : 'diff-eq'}">${s.diff > 0 ? '+' : ''}${s.diff}</div>
+            <div class="cmp-side right ${s.winner === 'right' ? 'better' : ''}"><span class="cmp-value">${s.bv}</span></div>
+          </div>
         </div>
-        <div class="cmp-bar-wrap"><div class="cmp-bar blue" style="width:${bar1}%"></div></div>
-        <div class="cmp-bar-wrap" style="margin-top:4px;"><div class="cmp-bar red" style="width:${bar2}%"></div></div>
-      </div>
-      <div class="cmp-block">
-        <div class="cmp-title">Личный состав</div>
-        <div class="cmp-row">
-          <div class="cmp-side left ${parseInt(c1.manpower.replace(/,/g,'')) > parseInt(c2.manpower.replace(/,/g,'')) ? 'better' : ''}"><span class="cmp-value">${c1.manpower}</span></div>
-          <div class="cmp-diff ${parseInt(c1.manpower.replace(/,/g,'')) === parseInt(c2.manpower.replace(/,/g,'')) ? 'diff-eq' : parseInt(c1.manpower.replace(/,/g,'')) > parseInt(c2.manpower.replace(/,/g,'')) ? 'diff-pos' : 'diff-neg'}">${parseInt(c1.manpower.replace(/,/g,'')) === parseInt(c2.manpower.replace(/,/g,'')) ? '=' : parseInt(c1.manpower.replace(/,/g,'')) > parseInt(c2.manpower.replace(/,/g,'')) ? '>' : '<'}</div>
-          <div class="cmp-side right ${parseInt(c2.manpower.replace(/,/g,'')) > parseInt(c1.manpower.replace(/,/g,'')) ? 'better' : ''}"><span class="cmp-value">${c2.manpower}</span></div>
-        </div>
-      </div>
-      <div class="cmp-block">
-        <div class="cmp-title">Танки</div>
-        <div class="cmp-row">
-          <div class="cmp-side left ${parseInt(c1.tanks.replace(/,/g,'')) > parseInt(c2.tanks.replace(/,/g,'')) ? 'better' : ''}"><span class="cmp-value">${c1.tanks}</span></div>
-          <div class="cmp-diff ${parseInt(c1.tanks.replace(/,/g,'')) === parseInt(c2.tanks.replace(/,/g,'')) ? 'diff-eq' : parseInt(c1.tanks.replace(/,/g,'')) > parseInt(c2.tanks.replace(/,/g,'')) ? 'diff-pos' : 'diff-neg'}">${parseInt(c1.tanks.replace(/,/g,'')) === parseInt(c2.tanks.replace(/,/g,'')) ? '=' : parseInt(c1.tanks.replace(/,/g,'')) > parseInt(c2.tanks.replace(/,/g,'')) ? '>' : '<'}</div>
-          <div class="cmp-side right ${parseInt(c2.tanks.replace(/,/g,'')) > parseInt(c1.tanks.replace(/,/g,'')) ? 'better' : ''}"><span class="cmp-value">${c2.tanks}</span></div>
-        </div>
-      </div>
+      `).join('')}
     </div>
   `;
-  document.getElementById('compareResult').classList.add('active');
 }
 
-// Coalition logic
-let coalition1 = [];
-let coalition2 = [];
+function renderHistory(year) {
+  const body = document.getElementById('historyBody');
+  const data = countries.map((c, i) => {
+    const base = c.index;
+    const offset = (i + 1) * 0.3;
+    const hist = {
+      '2036': base + offset * 1.5,
+      '2037': base + offset * 1.2,
+      '2038': base + offset * 0.8,
+      '2039': base + offset * 0.4,
+      '2040': base
+    };
+    return { ...c, hist };
+  });
+  const sorted = [...data].sort((a, b) => a.hist[year] - b.hist[year]);
+  const prevYear = year === '2036' ? null : (parseInt(year) - 1).toString();
+  body.innerHTML = sorted.map((c, i) => {
+    const current = c.hist[year];
+    const prev = prevYear ? c.hist[prevYear] : null;
+    let movement = '';
+    if (prev !== null) {
+      const prevRank = [...data].sort((a, b) => a.hist[prevYear] - b.hist[prevYear]).indexOf(c) + 1;
+      const currRank = i + 1;
+      if (currRank < prevRank) movement = '<span class="movement up">▲ +' + (prevRank - currRank) + '</span>';
+      else if (currRank > prevRank) movement = '<span class="movement down">▼ -' + (currRank - prevRank) + '</span>';
+      else movement = '<span class="movement same">—</span>';
+    } else {
+      movement = '<span class="movement same">—</span>';
+    }
+    return `
+      <tr>
+        <td><span class="rank-badge ${i < 3 ? 'rank-' + (i+1) : 'rank-other'}">${i + 1}</span></td>
+        <td><div class="history-country"><img src="${flagImages[c.id] || 'flag-placeholder.png'}" class="history-flag" onerror="this.src='flag-placeholder.png'"><span class="country-name">${c.name}</span></div></td>
+        <td><span class="history-index">${current.toFixed(1)}</span></td>
+        <td>${movement}</td>
+      </tr>
+    `;
+  }).join('');
+}
 
-function renderCoalitionSelects() {
+function initCoalitions() {
   const s1 = document.getElementById('coalition1Select');
   const s2 = document.getElementById('coalition2Select');
-  const opts = countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-  s1.innerHTML = opts;
-  s2.innerHTML = opts;
-}
-
-function renderCoalitionMembers() {
-  const m1 = document.getElementById('coalition1Members');
-  const m2 = document.getElementById('coalition2Members');
-  m1.innerHTML = coalition1.map(id => {
-    const c = countries.find(x => x.id === id);
-    return `<div class="coalition-member">${getFlagHtml(id)}${c?.name || id}<button class="remove" onclick="removeFromCoalition(1,'${id}')">✕</button></div>`;
-  }).join('');
-  m2.innerHTML = coalition2.map(id => {
-    const c = countries.find(x => x.id === id);
-    return `<div class="coalition-member">${getFlagHtml(id)}${c?.name || id}<button class="remove" onclick="removeFromCoalition(2,'${id}')">✕</button></div>`;
-  }).join('');
-}
-
-function removeFromCoalition(num, id) {
-  if (num === 1) coalition1 = coalition1.filter(x => x !== id);
-  else coalition2 = coalition2.filter(x => x !== id);
-  renderCoalitionMembers();
-}
-
-function addToCoalition(num) {
-  const select = document.getElementById(num === 1 ? 'coalition1Select' : 'coalition2Select');
-  const id = select.value;
-  const target = num === 1 ? coalition1 : coalition2;
-  const other = num === 1 ? coalition2 : coalition1;
-  if (target.length >= 7) { alert('Максимум 7 стран в коалиции'); return; }
-  if (target.includes(id)) { alert('Эта страна уже в коалиции'); return; }
-  if (other.includes(id)) { alert('Страна уже в другой коалиции'); return; }
-  target.push(id);
-  renderCoalitionMembers();
-}
-
-function renderCoalitionResult() {
-  const container = document.getElementById('coalitionResult');
-  if (coalition1.length === 0 && coalition2.length === 0) {
-    container.innerHTML = '<div class="coalition-stat" style="text-align:center;padding:30px;color:var(--text-secondary);">Добавьте страны в коалиции для сравнения</div>';
-    return;
-  }
-  if (coalition1.length === 0 || coalition2.length === 0) {
-    container.innerHTML = '<div class="coalition-stat" style="text-align:center;padding:30px;color:var(--text-secondary);">Добавьте страны в обе коалиции</div>';
-    return;
-  }
-
-  const stats1 = { manpower: 0, tanks: 0, aircraft: 0, navy: 0 };
-  const stats2 = { manpower: 0, tanks: 0, aircraft: 0, navy: 0 };
-  coalition1.forEach(id => { const c = countries.find(x => x.id === id); if (c) { stats1.manpower += parseInt(c.manpower.replace(/,/g,'')); stats1.tanks += parseInt(c.tanks.replace(/,/g,'')); stats1.aircraft += parseInt(c.aircraft.replace(/,/g,'')); stats1.navy += parseInt(c.navy.replace(/,/g,'')); } });
-  coalition2.forEach(id => { const c = countries.find(x => x.id === id); if (c) { stats2.manpower += parseInt(c.manpower.replace(/,/g,'')); stats2.tanks += parseInt(c.tanks.replace(/,/g,'')); stats2.aircraft += parseInt(c.aircraft.replace(/,/g,'')); stats2.navy += parseInt(c.navy.replace(/,/g,'')); } });
-
-  const labels = ['Личный состав', 'Танки', 'Авиация', 'Флот'];
-  const keys = ['manpower', 'tanks', 'aircraft', 'navy'];
-  const maxVals = keys.map(k => Math.max(stats1[k], stats2[k], 1));
-
-  const c1names = coalition1.map(id => countries.find(x => x.id === id)?.name || id).join(', ');
-  const c2names = coalition2.map(id => countries.find(x => x.id === id)?.name || id).join(', ');
-
-  let rows = keys.map((k,i) => {
-    const v1 = stats1[k].toLocaleString();
-    const v2 = stats2[k].toLocaleString();
-    const max = maxVals[i];
-    const p1 = (stats1[k] / max * 100).toFixed(0);
-    const p2 = (stats2[k] / max * 100).toFixed(0);
-    const diff = stats1[k] - stats2[k];
-    let diffText = diff === 0 ? '=' : diff > 0 ? `+${diff.toLocaleString()}` : diff.toLocaleString();
-    let diffClass = diff === 0 ? 'diff-eq' : diff > 0 ? 'diff-pos' : 'diff-neg';
-    return `<div class="coalition-stat">
-      <div class="coalition-stat-title">${labels[i]}</div>
-      <div class="coalition-stat-row">
-        <div class="coalition-value ${stats1[k] > stats2[k] ? 'winner' : ''}">${v1}</div>
-        <div class="coalition-diff ${diffClass}">${diffText}</div>
-        <div class="coalition-value right ${stats2[k] > stats1[k] ? 'winner' : ''}">${v2}</div>
+  [s1, s2].forEach(sel => {
+    sel.innerHTML = countries.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  });
+  let c1 = [], c2 = [];
+  document.getElementById('addCoalition1').addEventListener('click', () => {
+    const id = document.getElementById('coalition1Select').value;
+    if (c1.includes(id) || c2.includes(id) || c1.length >= 7) return;
+    c1.push(id);
+    updateCoalitionUI();
+  });
+  document.getElementById('addCoalition2').addEventListener('click', () => {
+    const id = document.getElementById('coalition2Select').value;
+    if (c2.includes(id) || c1.includes(id) || c2.length >= 7) return;
+    c2.push(id);
+    updateCoalitionUI();
+  });
+  document.getElementById('clearCoalitions').addEventListener('click', () => {
+    c1 = []; c2 = [];
+    updateCoalitionUI();
+  });
+  document.getElementById('doCoalitionCompare').addEventListener('click', () => {
+    if (c1.length === 0 || c2.length === 0) return;
+    const d1 = c1.map(id => countries.find(c => c.id === id));
+    const d2 = c2.map(id => countries.find(c => c.id === id));
+    const fields = ['manpower', 'tanks', 'aircraft', 'navy'];
+    const stats = fields.map(f => {
+      const v1 = d1.reduce((s, c) => s + parseInt(c[f].replace(/,/g, '')), 0);
+      const v2 = d2.reduce((s, c) => s + parseInt(c[f].replace(/,/g, '')), 0);
+      const diff = v1 - v2;
+      let winner = 'equal';
+      if (diff > 0) winner = 'blue';
+      else if (diff < 0) winner = 'red';
+      return { label: f, v1, v2, diff, winner };
+    });
+    const maxVals = stats.map(s => Math.max(s.v1, s.v2));
+    const result = document.getElementById('coalitionResult');
+    result.innerHTML = `
+      <div class="coalition-result-head">
+        <div class="coalition-head-side blue"><h3>🔵 Коалиция 1</h3><p>${d1.map(c => c.name).join(', ')}</p></div>
+        <div></div>
+        <div class="coalition-head-side red"><h3>🔴 Коалиция 2</h3><p>${d2.map(c => c.name).join(', ')}</p></div>
       </div>
-      <div class="coalition-bars">
-        <div class="coalition-bar blue"><div style="width:${p1}%"></div></div>
-        <div class="coalition-bar red"><div style="width:${p2}%"></div></div>
-      </div>
-    </div>`;
-  }).join('');
-
-  let total1 = stats1.manpower + stats1.tanks + stats1.aircraft + stats1.navy;
-  let total2 = stats2.manpower + stats2.tanks + stats2.aircraft + stats2.navy;
-  let winner = total1 > total2 ? '🔵 Коалиция 1' : total2 > total1 ? '🔴 Коалиция 2' : 'Ничья';
-
-  container.innerHTML = `
-    <div class="coalition-result-head">
-      <div class="coalition-head-side blue"><h3>🔵 Коалиция 1</h3><p>${coalition1.length} стран</p><div class="coalition-members-line">${c1names}</div></div>
-      <div style="text-align:center;font-weight:700;color:var(--accent);font-size:20px;">VS</div>
-      <div class="coalition-head-side red"><h3>🔴 Коалиция 2</h3><p>${coalition2.length} стран</p><div class="coalition-members-line">${c2names}</div></div>
-    </div>
-    ${rows}
-    <div class="coalition-winner">🏆 Победитель: ${winner}</div>
-    <div class="coalition-note">Сравнение основано на суммарных показателях военной силы.</div>
-  `;
+      ${stats.map((s, i) => `
+        <div class="coalition-stat">
+          <div class="coalition-stat-title">${s.label}</div>
+          <div class="coalition-stat-row">
+            <div class="coalition-value ${s.winner === 'blue' ? 'winner' : ''}">${s.v1.toLocaleString()}</div>
+            <div class="coalition-bars">
+              <div class="coalition-bar blue"><div style="width:${maxVals[i] > 0 ? (s.v1 / maxVals[i]) * 100 : 0}%"></div></div>
+              <div class="coalition-bar red"><div style="width:${maxVals[i] > 0 ? (s.v2 / maxVals[i]) * 100 : 0}%"></div></div>
+            </div>
+            <div class="coalition-value right ${s.winner === 'red' ? 'winner' : ''}">${s.v2.toLocaleString()}</div>
+          </div>
+          <div class="coalition-diff ${s.diff > 0 ? 'diff-pos' : s.diff < 0 ? 'diff-neg' : 'diff-eq'}">${s.diff > 0 ? '+' : ''}${s.diff.toLocaleString()}</div>
+        </div>
+      `).join('')}
+      <div class="coalition-winner">${stats.filter(s => s.winner === 'blue').length > stats.filter(s => s.winner === 'red').length ? '🔵 Коалиция 1 сильнее' : stats.filter(s => s.winner === 'red').length > stats.filter(s => s.winner === 'blue').length ? '🔴 Коалиция 2 сильнее' : '⚖️ Силы равны'}</div>
+      <div class="coalition-note">Индекс Мощи не суммируется — сравнение по отдельным категориям.</div>
+    `;
+  });
+  function updateCoalitionUI() {
+    const render = (id, arr) => {
+      const el = document.getElementById(id);
+      el.innerHTML = arr.map(cid => {
+        const c = countries.find(x => x.id === cid);
+        return `<div class="coalition-member"><img src="${flagImages[c.id] || 'flag-placeholder.png'}" style="width:24px;height:16px;object-fit:cover;border:1px solid #333;border-radius:2px;" onerror="this.src='flag-placeholder.png'">${c.name}<button class="remove" data-id="${cid}">✕</button></div>`;
+      }).join('');
+      el.querySelectorAll('.remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = arr.indexOf(btn.dataset.id);
+          if (idx > -1) arr.splice(idx, 1);
+          updateCoalitionUI();
+        });
+      });
+    };
+    render('coalition1Members', c1);
+    render('coalition2Members', c2);
+  }
 }
 
 // Navigation
 document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
+  btn.addEventListener('click', () => {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
+    btn.classList.add('active');
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(this.dataset.section).classList.add('active');
-    if (this.dataset.section === 'compare') renderCompare();
-    if (this.dataset.section === 'coalitions') renderCoalitionResult();
+    document.getElementById(btn.dataset.section).classList.add('active');
+    if (btn.dataset.section === 'history') {
+      const years = ['2036', '2037', '2038', '2039', '2040'];
+      const container = document.getElementById('historyYears');
+      container.innerHTML = years.map(y => `<button class="history-year-btn ${y === '2040' ? 'active' : ''}" data-year="${y}">${y}</button>`).join('');
+      container.querySelectorAll('.history-year-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          container.querySelectorAll('.history-year-btn').forEach(bb => bb.classList.remove('active'));
+          b.classList.add('active');
+          renderHistory(b.dataset.year);
+        });
+      });
+      renderHistory('2040');
+    }
   });
 });
 
-document.getElementById('backToRanking').addEventListener('click', function() {
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector('.nav-btn[data-section="ranking"]').classList.add('active');
+// Back button
+document.getElementById('backToRanking').addEventListener('click', () => {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById('ranking').classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.nav-btn[data-section="ranking"]').classList.add('active');
 });
 
-document.getElementById('searchInput').addEventListener('input', function() {
-  renderRanking(this.value, document.getElementById('sortSelect').value);
+// Sort and search
+document.getElementById('sortSelect').addEventListener('change', e => {
+  currentSort = e.target.value;
+  renderRanking();
 });
+document.getElementById('searchInput').addEventListener('input', renderRanking);
 
-document.getElementById('sortSelect').addEventListener('change', function() {
-  renderRanking(document.getElementById('searchInput').value, this.value);
-});
-
-document.getElementById('doCompare').addEventListener('click', renderCompare);
-
-document.getElementById('addCoalition1').addEventListener('click', function() { addToCoalition(1); });
-document.getElementById('addCoalition2').addEventListener('click', function() { addToCoalition(2); });
-document.getElementById('doCoalitionCompare').addEventListener('click', renderCoalitionResult);
-document.getElementById('clearCoalitions').addEventListener('click', function() {
-  coalition1 = [];
-  coalition2 = [];
-  renderCoalitionMembers();
-  renderCoalitionResult();
-});
+// Compare
+document.getElementById('doCompare').addEventListener('click', doCompare);
 
 // Init
+populateCompare();
 renderRanking();
-renderHistoryYears();
-renderHistory(2040);
-renderCompareSelects();
-renderCoalitionSelects();
-renderCoalitionMembers();
+initCoalitions();
 </script>
 </body>
 </html>
