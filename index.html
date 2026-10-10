@@ -1224,7 +1224,7 @@ body::before {
 // ==================== DATA ====================
 const countries = [
   {
-    id: "bundeswehr", name: "ФРШ", fullName: "Бундесвер", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🇩🇪", rank: 1,
+    id: "bundeswehr", name: "ФРШ", fullName: "Бундесвер", type: "Вооружённые силы • 2008", flag: "Frsh.png", flagEmoji: "🇩🇪", rank: 1,
     description: "Анкета Бундесвера за 2008 год.", strength: "40 000 военнослужащих и 80 000 резервистов; многоцелевые истребители Typhoon.", weakness: "",
     manpower: { active: 40000, reserve: 80000, note: "40 000 действующих военнослужащих + 80 000 резерва" },
     land: { tanks: 360, tanksNote: "Karakal 2K", bmpBtr: 2600, bmpBtrNote: "SpPz-75 (БТР/БМП не разделены в анкете)", armored: 300, artillery: 0, mlrs: 200, mlrsNote: "IRIS", pvo: 150, pvoNote: "IRIS-T", tos: 100, tosNote: "тяжёлые огнемётные системы Taurus-M", smallArms: 160000, equipmentAndArms: 160000 },
@@ -1233,7 +1233,7 @@ const countries = [
     logistics: { supplyVehicles: 2000, infrastructureTotal: 15, commsDrones: 100 }
   },
   {
-    id: "russian_federation", name: "Российская Федерация", fullName: "Вооружённые силы Российской Федерации", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🇷🇺", rank: 2,
+    id: "russian_federation", name: "Российская Федерация", fullName: "Вооружённые силы Российской Федерации", type: "Вооружённые силы • 2008", flag: "russia.png", flagEmoji: "🇷🇺", rank: 2,
     description: "Анкета Вооружённых сил Российской Федерации за 2008 год.", strength: "120 000 военнослужащих и широкий парк бронетехники.", weakness: "",
     manpower: { active: 120000, reserve: 0, note: "Резерв отдельно не указан в анкете" },
     land: { tanks: 160, btr: 250, bmp: 250, bmpBtr: 500, armored: 250, artillery: 50, mlrs: 0, pvo: 0, smallArms: 100000, equipment: 100000, equipmentAndArms: 200000 },
@@ -1242,7 +1242,7 @@ const countries = [
     logistics: { supplyVehicles: 450, infrastructureTotal: 8, commsDrones: 100 }
   },
   {
-    id: "arkhangelsk", name: "Архангельск", fullName: "Армия Архангельска", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🏰", rank: 3,
+    id: "arkhangelsk", name: "Архангельск", fullName: "Армия Архангельска", type: "Вооружённые силы • 2008", flag: "archangelsk.png", flagEmoji: "🏰", rank: 3,
     description: "Регистрация Армии Архангельска за 2008 год.", strength: "45 000 военнослужащих, 300 бронемашин и отдельные типы боевой авиации.", weakness: "",
     manpower: { active: 45000, reserve: 0, note: "Резерв отдельно не указан в анкете" },
     land: { tanks: 20, tanksNote: "10 танков Т-7", btr: 150, bmp: 200, bmpBtr: 350, armored: 300, artillery: 40, mlrs: 0, pvo: 0, smallArms: 20000, equipmentAndArms: 20000 },
@@ -1251,7 +1251,7 @@ const countries = [
     logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 }
   },
   {
-    id: "stalgradia", name: "Стальградия", fullName: "Стальградия", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🏴", rank: 4,
+    id: "stalgradia", name: "Стальградия", fullName: "Стальградия", type: "Вооружённые силы • 2008", flag: "stalgradja.png", flagEmoji: "🏴", rank: 4,
     description: "Анкета вооружённых сил Стальградии за 2008 год.", strength: "25 000 военнослужащих и равные по численности парки БТР, БМП и бронемашин.", weakness: "",
     manpower: { active: 25000, reserve: 0, note: "Резерв отдельно не указан в анкете" },
     land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 110000, equipmentAndArms: 110000 },
@@ -1260,7 +1260,7 @@ const countries = [
     logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 }
   },
   {
-    id: "tnr", name: "ТНР", fullName: "ТНР", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🏳️", rank: 5,
+    id: "tnr", name: "ТНР", fullName: "ТНР", type: "Вооружённые силы • 2008", flag: "tnr.png", flagEmoji: "🏳️", rank: 5,
     description: "Анкета ТНР за 2008 год.", strength: "70 единиц военной авиации, в том числе 40 истребителей.", weakness: "",
     manpower: { active: 5000, reserve: 0, note: "Резерв отдельно не указан в анкете" },
     land: { tanks: 35, tanksNote: "В анкете указано 35; рядом также есть пометка «до 10»", btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 20000, equipmentAndArms: 20000 },
@@ -1269,7 +1269,7 @@ const countries = [
     logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 }
   },
   {
-    id: "polish_empire", name: "Польская Империя", fullName: "Польская Империя", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🇵🇱", rank: 6,
+    id: "polish_empire", name: "Польская Империя", fullName: "Польская Империя", type: "Вооружённые силы • 2008", flag: "poland.png", flagEmoji: "🇵🇱", rank: 6,
     description: "Базовая анкета Польской Империи за 2008 год, ранее ошибочно подписанная как Вейшнория.", strength: "5 000 военнослужащих и 10 кораблей или катеров.", weakness: "",
     manpower: { active: 5000, reserve: 0, note: "Базовая анкета; резерв отдельно не указан" },
     land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 10000, equipmentAndArms: 10000 },
@@ -1278,7 +1278,7 @@ const countries = [
     logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 }
   },
   {
-    id: "veishnoria", name: "Вейшнория", fullName: "Вейшнория", type: "Вооружённые силы • 2008", flag: "", flagEmoji: "🇧🇾", rank: 7,
+    id: "veishnoria", name: "Вейшнория", fullName: "Вейшнория", type: "Вооружённые силы • 2008", flag: "veish.png", flagEmoji: "🇧🇾", rank: 7,
     description: "Анкета Вейшнории за 2008 год.", strength: "30 единиц военной авиации; военно-морские силы отсутствуют.", weakness: "",
     manpower: { active: 5000, reserve: 0, note: "Резерв отдельно не указан в анкете" },
     land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 10000, equipmentAndArms: 10000 },
@@ -1287,7 +1287,7 @@ const countries = [
     logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 }
   },
   {
-    id: "japan", name: "Япония", fullName: "Япония", type: "Базовая анкета • 2008", flag: "", flagEmoji: "🇯🇵", rank: 8,
+    id: "japan", name: "Япония", fullName: "Япония", type: "Базовая анкета • 2008", flag: "japan.png", flagEmoji: "🇯🇵", rank: 8,
     description: "Условная базовая анкета Японии для проекта на 2008 год; это не исторические показатели.", strength: "Базовые условные значения по всем категориям вооружённых сил.", weakness: "",
     manpower: { active: 5000, reserve: 0, note: "Условная базовая анкета; резерв отдельно не указан" },
     land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 10000, equipmentAndArms: 10000 },
