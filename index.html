@@ -1341,13 +1341,35 @@ body::before {
 // ==================== DATA ====================
 const countries = [
   {
-    id: "bundeswehr", name: "ФРШ", code: "ФРШ", fullName: "ФРШ", type: "Вооружённые силы • 2010", flag: "Frsh.png", flagEmoji: "🇩🇪", rank: 1, movement: "same", author: "@I_Am_Shlepa",
-    description: "Анкета ФРШ за 2010 год.", strength: "120 000 действующих военнослужащих и 140 000 резервистов; 1 560 танков и 1 190 единиц авиации.", weakness: "",
+   id: "bundeswehr", name: "ФРШ", code: "FRSH", fullName: "ФРШ", type: "Вооружённые силы • 2011", flag: "Frsh.png", flagEmoji: "🇩🇪", rank: 1, movement: "same", author: "@I_Am_Shlepa",
+    description: "Анкета Бундесвера ФРШ за 2011 год (2/2).", strength: "120 000 действующих + 140 000 резерва; 2 460 танков; 1 550 Typhoon и 800 вертолётов SV.", weakness: "",
     manpower: { active: 120000, reserve: 140000, note: "120 000 действующих военнослужащих + 140 000 резерва" },
-    land: { tanks: 1560, tanksNote: "360 Karakal 2K + 1 200 Karakal 2-140V", btr: 3600, bmp: 1800, bmpBtr: 5400, armored: 300, artillery: 0, mlrs: 400, mlrsNote: "IRIS", pvo: 250, pvoNote: "IRIS-T", tos: 300, tosNote: "Taurus-M", ballisticMissiles: 10, ballisticMissilesNote: "БРСД «Аура»", smallArms: 280000, equipmentAndArms: 280000 },
-    air: { fighters: 590, fightersNote: "Typhoon", bombers: 0, groundAttack: 0, helicopters: 600, helicoptersNote: "SV", totalAircraft: 1190, aviationWeapons: 600, aviationWeaponsNote: "300 УРВВ + 300 УРВП" },
-    navy: { totalShips: 30, boats: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 30, frigatesNote: "Hessen", landing: 0, recon: 0 },
-    logistics: { supplyVehicles: 2500, infrastructureTotal: 15, commsDrones: 100 }
+    land: {
+      tanks: 2460, tanksNote: "360 Karakal 2K + 2 100 Karakal 2-140V",
+      btr: 4100, btrNote: "SpPz-75",
+      bmp: 3200, bmpNote: "Karaket",
+      bmpBtr: 7300,
+      armored: 300,
+      artillery: 0,
+      mlrs: 500, mlrsNote: "IRIS",
+      pvo: 300, pvoNote: "250 IRIS-T + 50 IRIS-X",
+      tos: 400, tosNote: "Taurus-M",
+      ballisticMissiles: 20, ballisticMissilesNote: "БРСД «Аура» (из них 5 ЯБРСД «Аура-2»)",
+      smallArms: 340000, equipmentAndArms: 340000
+    },
+    air: {
+      fighters: 1550, fightersNote: "Typhoon (многоцелевые)",
+      bombers: 0, groundAttack: 0,
+      helicopters: 800, helicoptersNote: "SV (ударные)",
+      totalAircraft: 2350,
+      aviationWeapons: 1200, aviationWeaponsNote: "600 УРВВ + 600 УРВП"
+    },
+    navy: {
+      totalShips: 40, boats: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0,
+      frigates: 40, frigatesNote: "Hessen (в т.ч. 1 Super-Hessen)",
+      landing: 0, recon: 0
+    },
+    logistics: { supplyVehicles: 4000, infrastructureTotal: 30, commsDrones: 100 }
   },
   {
     id: "arkhangelsk", name: "Архангельск", code: "Архангельск", fullName: "Объединённая Армия Архангельска", type: "Вооружённые силы • 2010", flag: "archangelsk.png", flagEmoji: "🏰", rank: 2, movement: "same", author: "@nezerakovi @neco_arc2027",
