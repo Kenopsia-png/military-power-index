@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Индекс Военной Мощи — Вымышленные Страны</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0b0f14;
+  --bg-card: #11161d;
+  --bg-card-hover: #181e27;
+  --border: #1c2530;
+  --text-primary: #e6edf5;
+  --text-secondary: #8a9bb0;
+  --accent: #c9a227;
+  --accent-light: #e8c547;
+  --danger: #c44536;
+  --gold: #d4a017;
+  --blue: #1e6bb8;
+  --blue-light: #3a8fd6;
+  --rank-1: #d4a017;
+  --rank-2: #b0b0b0;
+  --rank-3: #cd7f32;
+  --yellow-bar: #c9a227;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Top blue gradient line like GFP */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #0a3d6e 0%, #1e6bb8 30%, #3a8fd6 50%, #1e6bb8 70%, #0a3d6e 100%);
+  z-index: 1000;
+}
+
+.background-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(30, 107, 184, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 184, 0.025) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER */
+.header {
+  background: #0d1219;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0 14px;
+  position: sticky;
+  top: 4px;
+  z-index: 100;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: var(--accent);
+}
+
+.logo-text h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.logo-text .subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f14;
+}
+
+/* MAIN */
+.main {
+  padding: 28px 0 60px;
+  min-height: calc(100vh - 140px);
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-header {
+  margin-bottom: 22px;
+  border-left: 4px solid var(--accent);
+  padding-left: 14px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* TABLE CONTROLS */
+.table-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input,
+.sort-select,
+.compare-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input:focus,
+.sort-select:focus,
+.compare-select:focus {
+  border-color: var(--accent);
+}
+
+/* ===== GFP-STYLE RANKING CARDS ===== */
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.gfp-card {
+  display: flex;
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+  border: 1px solid #ccc;
+}
+
+.gfp-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+}
+
+.gfp-rank {
+  width: 48px;
+  min-width: 48px;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.gfp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.gfp-top {
+  background: linear-gradient(90deg, #0a3d6e 0%, #0d1a2e 40%, #000 100%);
+  color: #fff;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+}
+
+.gfp-code {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.gfp-move {
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gfp-move.same { color: #9ab0c8; }
+.gfp-move.up { color: #22c55e; }
+.gfp-move.down { color: #ef4444; }
+
+.gfp-bottom {
+  background: #fff;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.gfp-flag {
+  width: 42px;
+  height: 28px;
+  object-fit: cover;
+  border: 1px solid #bbb;
+  border-radius: 1px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.gfp-flag-placeholder {
+  width: 42px;
+  height: 28px;
+  background: #e8eef5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #555;
+  border: 1px solid #bbb;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.gfp-pwr {
+  font-family: 'Share Tech Mono', 'Roboto Condensed', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.3px;
+}
+
+.gfp-pwr span {
+  color: #555;
+  font-weight: 500;
+}
+
+/* Keep old helpers for detail / other sections */
+.flag-img {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.flag-placeholder {
+  width: 48px;
+  height: 32px;
+  background: #1a2330;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.detail-flag {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border: 2px solid #333;
+  border-radius: 3px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.country-name {
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.country-type {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.index-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+.stat-value {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.btn-detail {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-detail:hover {
+  background: var(--accent);
+  color: #0b0f14;
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 28px;
+  padding: 0 8px;
+  font-weight: 700;
+  font-size: 15px;
+  background: var(--accent);
+  color: #0b0f14;
+  border-radius: 2px;
+}
+.rank-1 { background: #d4a017; color: #0b0f14; }
+.rank-2 { background: #a8a8a8; color: #0b0f14; }
+.rank-3 { background: #cd7f32; color: #0b0f14; }
+.rank-other { background: #2a3545; color: var(--text-primary); }
+
+/* DETAIL PAGE */
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 22px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  padding: 20px 24px;
+}
+
+.detail-rank {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 60px;
+  color: var(--accent);
+}
+
+.detail-title h2 {
+  font-size: 28px;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.detail-title .type {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.detail-index {
+  margin-left: auto;
+  text-align: right;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  min-width: 140px;
+}
+
+.detail-index .label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.detail-index .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 26px;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+/* GFP-style accordion sections */
+.gfp-accordion {
+  max-width: 640px;
+  margin: 0 auto 28px;
+  border: 1px solid #555;
+  overflow: hidden;
+}
+
+.gfp-acc-item {
+  border-bottom: 1px solid #444;
+}
+
+.gfp-acc-item:last-child {
+  border-bottom: none;
+}
+
+.gfp-acc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #6a6a6a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.gfp-acc-header:hover {
+  background: #5a5a5a;
+}
+
+.gfp-acc-item.open .gfp-acc-header {
+  background: #2a5a8a;
+}
+
+.gfp-acc-header .plus {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.gfp-acc-body {
+  display: none;
+  background: #1a1f28;
+  padding: 12px 16px 16px;
+}
+
+.gfp-acc-item.open .gfp-acc-body {
+  display: block;
+}
+
+.gfp-acc-body .stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+}
+
+.gfp-acc-body .stat-row:last-child {
+  border-bottom: none;
+}
+
+.gfp-acc-body .stat-row .label {
+  color: #9ab0c8;
+}
+
+.gfp-acc-body .stat-row .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  color: #e6edf5;
+}
+
+.gfp-acc-body .stat-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #7a8a9a;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.gfp-acc-empty {
+  color: #7a8a9a;
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(28, 37, 48, 0.7);
+  font-size: 13px;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .label {
+  color: var(--text-secondary);
+}
+
+.stat-row .value {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stat-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  padding: 18px;
+}
+
+.detail-card h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+}
+
+/* COMPARE */
+.compare-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.compare-select {
+  min-width: 220px;
+}
+
+.vs {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border: none;
+  color: #0b0f14;
+  padding: 9px 22px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+}
+
+.compare-result {
+  display: none;
+}
+
+.compare-result.active {
+  display: block;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.compare-col {
+  padding: 22px;
+}
+
+.compare-col.left {
+  border-right: 1px solid var(--border);
+}
+
+.compare-col.right {
+  border-left: 1px solid var(--border);
+}
+
+.compare-col h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.compare-col .index {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-light);
+  font-size: 16px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.compare-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+  background: #0a1018;
+  min-width: 130px;
+}
+
+.compare-middle .cat {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.compare-stat .winner {
+  color: var(--accent-light);
+  font-weight: 700;
+}
+
+/* ABOUT */
+.about-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 26px;
+  max-width: 800px;
+}
+
+.about-content p {
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.about-content h3 {
+  margin: 18px 0 10px;
+  color: var(--accent);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.score-list {
+  list-style: none;
+  margin-bottom: 18px;
+}
+
+.score-list li {
+  padding: 5px 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-bottom: 1px solid rgba(28,37,48,0.5);
+}
+
+.score-list li::before {
+  content: "▸ ";
+  color: var(--accent);
+}
+
+.note {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #667;
+  font-style: italic;
+}
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+
+/* ===== SEPARATE COALITION COMPARISON ===== */
+.coalition-layout {
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:18px;
+  align-items:start;
+}
+.coalition-panel {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  padding:16px;
+  position:sticky;
+  top:88px;
+}
+.coalition-panel h3 {
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+.coalition-side {
+  border:1px solid var(--border);
+  margin-bottom:14px;
+  background:#0d1219;
+}
+.coalition-side.blue {border-top:4px solid #1e6bb8}
+.coalition-side.red {border-top:4px solid #c44536}
+.coalition-side-title {
+  padding:9px 11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+}
+.coalition-side.blue .coalition-side-title {color:#5ba8ed}
+.coalition-side.red .coalition-side-title {color:#ef6a5a}
+.coalition-picker {
+  display:flex;
+  gap:7px;
+  padding:0 10px 10px;
+}
+.coalition-picker select {
+  flex:1;
+  min-width:0;
+  background:#11161d;
+  border:1px solid var(--border);
+  color:var(--text-primary);
+  padding:8px;
+  font-family:inherit;
+}
+.coalition-add {
+  border:1px solid currentColor;
+  background:transparent;
+  padding:0 10px;
+  font-family:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+.coalition-side.blue .coalition-add {color:#5ba8ed}
+.coalition-side.red .coalition-add {color:#ef6a5a}
+.coalition-members {padding:0 10px 10px}
+.coalition-member {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 7px;
+  border-top:1px solid var(--border);
+  font-size:13px;
+}
+.coalition-member .remove {
+  margin-left:auto;
+  border:0;
+  background:transparent;
+  color:var(--text-secondary);
+  cursor:pointer;
+  font-size:16px;
+}
+.coalition-actions {display:grid;gap:8px}
+.coalition-actions button {width:100%}
+.coalition-help {
+  color:var(--text-secondary);
+  font-size:12px;
+  line-height:1.45;
+  margin-top:10px;
+}
+.coalition-result {
+  background:var(--bg-card);
+  border:1px solid var(--border);
+}
+.coalition-result-head {
+  display:grid;
+  grid-template-columns:1fr 80px 1fr;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.coalition-head-side {padding:17px 20px}
+.coalition-head-side.blue {
+  background:linear-gradient(90deg,rgba(30,107,184,.28),transparent);
+}
+.coalition-head-side.red {
+  text-align:right;
+  background:linear-gradient(270deg,rgba(196,69,54,.28),transparent);
+}
+.coalition-head-side h3 {font-size:18px;margin-bottom:3px}
+.coalition-head-side p {color:var(--text-secondary);font-size:12px}
+.coalition-members-line {
+  font-size:12px;
+  color:var(--text-secondary);
+  margin-top:4px;
+}
+.coalition-stat {
+  padding:12px 16px;
+  border-bottom:1px solid rgba(28,37,48,.75);
+}
+.coalition-stat:last-child {border-bottom:0}
+.coalition-stat-title {
+  text-align:center;
+  color:var(--accent);
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.7px;
+  margin-bottom:7px;
+}
+.coalition-stat-row {
+  display:grid;
+  grid-template-columns:1fr 90px 1fr;
+  gap:10px;
+  align-items:center;
+}
+.coalition-value {
+  font-family:'Share Tech Mono',monospace;
+  font-size:15px;
+  font-weight:700;
+}
+.coalition-value.right {text-align:right}
+.coalition-value.winner {color:var(--accent-light)}
+.coalition-bars {
+  display:grid;
+  gap:4px;
+}
+.coalition-bar {
+  height:10px;
+  background:#1a2330;
+  overflow:hidden;
+  border-radius:2px;
+}
+.coalition-bar > div {height:100%;transition:width .35s ease}
+.coalition-bar.blue > div {background:linear-gradient(90deg,#0a3d6e,#1e6bb8)}
+.coalition-bar.red > div {background:linear-gradient(90deg,#c44536,#e05545)}
+.coalition-diff {
+  text-align:center;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;
+  color:var(--text-secondary);
+}
+.coalition-winner {
+  margin:14px 16px 16px;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  background:#0d1219;
+  text-align:center;
+  font-weight:700;
+}
+.coalition-note {
+  margin:0 16px 16px;
+  color:var(--text-secondary);
+  font-size:11px;
+  line-height:1.5;
+  text-align:center;
+}
+@media (max-width:900px) {
+  .coalition-layout {grid-template-columns:1fr}
+  .coalition-panel {position:static}
+}
+@media (max-width:620px) {
+  .coalition-result-head {grid-template-columns:1fr}
+  .coalition-head-side,.coalition-head-side.red {text-align:center}
+  .coalition-stat-row {grid-template-columns:1fr;gap:5px}
+  .coalition-value.right {text-align:left}
+  .coalition-diff {order:-1}
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .logo-text h1 {
+    font-size: 16px;
+  }
+  
+  .flag-img {
+    width: 40px;
+    height: 27px;
+  }
+  
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .detail-index {
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .detail-flag {
+    width: 72px;
+    height: 48px;
+  }
+  
+  .strengths-weaknesses {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-col.left,
+  .compare-col.right {
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .compare-middle {
+    display: none;
+  }
+}
+
+/* ===== GFP-style Compare ===== */
+.cmp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0a1018;
+  border: 1px solid var(--border);
+  border-bottom: 3px solid var(--accent);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cmp-country {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.cmp-country.right {
+  justify-content: flex-end;
+  text-align: right;
+}
+.cmp-flag {
+  width: 56px;
+  height: 37px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+}
+.cmp-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.cmp-rank {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.cmp-vs {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 0 10px;
+}
+.cmp-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+.leg-blue, .leg-red {
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+.leg-blue { background: #1e6bb8; }
+.leg-red { background: #c44536; }
+
+.cmp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cmp-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+}
+.cmp-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.cmp-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cmp-side.left { align-items: flex-start; }
+.cmp-side.right { align-items: flex-end; }
+.cmp-value {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+}
+.cmp-side.better .cmp-value {
+  color: var(--accent-light);
+}
+.cmp-bar-wrap {
+  width: 100%;
+  height: 14px;
+  background: #1a2330;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cmp-bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.cmp-bar.blue { background: linear-gradient(90deg, #0a3d6e, #1e6bb8); }
+.cmp-bar.red { background: linear-gradient(90deg, #c44536, #e05545); }
+
+.cmp-diff {
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+.diff-pos { color: #4caf50; }
+.diff-neg { color: #e05545; }
+.diff-eq { color: var(--text-secondary); }
+
+/* PREVIOUS RATINGS */
+.history-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.history-year-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.history-year-btn:hover,
+.history-year-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0f14;
+}
+.history-table .movement {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.history-table .movement.up { color: #4caf50; }
+.history-table .movement.down { color: #e05545; }
+.history-table .movement.same { color: var(--text-secondary); }
+.history-table .history-index {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+.history-table .history-country {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.history-table .history-flag {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #333;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.history-table .history-placeholder {
+  width: 48px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a2330;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.history-note {
+  margin-top: 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .cmp-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .cmp-diff { order: -1; }
+  .cmp-side.right { align-items: flex-start; }
+}
+
+</style>
+</head>
+<body>
+<div class="background-grid"></div>
+<header class="header"><div class="container">
+<div class="logo"><span class="logo-icon">⚔</span><div class="logo-text"><h1>ИНДЕКС ВОЕННОЙ МОЩИ</h1><p class="subtitle">Вымышленные государства • 2015</p></div></div>
+<nav class="nav">
+<button class="nav-btn active" data-section="ranking">Рейтинг</button>
+<button class="nav-btn" data-section="compare">Сравнение</button>
+<button class="nav-btn" data-section="coalitions">Коалиции</button>
+<button class="nav-btn" data-section="about">О проекте</button>
+</nav></div></header>
+<main class="main"><div class="container">
+<section id="ranking" class="section active">
+<div class="section-header"><h2>Рейтинг боеспособности • 2015</h2>
+<p class="section-desc">Чем ниже индекс — тем сильнее армия.</p></div>
+<div class="table-controls">
+<input type="text" id="searchInput" placeholder="Поиск страны..." class="search-input">
+<select id="sortSelect" class="sort-select">
+<option value="index">По Индексу Мощи</option>
+<option value="manpower">По личному составу</option>
+<option value="tanks">По танкам</option>
+<option value="aircraft">По авиации</option>
+<option value="navy">По флоту</option>
+</select></div>
+<div class="ranking-list" id="rankingBody"></div>
+</section>
+<section id="countryDetail" class="section">
+<button class="back-btn" id="backToRanking">← Вернуться к рейтингу</button>
+<div id="detailContent"></div>
+</section>
+<section id="compare" class="section">
+<div class="section-header"><h2>Сравнение стран</h2>
+<p class="section-desc">Выберите две страны для детального сравнения.</p></div>
+<div class="compare-controls">
+<select id="compare1" class="compare-select"></select>
+<span class="vs">VS</span>
+<select id="compare2" class="compare-select"></select>
+<button id="doCompare" class="btn-primary">Сравнить</button>
+</div>
+<div id="compareResult" class="compare-result"></div>
+</section>
+<section id="coalitions" class="section">
+<div class="section-header"><h2>Сравнение коалиций</h2>
+<p class="section-desc">Выберите несколько стран для каждой коалиции. Power Index не складывается и не участвует в сравнении.</p></div>
+
+<div class="coalition-layout">
+  <aside class="coalition-panel">
+    <h3>Состав коалиций</h3>
+
+    <div class="coalition-side blue">
+      <div class="coalition-side-title">🔵 Коалиция 1</div>
+      <div class="coalition-picker">
+        <select id="coalition1Select"></select>
+        <button class="coalition-add" id="addCoalition1" title="Добавить страну">+</button>
+      </div>
+      <div class="coalition-members" id="coalition1Members"></div>
+    </div>
+
+    <div class="coalition-side red">
+      <div class="coalition-side-title">🔴 Коалиция 2</div>
+      <div class="coalition-picker">
+        <select id="coalition2Select"></select>
+        <button class="coalition-add" id="addCoalition2" title="Добавить страну">+</button>
+      </div>
+      <div class="coalition-members" id="coalition2Members"></div>
+    </div>
+
+    <div class="coalition-actions">
+      <button id="doCoalitionCompare" class="btn-primary">Сравнить коалиции</button>
+      <button id="clearCoalitions" class="back-btn" style="margin:0">Очистить</button>
+    </div>
+    <p class="coalition-help">До 7 стран в каждой коалиции. Одна страна не может находиться сразу в обеих коалициях.</p>
+  </aside>
+
+  <div id="coalitionResult" class="coalition-result"></div>
+</div>
+</section>
+<section id="about" class="section">
+<div class="section-header"><h2>О проекте</h2></div>
+<div class="about-content">
+<p>Неофициальный рейтинг боеспособности государств за 2015 год по предоставленным анкетам. Сибирьская Республика отображается по последней доступной анкете до получения обновлений. Япония и Стальградия — без изменений.</p>
+<p><strong>Чем ниже индекс — тем сильнее армия.</strong></p>
+<p class="note">Все данные вымышленные.</p>
+</div></section>
+</div></main>
+<footer class="footer"><div class="container"><p>Индекс Военной Мощи • 2015 (проект обновлён в 2026)</p></div></footer>
+<script>
+// Optimized flag data URIs
+// ==================== DATA ====================
+const countries = [
+  {
+    id: "bundeswehr", name: "ФРШ", code: "FRSH", fullName: "Федеративная Республика Шлёпляндия", type: "Вооружённые силы • 2015", flag: "Frsh.png", flagEmoji: "🇩🇪", rank: 1, movement: "same", author: "@I_Am_Shlepa",
+    description: "Анкета Бундесвера ФРШ за 2015 год (1/2).", strength: "120 000 + 140 000 резерва + Легион Кондор 30 000; 6 860 танков; 7 310 Typhoon.", weakness: "",
+    manpower: { active: 150000, reserve: 140000, note: "120 000 действующих + Легион Кондор 30 000 + 140 000 резерва", fitForService: "4.80 млн", fitDelta: "+0.15 млн" },
+    land: {
+      tanks: 6860, tanksNote: "360 Karakal 2K + 6 500 Karakal 2-140V",
+      btr: 16600, btrNote: "4 600 SpPz-75 + 12 000 Manul GTK",
+      bmp: 8100, bmpNote: "Karaket",
+      bmpBtr: 24700,
+      armored: 300,
+      artillery: 0,
+      mlrs: 850, mlrsNote: "IRIS",
+      pvo: 2400, pvoNote: "250 IRIS-T + 350 IRIS-X + 1 800 Manul SR",
+      tos: 1500, tosNote: "Taurus-M",
+      sau: 1800, sauNote: "Manul RCH",
+      ballisticMissiles: 140, ballisticMissilesNote: "БРСД «Аура» (из них 20 ЯБРСД «Аура-2»)",
+      smallArms: 550000, equipmentAndArms: 550000
+    },
+    air: {
+      fighters: 7310, fightersNote: "Typhoon (многоцелевые)",
+      bombers: 0, groundAttack: 0,
+      helicopters: 3050, helicoptersNote: "SV (ударные)",
+      totalAircraft: 10360,
+      aviationWeapons: 5400, aviationWeaponsNote: "2 700 УРВВ + 2 700 УРВП"
+    },
+    navy: {
+      totalShips: 121, boats: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0,
+      frigates: 121, frigatesNote: "120 Hessen + 1 Super-Hessen",
+      landing: 0, recon: 0
+    },
+    logistics: { supplyVehicles: 12000, infrastructureTotal: 70, commsDrones: 100 },
+    financials: { gdpPpp: "$86.50 млрд", gdpDelta: "+14.9%" },
+    leaders: "Верховный: Император Фридрих I Гольштейнский; Канцлер: Урсула фон дер Ляйен; Гауптгенерал: Натан Джордисон"
+  },
+  {
+    id: "arkhangelsk", name: "Архангельск", code: "ARK", fullName: "Объединённая Армия Архангельска", type: "Вооружённые силы • 2015", flag: "archangelsk.png", flagEmoji: "🏰", rank: 2, movement: "same", author: "@neco_arc2026 @nezerakovi",
+    description: "Регистрация Армии Архангельска за 2015 год.", strength: "130 000 личного состава; 2 500 танков; крупная авиация.", weakness: "",
+    manpower: { active: 130000, reserve: 0, note: "105 000 + 25 000 спец. дивизия «Гиперборея» и ДШРГ «Русич»", fitForService: "4.20 млн", fitDelta: "+0.15 млн" },
+    land: {
+      tanks: 2500, tanksNote: "2 040 Т-7 + 10 базовых + 450 Leclerc",
+      btr: 850, btrNote: "750 БТР-45 + 100 базовых",
+      bmp: 200,
+      bmpBtr: 1050,
+      armored: 500,
+      artillery: 40,
+      mlrs: 0,
+      pvo: 1500, pvoNote: "Х-101",
+      tos: 450, tosNote: "ТОС-1А «Солнцепёкъ»",
+      ballisticMissiles: 9, ballisticMissilesNote: "Тополь-ОВ",
+      smallArms: 330000, equipmentAndArms: 330000
+    },
+    air: {
+      fighters: 1660, fightersNote: "750 ИХ-1 + 900 Veisnor-35 + 10 базовых истребителей",
+      bombers: 3, strategicBombers: 3, groundAttack: 14,
+      helicopters: 250, helicoptersNote: "RAH-66",
+      totalAircraft: 1950,
+      note: "750 ИХ-1 (5 покл.), 900 Veisnor-35 (4 покл.), 250 RAH-66, 20 СБК-14; базовое: 10 истр., 3 бомб., 3 страт. бомб., 14 штурмовиков"
+    },
+    navy: { totalShips: 5, boats: 5, note: "5 катеров береговой охраны", ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 500, infrastructureTotal: 10, commsDrones: 100 },
+    financials: { gdpPpp: "$43.20 млрд", gdpDelta: "+9.7%", note: "с Вейшнорией" },
+    leaders: "Пехота — Владимир Косьмин; ВВС — Александр Романов"
+  },
+  {
+    id: "siberia", name: "Сибирьская Республика", code: "SIB", fullName: "Вооружённые силы Сибирьской Республики", type: "Вооружённые силы • 2015", flag: "russia.png", flagEmoji: "🇷🇺", rank: 3, movement: "up", author: "@unknown_subscriber_128",
+    description: "Данные Сибирьской Республики (на базе прежней анкеты РФ; отдельная анкета 2015 не предоставлена).", strength: "100 000 действующих и 20 000 резервистов.", weakness: "",
+    manpower: { active: 100000, reserve: 20000, note: "100 000 действующих + 20 000 резерва", fitForService: "2.75 млн", fitDelta: "-0.37 млн" },
+    land: { tanks: 160, btr: 250, bmp: 250, bmpBtr: 500, armored: 250, artillery: 50, mlrs: 0, pvo: 0, smallArms: 100000, equipment: 100000, equipmentAndArms: 200000 },
+    air: { totalAircraft: 50, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 10, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 450, infrastructureTotal: 8, commsDrones: 100 },
+    financials: { gdpPpp: "$20.50 млрд", gdpDelta: "-24%" }
+  },
+  {
+    id: "tnr", name: "ТНР", code: "TNR", fullName: "Армия ТНР", type: "Вооружённые силы • 2015", flag: "tnr.png", flagEmoji: "🏳️", rank: 4, movement: "up", author: "@neco_arc2027",
+    description: "Анкета армии ТНР за 2015 год.", strength: "50 000 личного состава; 500 танков; 500 единиц авиации.", weakness: "",
+    manpower: { active: 50000, reserve: 0, note: "Резерв не указан", fitForService: "3.10 млн", fitDelta: "+0.15 млн" },
+    land: { tanks: 500, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 2000000, equipmentAndArms: 2000000 },
+    air: { totalAircraft: 500, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 50, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 500, infrastructureTotal: 4, commsDrones: 100 },
+    financials: { gdpPpp: "$38.50 млрд", gdpDelta: "+3.9%" }
+  },
+  {
+    id: "polish_empire", name: "Польская Империя", code: "POL", fullName: "Армия Польской Империи", type: "Вооружённые силы • 2015", flag: "poland.png", flagEmoji: "🇵🇱", rank: 5, movement: "down", author: "@Spectatorovich",
+    description: "Анкета армии Польской Империи за 2015 год.", strength: "25 000 личного состава; 270 единиц авиации.", weakness: "",
+    manpower: { active: 25000, reserve: 0, note: "Резерв не указан", fitForService: "1.94 млн", fitDelta: "+60 тыс моб. / −66 тыс из акт. резерва" },
+    land: { tanks: 50, btr: 300, bmp: 550, bmpBtr: 850, armored: 300, artillery: 30, mlrs: 0, pvo: 0, smallArms: 306000, equipmentAndArms: 306000 },
+    air: { totalAircraft: 270, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 10, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 500, infrastructureTotal: 8, commsDrones: 100 },
+    financials: { gdpPpp: "$16.40 млрд", gdpDelta: "+10%" }
+  },
+  {
+    id: "stalgradia", name: "Стальградия", code: "STG", fullName: "Армия Стальградии", type: "Вооружённые силы • 2015", flag: "stalgradja.png", flagEmoji: "🏴", rank: 6, movement: "same", author: "@Ne_Ssi",
+    description: "Анкета армии Стальградии (без изменений относительно предыдущей).", strength: "25 000 личного состава; 150 000 ед. стрелкового оружия.", weakness: "",
+    manpower: { active: 25000, reserve: 0, note: "Резерв не указан", fitForService: "1.64 млн", fitDelta: "+0.02 млн" },
+    land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 150000, equipmentAndArms: 150000 },
+    air: { totalAircraft: 30, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 500, infrastructureTotal: 5, commsDrones: 100 },
+    financials: { gdpPpp: "$9.6 млрд", gdpDelta: "-4.7%" }
+  },
+  {
+    id: "japan", name: "Япония", code: "JPN", fullName: "Силы самообороны Японии (自衛隊)", type: "Вооружённые силы • 2015", flag: "japan.png", flagEmoji: "🇯🇵", rank: 7, movement: "down", author: "@choblyatnaxyublyat",
+    description: "Анкета Сил самообороны Японии (без изменений).", strength: "5 000 личного состава; 10 кораблей.", weakness: "",
+    manpower: { active: 5000, reserve: 0, note: "Резерв не указан", fitForService: "1.22 млн", fitDelta: "+0.04 млн" },
+    land: { tanks: 10, btr: 300, bmp: 300, bmpBtr: 600, armored: 300, artillery: 50, mlrs: 0, pvo: 0, smallArms: 10000, equipmentAndArms: 10000 },
+    air: { totalAircraft: 30, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 10, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 500, infrastructureTotal: 0, commsDrones: 100 },
+    financials: { gdpPpp: "$14.50 млрд", gdpDelta: "+1.6%" }
+  },
+  {
+    id: "namyet", name: "Республика Намьет", code: "NAM", fullName: "Армия Республики Намьет", type: "Вооружённые силы • 2015", flag: "namyet.png", flagEmoji: "🏞", rank: 8, movement: "same", author: "",
+    description: "Регистрация Армии Республики Намьет за 2015 год.", strength: "3 500 личного состава; 4 танка; 12 единиц авиации.", weakness: "",
+    manpower: { active: 3500, reserve: 0, note: "Резерв не указан", fitForService: null, fitDelta: null },
+    land: { tanks: 4, btr: 70, bmp: 35, bmpBtr: 105, armored: 60, artillery: 18, mlrs: 0, pvo: 0, smallArms: 4500, equipmentAndArms: 4500 },
+    air: { totalAircraft: 12, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 4, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 120, infrastructureTotal: 0, commsDrones: 35 },
+    financials: null
+  },
+  {
+    id: "saint_victoria", name: "Сейнт Виктория", code: "SVT", fullName: "Армия Сейнт Виктории", type: "Вооружённые силы • 2015", flag: "Saint.png", flagEmoji: "🏳️", rank: 9, movement: "same", author: "",
+    description: "Регистрация армии Сейнт Виктория за 2015 год.", strength: "0 личного состава; 8 истребителей Typhoon; 2 корабля.", weakness: "Практически отсутствует личный состав и стрелковое оружие.",
+    manpower: { active: 0, reserve: 0, note: "Личный состав не заявлен", fitForService: "9 400", fitDelta: "+400" },
+    land: {
+      tanks: 0, tanksNote: "до 10",
+      btr: 25, btrNote: "SpPz-75",
+      bmp: 15, bmpNote: "Karaket",
+      bmpBtr: 40,
+      armored: 0,
+      artillery: 0, mlrs: 0,
+      pvo: 2, pvoNote: "Manul SR",
+      smallArms: 0, equipmentAndArms: 0
+    },
+    air: { totalAircraft: 8, fighters: 8, fightersNote: "Typhoon", bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 2, boats: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 50, infrastructureTotal: 1, commsDrones: 0 },
+    financials: { gdpPpp: "$0.36 млрд", gdpDelta: "+125%" }
+  },
+  {
+    id: "ussr", name: "СССР", code: "USSR", fullName: "Армия #СССР", type: "Вооружённые силы • 2015", flag: "usssr.png", flagEmoji: "☭", rank: 10, movement: "same", author: "@Maksim122345",
+    description: "Регистрация Армии #СССР за 2015 год.", strength: "100 личного состава; 1 трактор.", weakness: "Практически отсутствует техника и вооружение.",
+    manpower: { active: 100, reserve: 0, note: "Резерв не указан", fitForService: "1.15 млн", fitDelta: null },
+    land: { tanks: 0, btr: 0, bmp: 0, bmpBtr: 0, armored: 1, armoredNote: "1 трактор", artillery: 0, mlrs: 0, pvo: 0, smallArms: 0, equipmentAndArms: 0 },
+    air: { totalAircraft: 0, fighters: 0, bombers: 0, groundAttack: 0, helicopters: 0 },
+    navy: { totalShips: 0, ballisticSubs: 0, carriers: 0, battleships: 0, cruisers: 0, destroyers: 0, corvettes: 0, frigates: 0, landing: 0, recon: 0 },
+    logistics: { supplyVehicles: 0, infrastructureTotal: 0, commsDrones: 0 },
+    financials: { gdpPpp: "$0.75 млрд", gdpDelta: null }
+  }
+];
+
+// ==================== SCORING ====================
+function calculatePowerIndex(c) {
+  let score = 0;
+
+  // Manpower
+  score += (c.manpower.active + c.manpower.reserve) / 1000;
+
+  // Land
+  score += (c.land.tanks || 0) * 12;
+  score += (c.land.bmpBtr || 0) * 0.5;   // сильно снижен вес массовой лёгкой бронетехники
+  score += (c.land.armored || 0) * 0.4;
+  score += (c.land.artillery || 0) * 5;
+  score += (c.land.tos || 0) * 12;
+  score += (c.land.mlrs || 0) * 15;
+  score += (c.land.sau || 0) * 10;
+  if (c.land.pvo) score += c.land.pvo * 35;  // ПВО важнее
+
+  // Air (support both old and new structure)
+  if (c.air.carrierAircraft) score += c.air.carrierAircraft * 30;
+  if (c.air.multiRole) score += c.air.multiRole * 25;
+  if (c.air.transport) score += c.air.transport * 8;
+  if (c.air.missiles) score += c.air.missiles * 1.5;
+  if (c.air.uavRecon) score += c.air.uavRecon * 4;
+  if (c.air.uavLarge) score += c.air.uavLarge * 5;
+  if (c.air.uavSmall) score += c.air.uavSmall * 0.15; // many small ones
+  if (c.air.radioPoints) score += c.air.radioPoints * 2;
+  if (c.air.antiraket) score += c.air.antiraket * 150; // unique systems
+
+  score += (c.air.uav || 0) * 3;
+  score += (c.air.fighters || 0) * 25;
+  score += (c.air.bombers || 0) * 40;
+  score += (c.air.strategicBombers || 0) * 55;
+  score += (c.air.helicopters || 0) * 10;
+  score += (c.air.satellites || 0) * 80;
+  score += (c.air.shaheds || 0) * 2;
+  score += (c.air.kamikaze || 0) * 2;
+
+  // Navy
+  score += (c.navy.ballisticSubs || 0) * 120;
+  score += (c.navy.carriers || 0) * 350;
+  score += (c.navy.battleships || 0) * 180;
+  score += (c.navy.cruisers || 0) * 50;
+  score += (c.navy.landing || 0) * 20;
+  score += (c.navy.recon || 0) * 10;
+  score += (c.navy.destroyers || 0) * 35;
+  score += (c.navy.corvettes || 0) * 15;
+  score += (c.navy.frigates || 0) * 25;
+  if (c.navy.minesweepers) score += c.navy.minesweepers * 8;
+  if (c.navy.supplyShips) score += c.navy.supplyShips * 3;
+  if (c.navy.boats) score += c.navy.boats * 5;
+  if (c.navy.totalShips) score += c.navy.totalShips * 8;
+  if (c.air.totalAircraft && !(c.air.fighters || c.air.bombers || c.air.groundAttack || c.air.helicopters || c.air.strategicBombers)) score += c.air.totalAircraft * 12;
+
+  // Logistics bonus for countries that have it
+  if (c.logistics) {
+    score += (c.logistics.hubs || 0) * 15;
+    score += (c.logistics.bases || 0) * 20;
+    score += (c.logistics.repairCenters || 0) * 5;
+  }
+
+  // Invert: lower = stronger (like GFP)
+  // We take a large base and subtract, then normalize a bit
+  const raw = score;
+  // For display we keep the raw as "points of power", but rank by highest score = strongest
+  return Math.round(raw);
+}
+
+// Calculate scores
+countries.forEach(c => {
+  c.powerScore = calculatePowerIndex(c);
+});
+
+// Порядок рейтинга рассчитан по значениям анкет 2015 года.
+// Порядок рейтинга зафиксирован по предоставленному списку 2015 года.
+
+// Assign ranks according to preferred order
+countries.forEach((c, i) => {
+  c.rank = i + 1;
+});
+
+// Display index (lower = stronger), based on rank position
+// Индекс отображается как позиционный коэффициент до внесения отдельных значений PowerIndex.
+// Он сохраняет заданную последовательность рейтинга и не подменяет исходные анкеты.
+const indexValues = [0.0150, 0.0850, 0.1100, 0.1800, 0.3200, 0.4200, 0.5500, 0.7200, 0.8100, 0.9600];
+countries.forEach((c, i) => {
+  c.displayIndex = indexValues[i].toFixed(4);
+});
+
+// ==================== HELPERS ====================
+function formatNumber(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function getTotalManpower(c) {
+  return c.manpower.active + c.manpower.reserve;
+}
+
+function getTotalAircraft(c) {
+  // Support both old and new air structures
+  if (c.air.totalAircraft) return c.air.totalAircraft;
+  let total = (c.air.fighters || 0) + (c.air.bombers || 0) + (c.air.helicopters || 0) + (c.air.uav || 0);
+  total += (c.air.carrierAircraft || 0) + (c.air.multiRole || 0) + (c.air.transport || 0);
+  total += (c.air.uavRecon || 0) + (c.air.uavLarge || 0);
+  // Don't count 200k small UAVs fully in "aircraft" display
+  return total;
+}
+
+function getTotalNavy(c) {
+  if (c.navy.totalShips) return c.navy.totalShips;
+  let total = (c.navy.ballisticSubs || 0) + (c.navy.carriers || 0) + (c.navy.battleships || 0) + 
+         (c.navy.cruisers || 0) + (c.navy.landing || 0) + (c.navy.recon || 0) + 
+         (c.navy.destroyers || 0) + (c.navy.corvettes || 0) + (c.navy.frigates || 0);
+  total += (c.navy.minesweepers || 0) + (c.navy.boats || 0);
+  // supply ships not counted as combat fleet
+  return total;
+}
+
+// ==================== RENDER RANKING (GFP style) ====================
+function getMoveIcon(movement) {
+  if (movement === "up") return { cls: "up", icon: "▲" };
+  if (movement === "down") return { cls: "down", icon: "▼" };
+  return { cls: "same", icon: "↔" };
+}
+
+function renderRanking(list = countries) {
+  const container = document.getElementById("rankingBody");
+  container.innerHTML = "";
+
+  list.forEach(c => {
+    const card = document.createElement("div");
+    card.className = "gfp-card";
+    card.dataset.id = c.id;
+
+    const flagSrc = (c.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c.flag]) ? FLAG_DATA[c.flag] : (c.flag || '');
+    const flagHtml = flagSrc
+      ? `<img src="${flagSrc}" alt="Флаг ${c.name}" class="gfp-flag">`
+      : `<div class="gfp-flag-placeholder">${c.flagEmoji || (c.code || c.name).charAt(0)}</div>`;
+
+    const move = getMoveIcon(c.movement || "same");
+    const code = c.code || c.name.toUpperCase().slice(0, 4);
+
+    card.innerHTML = `
+      <div class="gfp-rank">${c.rank}</div>
+      <div class="gfp-body">
+        <div class="gfp-top">
+          <span class="gfp-code">${code}</span>
+          <span class="gfp-move ${move.cls}" title="${move.cls === 'up' ? 'Поднялся' : move.cls === 'down' ? 'Опустился' : 'Без изменений'}">${move.icon}</span>
+        </div>
+        <div class="gfp-bottom">
+          ${flagHtml}
+          <div class="gfp-pwr"><span>PwrIndx:</span> ${c.displayIndex}</div>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener("click", () => showCountryDetail(c.id));
+    container.appendChild(card);
+  });
+}
+
+// ==================== DETAIL VIEW ====================
+function showCountryDetail(id) {
+  const c = countries.find(x => x.id === id);
+  if (!c) return;
+
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById("countryDetail").classList.add("active");
+
+  const content = document.getElementById("detailContent");
+
+  const flagSrc = (c.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c.flag]) ? FLAG_DATA[c.flag] : (c.flag || '');
+  const flagHtml = flagSrc
+    ? `<img src="${flagSrc}" alt="Флаг ${c.name}" class="detail-flag">`
+    : `<div class="detail-flag flag-placeholder">${c.flagEmoji || c.name.charAt(0)}</div>`;
+
+  // --- MANPOWER rows ---
+  const manpowerRows = `
+    <div class="stat-row"><span class="label">Active Personnel</span><span class="value">${formatNumber(c.manpower.active)}</span></div>
+    <div class="stat-row"><span class="label">Reserve Personnel</span><span class="value">${formatNumber(c.manpower.reserve)}</span></div>
+    <div class="stat-row"><span class="label">Total</span><span class="value">${formatNumber(getTotalManpower(c))}</span></div>
+    ${c.manpower.fitForService ? `<div class="stat-row"><span class="label">Fit for Service</span><span class="value">${c.manpower.fitForService}${c.manpower.fitDelta ? ' (' + c.manpower.fitDelta + ')' : ''}</span></div>` : ""}
+    ${c.manpower.note ? `<div class="stat-note">${c.manpower.note}</div>` : ""}
+    ${c.leaders ? `<div class="stat-note">${c.leaders}</div>` : ""}
+  `;
+
+  // --- LAND FORCES rows ---
+  let landRows = `
+    <div class="stat-row"><span class="label">Tanks ${c.land.tanksNote ? '— ' + c.land.tanksNote : ''}</span><span class="value">${formatNumber(c.land.tanks || 0)}</span></div>
+  `;
+  if (typeof c.land.btr === "number" || typeof c.land.bmp === "number") {
+    landRows += `
+      <div class="stat-row"><span class="label">AFVs (BTR) ${c.land.btrNote ? '— ' + c.land.btrNote : ''}</span><span class="value">${formatNumber(c.land.btr || 0)}</span></div>
+      <div class="stat-row"><span class="label">IFVs (BMP) ${c.land.bmpNote ? '— ' + c.land.bmpNote : ''}</span><span class="value">${formatNumber(c.land.bmp || 0)}</span></div>`;
+  } else {
+    landRows += `<div class="stat-row"><span class="label">AFVs / IFVs ${c.land.bmpBtrNote ? '— ' + c.land.bmpBtrNote : ''}</span><span class="value">${formatNumber(c.land.bmpBtr || 0)}</span></div>`;
+  }
+  landRows += `
+    <div class="stat-row"><span class="label">Armored Vehicles ${c.land.armoredNote ? '— ' + c.land.armoredNote : ''}</span><span class="value">${formatNumber(c.land.armored || 0)}</span></div>
+    <div class="stat-row"><span class="label">Artillery ${c.land.artilleryNote ? '— ' + c.land.artilleryNote : ''}</span><span class="value">${formatNumber(c.land.artillery || 0)}</span></div>
+    <div class="stat-row"><span class="label">MLRS ${c.land.mlrsNote ? '— ' + c.land.mlrsNote : ''}</span><span class="value">${formatNumber(c.land.mlrs || 0)}</span></div>
+    ${c.land.sau ? `<div class="stat-row"><span class="label">Self-Propelled Guns ${c.land.sauNote ? '— ' + c.land.sauNote : ''}</span><span class="value">${formatNumber(c.land.sau)}</span></div>` : ""}
+    ${c.land.pvo ? `<div class="stat-row"><span class="label">Air Defense ${c.land.pvoNote ? '— ' + c.land.pvoNote : ''}</span><span class="value">${formatNumber(c.land.pvo)}</span></div>` : ""}
+    ${c.land.tos ? `<div class="stat-row"><span class="label">TOS ${c.land.tosNote ? '— ' + c.land.tosNote : ''}</span><span class="value">${formatNumber(c.land.tos)}</span></div>` : ""}
+    ${c.land.ballisticMissiles ? `<div class="stat-row"><span class="label">Ballistic Missiles ${c.land.ballisticMissilesNote ? '— ' + c.land.ballisticMissilesNote : ''}</span><span class="value">${formatNumber(c.land.ballisticMissiles)}</span></div>` : ""}
+    ${c.land.equipmentAndArms || c.land.smallArms ? `<div class="stat-row"><span class="label">Small Arms & Equipment</span><span class="value">${formatNumber(c.land.equipmentAndArms || c.land.smallArms || 0)}</span></div>` : ""}
+  `;
+
+  // --- AIRPOWER rows ---
+  let airRows = "";
+  if (c.air.totalAircraft) {
+    airRows += `<div class="stat-row"><span class="label">Total Aircraft</span><span class="value">${formatNumber(c.air.totalAircraft)}</span></div>`;
+  }
+  airRows += `
+    ${c.air.fighters ? `<div class="stat-row"><span class="label">Fighters ${c.air.fightersNote ? '— ' + c.air.fightersNote : ''}</span><span class="value">${formatNumber(c.air.fighters)}</span></div>` : ""}
+    ${c.air.bombers ? `<div class="stat-row"><span class="label">Bombers</span><span class="value">${formatNumber(c.air.bombers)}</span></div>` : ""}
+    ${c.air.strategicBombers ? `<div class="stat-row"><span class="label">Strategic Bombers</span><span class="value">${formatNumber(c.air.strategicBombers)}</span></div>` : ""}
+    ${c.air.groundAttack ? `<div class="stat-row"><span class="label">Attack Aircraft</span><span class="value">${formatNumber(c.air.groundAttack)}</span></div>` : ""}
+    ${c.air.helicopters ? `<div class="stat-row"><span class="label">Helicopters ${c.air.helicoptersNote ? '— ' + c.air.helicoptersNote : ''}</span><span class="value">${formatNumber(c.air.helicopters)}</span></div>` : ""}
+    ${c.air.uav ? `<div class="stat-row"><span class="label">UAVs / Drones</span><span class="value">${formatNumber(c.air.uav)}</span></div>` : ""}
+    ${c.air.aviationWeapons ? `<div class="stat-row"><span class="label">Aviation Weapons ${c.air.aviationWeaponsNote ? '— ' + c.air.aviationWeaponsNote : ''}</span><span class="value">${formatNumber(c.air.aviationWeapons)}</span></div>` : ""}
+    ${c.air.note ? `<div class="stat-note">${c.air.note}</div>` : ""}
+  `;
+  if (!airRows.trim()) airRows = `<div class="gfp-acc-empty">No airpower data available.</div>`;
+
+  // --- NAVAL FORCES rows ---
+  let navyRows = "";
+  if (typeof c.navy.totalShips === "number") {
+    navyRows += `<div class="stat-row"><span class="label">Total Ships / Boats</span><span class="value">${formatNumber(c.navy.totalShips)}</span></div>`;
+  }
+  navyRows += `
+    ${c.navy.ballisticSubs ? `<div class="stat-row"><span class="label">Submarines</span><span class="value">${formatNumber(c.navy.ballisticSubs)}</span></div>` : ""}
+    ${c.navy.carriers ? `<div class="stat-row"><span class="label">Aircraft Carriers</span><span class="value">${formatNumber(c.navy.carriers)}</span></div>` : ""}
+    ${c.navy.battleships ? `<div class="stat-row"><span class="label">Battleships</span><span class="value">${formatNumber(c.navy.battleships)}</span></div>` : ""}
+    ${c.navy.cruisers ? `<div class="stat-row"><span class="label">Cruisers</span><span class="value">${formatNumber(c.navy.cruisers)}</span></div>` : ""}
+    ${c.navy.destroyers ? `<div class="stat-row"><span class="label">Destroyers</span><span class="value">${formatNumber(c.navy.destroyers)}</span></div>` : ""}
+    ${c.navy.frigates ? `<div class="stat-row"><span class="label">Frigates ${c.navy.frigatesNote ? '— ' + c.navy.frigatesNote : ''}</span><span class="value">${formatNumber(c.navy.frigates)}</span></div>` : ""}
+    ${c.navy.corvettes ? `<div class="stat-row"><span class="label">Corvettes</span><span class="value">${formatNumber(c.navy.corvettes)}</span></div>` : ""}
+    ${c.navy.boats ? `<div class="stat-row"><span class="label">Patrol Boats</span><span class="value">${formatNumber(c.navy.boats)}</span></div>` : ""}
+    ${c.navy.landing ? `<div class="stat-row"><span class="label">Landing Ships</span><span class="value">${formatNumber(c.navy.landing)}</span></div>` : ""}
+    ${c.navy.note ? `<div class="stat-note">${c.navy.note}</div>` : ""}
+  `;
+  if (!navyRows.trim()) navyRows = `<div class="gfp-acc-empty">No naval data available.</div>`;
+
+  // --- FINANCIALS ---
+  let financialRows = "";
+  if (c.financials && (c.financials.gdpPpp || c.financials.note)) {
+    if (c.financials.gdpPpp) {
+      financialRows += `<div class="stat-row"><span class="label">GDP (PPP) 2015</span><span class="value">${c.financials.gdpPpp}${c.financials.gdpDelta ? ' (' + c.financials.gdpDelta + ')' : ''}</span></div>`;
+    }
+    if (c.financials.note) {
+      financialRows += `<div class="stat-note">${c.financials.note}</div>`;
+    }
+  } else {
+    financialRows = `<div class="gfp-acc-empty">Financial data not provided for this country.</div>`;
+  }
+
+  content.innerHTML = `
+    <div class="detail-header">
+      ${flagHtml}
+      <div class="detail-rank" style="color: ${c.rank===1?'#d4a017':c.rank===2?'#a8a8a8':c.rank===3?'#cd7f32':'#e8eef5'}">
+        #${c.rank}
+      </div>
+      <div class="detail-title">
+        <h2>${c.fullName}</h2>
+        <div class="type">${c.type}${c.author ? " · " + c.author : ""}</div>
+      </div>
+      <div class="detail-index">
+        <div class="label">PwrIndx</div>
+        <div class="value">${c.displayIndex}</div>
+      </div>
+    </div>
+
+    <div class="gfp-accordion" id="detailAccordion">
+      <div class="gfp-acc-item" data-section="financials">
+        <div class="gfp-acc-header">FINANCIALS <span class="plus">[+]</span></div>
+        <div class="gfp-acc-body">${financialRows}</div>
+      </div>
+      <div class="gfp-acc-item" data-section="manpower">
+        <div class="gfp-acc-header">MANPOWER <span class="plus">[+]</span></div>
+        <div class="gfp-acc-body">${manpowerRows}</div>
+      </div>
+      <div class="gfp-acc-item" data-section="airpower">
+        <div class="gfp-acc-header">AIRPOWER <span class="plus">[+]</span></div>
+        <div class="gfp-acc-body">${airRows}</div>
+      </div>
+      <div class="gfp-acc-item" data-section="land">
+        <div class="gfp-acc-header">LAND FORCES <span class="plus">[+]</span></div>
+        <div class="gfp-acc-body">${landRows}</div>
+      </div>
+      <div class="gfp-acc-item" data-section="naval">
+        <div class="gfp-acc-header">NAVAL FORCES <span class="plus">[+]</span></div>
+        <div class="gfp-acc-body">${navyRows}</div>
+      </div>
+    </div>
+  `;
+
+  // Accordion toggle
+  content.querySelectorAll(".gfp-acc-header").forEach(header => {
+    header.addEventListener("click", () => {
+      const item = header.parentElement;
+      const isOpen = item.classList.contains("open");
+      // optional: close others (single-open mode like GFP)
+      content.querySelectorAll(".gfp-acc-item").forEach(el => {
+        el.classList.remove("open");
+        const plus = el.querySelector(".plus");
+        if (plus) plus.textContent = "[+]";
+      });
+      if (!isOpen) {
+        item.classList.add("open");
+        const plus = header.querySelector(".plus");
+        if (plus) plus.textContent = "[−]";
+      }
+    });
+  });
+}
+
+// ==================== COMPARE ====================
+function populateCompareSelects() {
+  const sel1 = document.getElementById("compare1");
+  const sel2 = document.getElementById("compare2");
+  sel1.innerHTML = "";
+  sel2.innerHTML = "";
+
+  countries.forEach(c => {
+    const opt1 = document.createElement("option");
+    opt1.value = c.id;
+    opt1.textContent = `#${c.rank} ${c.name}`;
+    sel1.appendChild(opt1);
+
+    const opt2 = document.createElement("option");
+    opt2.value = c.id;
+    opt2.textContent = `#${c.rank} ${c.name}`;
+    sel2.appendChild(opt2);
+  });
+
+  // Default different
+  if (countries.length > 1) {
+    sel2.selectedIndex = 1;
+  }
+}
+
+function doCompare() {
+  const id1 = document.getElementById("compare1").value;
+  const id2 = document.getElementById("compare2").value;
+  const c1 = countries.find(x => x.id === id1);
+  const c2 = countries.find(x => x.id === id2);
+
+  if (!c1 || !c2) return;
+
+  const result = document.getElementById("compareResult");
+  result.classList.add("active");
+
+  const flag1 = (c1.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c1.flag]) ? FLAG_DATA[c1.flag] : '';
+  const flag2 = (c2.flag && typeof FLAG_DATA !== 'undefined' && FLAG_DATA[c2.flag]) ? FLAG_DATA[c2.flag] : '';
+
+  const categories = [
+    { name: "Индекс Мощи", v1: parseFloat(c1.displayIndex), v2: parseFloat(c2.displayIndex), lowerBetter: true },
+    { name: "Личный состав", v1: getTotalManpower(c1), v2: getTotalManpower(c2) },
+    { name: "Танки", v1: c1.land.tanks || 0, v2: c2.land.tanks || 0 },
+    { name: "БТР", v1: c1.land.btr ?? c1.land.bmpBtr ?? 0, v2: c2.land.btr ?? c2.land.bmpBtr ?? 0 },
+    { name: "БМП", v1: c1.land.bmp ?? 0, v2: c2.land.bmp ?? 0 },
+    { name: "Бронемашины", v1: c1.land.armored || 0, v2: c2.land.armored || 0 },
+    { name: "Артиллерия", v1: c1.land.artillery || 0, v2: c2.land.artillery || 0 },
+    { name: "РСЗО", v1: c1.land.mlrs || 0, v2: c2.land.mlrs || 0 },
+    { name: "ПВО / ПРО", v1: c1.land.pvo || 0, v2: c2.land.pvo || 0 },
+    { name: "Истребители", v1: c1.air.fighters || 0, v2: c2.air.fighters || 0 },
+    { name: "Бомбардировщики", v1: c1.air.bombers || 0, v2: c2.air.bombers || 0 },
+    { name: "Вертолёты", v1: c1.air.helicopters || 0, v2: c2.air.helicopters || 0 },
+    { name: "БПЛА", v1: c1.air.uav || 0, v2: c2.air.uav || 0 },
+    { name: "Подлодки", v1: c1.navy.ballisticSubs || 0, v2: c2.navy.ballisticSubs || 0 },
+    { name: "Авианосцы", v1: c1.navy.carriers || 0, v2: c2.navy.carriers || 0 },
+    { name: "Линкоры", v1: c1.navy.battleships || 0, v2: c2.navy.battleships || 0 },
+    { name: "Крейсеры", v1: c1.navy.cruisers || 0, v2: c2.navy.cruisers || 0 },
+    { name: "Эсминцы", v1: c1.navy.destroyers || 0, v2: c2.navy.destroyers || 0 },
+  ];
+
+  let blocks = '';
+
+  categories.forEach(cat => {
+    let val1 = cat.v1, val2 = cat.v2;
+    let lowerBetter = cat.lowerBetter;
+
+    const disp1 = (typeof val1 === 'number' && !lowerBetter) ? formatNumber(val1) : val1;
+    const disp2 = (typeof val2 === 'number' && !lowerBetter) ? formatNumber(val2) : val2;
+
+    let better1 = lowerBetter ? val1 < val2 : val1 > val2;
+    let better2 = lowerBetter ? val2 < val1 : val2 > val1;
+
+    const maxVal = Math.max(Math.abs(val1), Math.abs(val2), 0.0001);
+    let pct1 = Math.min(100, (Math.abs(val1) / maxVal) * 100);
+    let pct2 = Math.min(100, (Math.abs(val2) / maxVal) * 100);
+
+    let diffText = '';
+    if (typeof val1 === 'number' && typeof val2 === 'number' && !lowerBetter) {
+      const d = val1 - val2;
+      if (d > 0) diffText = '<span class="diff-pos">+' + formatNumber(d) + '</span>';
+      else if (d < 0) diffText = '<span class="diff-neg">' + formatNumber(d) + '</span>';
+      else diffText = '<span class="diff-eq">0</span>';
+    } else if (lowerBetter) {
+      const d = (val1 - val2).toFixed(4);
+      if (val1 < val2) diffText = '<span class="diff-pos">' + d + '</span>';
+      else if (val1 > val2) diffText = '<span class="diff-neg">+' + Math.abs(parseFloat(d)).toFixed(4) + '</span>';
+      else diffText = '<span class="diff-eq">0</span>';
+    }
+
+    blocks += `
+      <div class="cmp-block">
+        <div class="cmp-title">${cat.name}</div>
+        <div class="cmp-row">
+          <div class="cmp-side left ${better1 ? 'better' : ''}">
+            <div class="cmp-value">${disp1}</div>
+            <div class="cmp-bar-wrap"><div class="cmp-bar blue" style="width:${pct1}%"></div></div>
+          </div>
+          <div class="cmp-diff">${diffText}</div>
+          <div class="cmp-side right ${better2 ? 'better' : ''}">
+            <div class="cmp-value">${disp2}</div>
+            <div class="cmp-bar-wrap"><div class="cmp-bar red" style="width:${pct2}%"></div></div>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  result.innerHTML = `
+    <div class="cmp-header">
+      <div class="cmp-country left">
+        ${flag1 ? '<img src="' + flag1 + '" class="cmp-flag">' : ''}
+        <div>
+          <div class="cmp-name">${c1.name}</div>
+          <div class="cmp-rank">#${c1.rank} · Индекс ${c1.displayIndex}</div>
+        </div>
+      </div>
+      <div class="cmp-vs">VS</div>
+      <div class="cmp-country right">
+        <div>
+          <div class="cmp-name">${c2.name}</div>
+          <div class="cmp-rank">#${c2.rank} · Индекс ${c2.displayIndex}</div>
+        </div>
+        ${flag2 ? '<img src="' + flag2 + '" class="cmp-flag">' : ''}
+      </div>
+    </div>
+    <div class="cmp-legend">
+      <span class="leg-blue"></span> ${c1.name}
+      <span class="leg-red"></span> ${c2.name}
+    </div>
+    <div class="cmp-body">${blocks}</div>
+  `;
+}
+
+
+// ==================== COALITIONS ====================
+const coalitionState = { 1: [], 2: [] };
+const coalitionMaxMembers = 7;
+
+const coalitionCategories = [
+  { name:"Личный состав", get:c=>getTotalManpower(c) },
+  { name:"Танки", get:c=>c.land.tanks||0 },
+  { name:"БТР", get:c=>c.land.btr ?? c.land.bmpBtr ?? 0 },
+  { name:"БМП", get:c=>c.land.bmp||0 },
+  { name:"Бронемашины", get:c=>c.land.armored||0 },
+  { name:"Артиллерия", get:c=>c.land.artillery||0 },
+  { name:"РСЗО", get:c=>c.land.mlrs||0 },
+  { name:"ПВО / ПРО", get:c=>c.land.pvo||0 },
+  { name:"Истребители", get:c=>c.air.fighters||0 },
+  { name:"Бомбардировщики", get:c=>c.air.bombers||0 },
+  { name:"Вертолёты", get:c=>c.air.helicopters||0 },
+  { name:"БПЛА", get:c=>c.air.uav||0 },
+  { name:"Подлодки", get:c=>c.navy.ballisticSubs||0 },
+  { name:"Авианосцы", get:c=>c.navy.carriers||0 },
+  { name:"Линкоры", get:c=>c.navy.battleships||0 },
+  { name:"Крейсеры", get:c=>c.navy.cruisers||0 },
+  { name:"Эсминцы", get:c=>c.navy.destroyers||0 }
+];
+
+function coalitionCountry(id) {
+  return countries.find(c => c.id === id);
+}
+
+function populateCoalitionSelects() {
+  [1,2].forEach(side => {
+    const select = document.getElementById(`coalition${side}Select`);
+    if (!select) return;
+    select.innerHTML = '<option value="">Выберите страну...</option>';
+
+    countries.forEach(c => {
+      if (coalitionState[1].includes(c.id) || coalitionState[2].includes(c.id)) return;
+      const option = document.createElement("option");
+      option.value = c.id;
+      option.textContent = `#${c.rank} ${c.name}`;
+      select.appendChild(option);
+    });
+  });
+  renderCoalitionMembers(1);
+  renderCoalitionMembers(2);
+}
+
+function renderCoalitionMembers(side) {
+  const box = document.getElementById(`coalition${side}Members`);
+  if (!box) return;
+
+  box.innerHTML = "";
+  coalitionState[side].forEach(id => {
+    const c = coalitionCountry(id);
+    if (!c) return;
+
+    const row = document.createElement("div");
+    row.className = "coalition-member";
+    row.innerHTML = `<span>${c.name}</span>
+      <button class="remove" title="Удалить">×</button>`;
+
+    row.querySelector(".remove").addEventListener("click", () => {
+      coalitionState[side] = coalitionState[side].filter(x => x !== id);
+      populateCoalitionSelects();
+      doCoalitionCompare();
+    });
+    box.appendChild(row);
+  });
+}
+
+function addCoalitionCountry(side) {
+  const select = document.getElementById(`coalition${side}Select`);
+  const id = select.value;
+  if (!id || coalitionState[side].includes(id)) return;
+
+  if (coalitionState[side].length >= coalitionMaxMembers) {
+    alert(`В одной коалиции максимум ${coalitionMaxMembers} стран.`);
+    return;
+  }
+
+  if (coalitionState[1].includes(id) || coalitionState[2].includes(id)) return;
+
+  coalitionState[side].push(id);
+  populateCoalitionSelects();
+  doCoalitionCompare();
+}
+
+function coalitionTotals(side) {
+  const members = coalitionState[side].map(coalitionCountry).filter(Boolean);
+  const totals = {};
+
+  coalitionCategories.forEach(cat => {
+    totals[cat.name] = members.reduce((sum,c) => sum + (Number(cat.get(c)) || 0), 0);
+  });
+
+  return { members, totals };
+}
+
+function doCoalitionCompare() {
+  const result = document.getElementById("coalitionResult");
+  if (!result) return;
+
+  const a = coalitionTotals(1);
+  const b = coalitionTotals(2);
+
+  if (!a.members.length && !b.members.length) {
+    result.innerHTML = `<div class="coalition-winner">Выберите страны в обеих коалициях.</div>
+      <div class="coalition-note">Power Index намеренно не складывается и не используется в расчёте коалиций.</div>`;
+    return;
+  }
+
+  let winsA = 0, winsB = 0;
+
+  const blocks = coalitionCategories.map(cat => {
+    const v1 = a.totals[cat.name] || 0;
+    const v2 = b.totals[cat.name] || 0;
+
+    if (v1 > v2) winsA++;
+    else if (v2 > v1) winsB++;
+
+    const max = Math.max(v1, v2, 1);
+    const p1 = Math.min(100, v1 / max * 100);
+    const p2 = Math.min(100, v2 / max * 100);
+    const diff = v1 - v2;
+    const diffText = diff > 0 ? `+${formatNumber(diff)}` :
+                      diff < 0 ? formatNumber(diff) : "0";
+
+    return `<div class="coalition-stat">
+      <div class="coalition-stat-title">${cat.name}</div>
+      <div class="coalition-stat-row">
+        <div class="coalition-value ${v1 > v2 ? "winner":""}">${formatNumber(v1)}</div>
+        <div class="coalition-bars">
+          <div class="coalition-bar blue"><div style="width:${p1}%"></div></div>
+          <div class="coalition-diff">${diffText}</div>
+          <div class="coalition-bar red"><div style="width:${p2}%"></div></div>
+        </div>
+        <div class="coalition-value right ${v2 > v1 ? "winner":""}">${formatNumber(v2)}</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  const names = side => coalitionState[side]
+    .map(coalitionCountry)
+    .filter(Boolean)
+    .map(c=>c.name)
+    .join(" • ") || "Не выбраны";
+
+  let winner = "Ничья";
+  if (winsA > winsB) winner = `🏆 Победитель: Коалиция 1 — ${winsA} : ${winsB}`;
+  if (winsB > winsA) winner = `🏆 Победитель: Коалиция 2 — ${winsB} : ${winsA}`;
+
+  result.innerHTML = `
+    <div class="coalition-result-head">
+      <div class="coalition-head-side blue">
+        <h3>🔵 Коалиция 1</h3>
+        <p>${a.members.length} стран</p>
+        <div class="coalition-members-line">${names(1)}</div>
+      </div>
+      <div style="text-align:center;font-weight:800;font-size:20px">VS</div>
+      <div class="coalition-head-side red">
+        <h3>🔴 Коалиция 2</h3>
+        <p>${b.members.length} стран</p>
+        <div class="coalition-members-line">${names(2)}</div>
+      </div>
+    </div>
+    ${blocks}
+    <div class="coalition-winner">${winner}</div>
+    <div class="coalition-note">
+      Power Index не складывается, не усредняется и не влияет на результат.
+      Здесь сравниваются только фактические количественные показатели выбранных стран.
+    </div>`;
+}
+
+function clearCoalitions() {
+  coalitionState[1] = [];
+  coalitionState[2] = [];
+  populateCoalitionSelects();
+  doCoalitionCompare();
+}
+
+// ==================== NAVIGATION & EVENTS ====================
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const section = btn.dataset.section;
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+    document.getElementById(section).classList.add("active");
+
+    if (section === "compare") {
+      populateCompareSelects();
+    }
+    if (section === "coalitions") {
+      populateCoalitionSelects();
+      doCoalitionCompare();
+    }
+  });
+});
+
+document.getElementById("backToRanking").addEventListener("click", () => {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById("ranking").classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('.nav-btn[data-section="ranking"]').classList.add("active");
+});
+
+document.getElementById("doCompare").addEventListener("click", doCompare);
+
+document.getElementById("addCoalition1").addEventListener("click", () => addCoalitionCountry(1));
+document.getElementById("addCoalition2").addEventListener("click", () => addCoalitionCountry(2));
+document.getElementById("doCoalitionCompare").addEventListener("click", doCoalitionCompare);
+document.getElementById("clearCoalitions").addEventListener("click", clearCoalitions);
+
+// Search
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  const filtered = countries.filter(c => 
+    c.name.toLowerCase().includes(q) || 
+    c.fullName.toLowerCase().includes(q) ||
+    c.type.toLowerCase().includes(q)
+  );
+  renderRanking(filtered);
+});
+
+// Sort
+document.getElementById("sortSelect").addEventListener("change", (e) => {
+  const val = e.target.value;
+  let sorted = [...countries];
+
+  if (val === "index") {
+    sorted.sort((a, b) => a.rank - b.rank);
+  } else if (val === "manpower") {
+    sorted.sort((a, b) => getTotalManpower(b) - getTotalManpower(a));
+  } else if (val === "tanks") {
+    sorted.sort((a, b) => b.land.tanks - a.land.tanks);
+  } else if (val === "aircraft") {
+    sorted.sort((a, b) => getTotalAircraft(b) - getTotalAircraft(a));
+  } else if (val === "navy") {
+    sorted.sort((a, b) => getTotalNavy(b) - getTotalNavy(a));
+  }
+
+  renderRanking(sorted);
+});
+
+// Init
+renderRanking();
+populateCompareSelects();
+populateCoalitionSelects();
+doCoalitionCompare();
+
+</script>
+</body></html>
